@@ -10,8 +10,13 @@ class Connection {
   static get(options) {
     const opts = Connection.cleanOpts(options);
 
+    const url = new URL(opts.url);
+    if (opts.port) {
+      url.port = opts.port;
+    }
+
     return axios.create({
-      baseURL: `${opts.url}:${opts.port}` // TODO this is flaky
+      baseURL: url.toString()
     });
   }
 

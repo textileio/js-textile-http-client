@@ -5,13 +5,13 @@ const Mill = require("./mills");
 const SchemaMiller = require("../helpers/schema-miller");
 
 /**
- * Thread is an API module for managing Textile threads
+ * Threads is an API module for managing Textile threads
  *
  * @param {Object} opts Connection options object
  * @param {string} opts.url
  * @extends API
  */
-class Thread extends API {
+class Threads extends API {
   constructor(opts) {
     super(opts);
     this.opts = opts;
@@ -153,4 +153,4 @@ class Thread extends API {
   }
 }
 
-module.exports = Thread;
+module.exports = Threads;

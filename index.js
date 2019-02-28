@@ -2,11 +2,11 @@
 const Peer = require("./modules/peer");
 // const Profile = require('./modules/profile'),
 // const Mills = require('./modules/mills'),
-const Schema = require("./modules/schema");
-const Thread = require("./modules/thread");
-const Block = require("./modules/block");
+const Schemas = require("./modules/schemas");
+const Threads = require("./modules/threads");
+const Blocks = require("./modules/blocks");
 // const Messages = require('./modules/messages'),
-const File = require("./modules/file");
+const Files = require("./modules/files");
 // const Keys = require('./modules/keys'),
 // const Sub = require('./modules/sub'),
 // const Invites = require('./modules/invites'),
@@ -23,7 +23,6 @@ const File = require("./modules/file");
  * @typedef {Object} ApiOptions
  * @property {string} [url="http://127.0.0.1"] - The base URL of the Textile node API
  * @property {number} [port=40600] - The port of the Textile node API
- * @property {string} [binPath="textile"] - The path to the local Textile binary
  */
 
 /**
@@ -37,14 +36,14 @@ class Textile {
 
     /** @property {Peer} peer - Manage Textile node information */
     this.peer = new Peer(this.opts);
-    /** @property {Schema} schema - Manage Textile schema definitions */
-    this.schema = new Schema(this.opts);
-    /** @property {Thread} thread - Manage Textile thread objects */
-    this.thread = new Thread(this.opts);
-    /** @property {Block} block - Manage Textile block objects */
-    this.block = new Block(this.opts);
-    /** @property {File} file - Manage existing files in a Textile node */
-    this.file = new File(this.opts);
+    /** @property {Schema} schemas - Manage Textile schema definitions */
+    this.schemas = new Schemas(this.opts);
+    /** @property {Thread} threads - Manage Textile thread objects */
+    this.threads = new Threads(this.opts);
+    /** @property {Block} blocks - Manage Textile block objects */
+    this.blocks = new Blocks(this.opts);
+    /** @property {File} files - Manage existing files in a Textile node */
+    this.files = new Files(this.opts);
   }
 }
 

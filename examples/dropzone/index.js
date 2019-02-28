@@ -16,7 +16,7 @@ fr.on("file.received", async data => {
 
   const textile = new Textile();
 
-  const thread = await textile.thread.getByName(THREAD_NAME);
+  const thread = await textile.threads.getByName(THREAD_NAME);
   if (!thread) {
     alert(
       `Uh oh. We couldn't find a thread named '${THREAD_NAME}'. Please add it and try again!`
@@ -28,7 +28,7 @@ fr.on("file.received", async data => {
   form.append("file", file, file.name);
 
   try {
-    const added = await textile.thread.addFile(thread.id, form, {
+    const added = await textile.threads.addFile(thread.id, form, {
       caption: "Dropped file"
     });
 

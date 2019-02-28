@@ -1,12 +1,12 @@
 const API = require("../core/api.js");
 
 /**
- * Mill is an API module for processing Textile mills
+ * Mills is an API module for processing Textile mills
  *
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Mill extends API {
+class Mills extends API {
   constructor(opts) {
     super(opts);
     this.opts = opts;
@@ -31,4 +31,4 @@ class Mill extends API {
   }
 }
 
-module.exports = Mill;
+module.exports = Mills;

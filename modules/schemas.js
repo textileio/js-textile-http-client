@@ -11,12 +11,12 @@ const knownSchemas = [
 ];
 
 /**
- * Schema is an API module for managing Textile schemas
+ * Schemas is an API module for managing Textile schemas
  *
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Schema extends API {
+class Schemas extends API {
   constructor(opts) {
     super(opts);
     this.opts = opts;
@@ -46,4 +46,4 @@ class Schema extends API {
   }
 }
 
-module.exports = Schema;
+module.exports = Schemas;

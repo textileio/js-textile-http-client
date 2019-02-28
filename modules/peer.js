@@ -14,17 +14,14 @@ class Peer extends API {
 
   /** Retrieve the peer ID of the Textile node */
   async get() {
-    return this.sendGet("/api/v0/peer");
+    const { data } = await this.sendGet("/api/v0/peer");
+    return data;
   }
 
   /** Retrieves the address of the Textile node */
   async address() {
-    return this.sendGet("/api/v0/address"); // TODO filter result
-  }
-
-  /** Pings the textile node */
-  async ping() {
-    return this.sendGet("/api/v0/ping"); // TODO This just fails?
+    const { data } = await this.sendGet("/api/v0/address");
+    return data;
   }
 }
 

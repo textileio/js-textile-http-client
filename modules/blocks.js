@@ -1,12 +1,12 @@
 const API = require("../core/api.js");
 
 /**
- * Block is an API module for managing Textile blocks
+ * Blocks is an API module for managing Textile blocks
  *
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Block extends API {
+class Blocks extends API {
   constructor(opts) {
     super(opts);
     this.opts = opts;
@@ -29,4 +29,4 @@ class Block extends API {
   }
 }
 
-module.exports = Block;
+module.exports = Blocks;
