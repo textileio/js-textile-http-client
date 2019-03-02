@@ -109,14 +109,22 @@ Note: This is based on the existing structure of [`textile-go`](https://github.c
 
 - [ ] [wallet](https://github.com/textileio/textile-go/tree/master/wallet) - difficulty level: easy, could be separate module, nearly direct port
 - [ ] [cmd](https://github.com/textileio/textile-go/tree/master/cmd) - difficulty level: moderate, should be main entry-point for a wrapper, similar to how `js-ipfs` mimicks the IPFS cli. Required elements here include:
-  - [ ] [account](https://github.com/textileio/textile-go/blob/master/cmd/account.go) (address, peers, backup)
-  - [ ] [profile](https://github.com/textileio/textile-go/blob/master/cmd/profile.go) (username, avatar)
-  - [ ] [threads](https://github.com/textileio/textile-go/blob/master/cmd/threads.go)
-    - [ ] list, get, remove, peers
-    - [ ] add
-  - [ ] [blocks](https://github.com/textileio/textile-go/blob/master/cmd/blocks.go)
-    - [ ] list, get, remove, 
-    - [ ] add + get comments, add + get likes
+  - [x] [account](https://github.com/textileio/textile-go/blob/master/cmd/account.go) (address, peers, backup)
+    - [] Methods available on mobile (seed, encrypt, decrypt)
+  - [x] [profile](https://github.com/textileio/textile-go/blob/master/cmd/profile.go) (get, set {username, avatar})
+  - [x] [threads](https://github.com/textileio/textile-go/blob/master/cmd/threads.go)
+    - [x] list, get, remove, peers
+    - [x] add, default
+  - [x] [comments](https://github.com/textileio/textile-go/blob/master/cmd/comments.go)
+    - list, get, remove, add
+  - [x] [likes](https://github.com/textileio/textile-go/blob/master/cmd/likes.go)
+    - list, get, remove, add
+  - [ ] flags
+    - list, get, remove, add
+  - [x] [messages](https://github.com/textileio/textile-go/blob/master/cmd/messages.go)
+    - list, get, remove, add
+  - [x] [invites](https://github.com/textileio/textile-go/blob/master/cmd/invites.go)
+    - accept, create, ignore, list
   - [ ] [files](https://github.com/textileio/textile-go/blob/master/cmd/files.go)
     - [ ] list, get
     - [ ] list keys
@@ -125,20 +133,20 @@ Note: This is based on the existing structure of [`textile-go`](https://github.c
     - [ ] [create thread w/ custom schema](https://github.com/textileio/textile-go/blob/master/cmd/threads.go#L105)
     - [ ] [local schema fulfillment](https://github.com/textileio/minimal-client-demo)
     - [ ] [add thread messages and files](https://github.com/textileio/textile-go/blob/master/cmd/files.go#L112)
-  - [ ] [contacts](https://github.com/textileio/textile-go/blob/master/cmd/contacts.go)
-    - [ ] list, get, remove
-    - [ ] search, add
-  - [ ] [feed](https://github.com/textileio/textile-go/blob/master/cmd/feed.go)
+  - [x] [contacts](https://github.com/textileio/textile-go/blob/master/cmd/contacts.go)
+    - [x] list, get, remove
+    - [x] search, add
+  - [x] [feed](https://github.com/textileio/textile-go/blob/master/cmd/feed.go)
   - [ ] [sub api](https://github.com/textileio/textile-go/blob/master/cmd/sub.go)
-  - [ ] [notifications api](https://github.com/textileio/textile-go/blob/master/cmd/notifications.go)
+  - [x] [notifications api](https://github.com/textileio/textile-go/blob/master/cmd/notifications.go)
   - [ ] [cafes](https://github.com/textileio/textile-go/blob/master/cmd/cafe.go) (keep simple to start, minimal cafe hosting utilities)
     - [ ] [add, get, list tokens](https://github.com/textileio/textile-go/blob/master/cmd/tokens.go)
     - [ ] add/register
     - [ ] list, get, remove, messages
   - [ ] others
-    - [ ] [config](https://github.com/textileio/textile-go/blob/master/cmd/config.go)
-    - [ ] [logs](https://github.com/textileio/textile-go/blob/master/cmd/logs.go)
-    - [ ] ipfs (id, connect, ping, peers)
+    - [x] [config](https://github.com/textileio/textile-go/blob/master/cmd/config.go)
+    - [x] [logs](https://github.com/textileio/textile-go/blob/master/cmd/logs.go)
+    - [x] ipfs (id, connect, ping, peers)
     
 ## Contribute
 
