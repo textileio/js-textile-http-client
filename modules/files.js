@@ -1,8 +1,8 @@
 // const { exec } = require("child_process");
-const { EventEmitter2 } = require("eventemitter2");
 const FormData = require("form-data");
 const API = require("../core/api.js");
-const Mill = require("./mills");
+const Mills = require("./mills");
+const Threads = require("./threads");
 const SchemaMiller = require("../helpers/schema-miller");
 
 /**
@@ -15,71 +15,101 @@ class Files extends API {
   constructor(opts) {
     super(opts);
     this.opts = opts;
-    this.events = new EventEmitter2();
-    this.mill = new Mill(opts);
+    this.mills = new Mills(opts);
+    this.threads = new Threads(opts);
+  }
+
+  /**
+   * Retrieves a thread file by block ID
+   *
+   * @param {string} id ID of the target file
+   */
+  async get(id) {
+    const response = await this.sendGet(`/api/v0/files/${id}`);
+    return response.data;
   }
 
   /**
    * Get a paginated array of files.
    *
    * @param {object} [options] Options for pagination and filtering
-   * @param {string} [options.thread] Limit to this thread ID
+   * @param {string} [options.thread] Thread ID (can also use ‘default’). Omit for all
    * @param {string} [options.offset] Offset ID to start listing from. Omit for latest
    * @param {number} [options.limit=5] List page size
    */
-  async get(options) {
-    const { data } = await this.sendGet("api/v0/files", [], options);
-    return data;
+  async list(options) {
+    const response = await this.sendGet("api/v0/files", null, options);
+    return response.data;
+  }
+
+  /**
+   * Retrieves file encryption/decryption keys under the given target
+   *
+   * Note that the target id is _not_ the same as the block id. The target is the actual target
+   * file object.
+   *
+   * @param {string} target ID of the target file
+   */
+  async keys(target) {
+    const response = await this.sendGet(`/api/v0/keys/${target}`);
+    return response.data;
+  }
+
+  /**
+   * Ignores a thread file by its block ID
+   *
+   * This adds an "ignore" thread block targeted at the file.
+   * Ignored blocks are by default not returned when listing.
+   *
+   * @param {string} id ID of the thread file
+   */
+  async ignore(id) {
+    this.sendDelete(`/api/v0/blocks/${id}`);
   }
 
   /**
    * Add a file to a thread in your Textile node
    *
-   * @param {string} threadId Id of the thread
+   * @param {string} thread Id of the thread
    * @param {object} fileStream Nodejs file stream
    * @param {string} fileName Name of the file in the stream
-   * @param {object} options Options object
-   * @param {string} options.schema Id of the schema to use for the mill
-   * @param {string} options.caption Caption to add to the image
+   * @param {string} caption Caption to add
    */
-  async addFileStream(threadId, fileStream, fileName, options) {
+  async addFileStream(thread, fileStream, fileName, caption) {
     const form = new FormData();
     form.append("file", fileStream, fileName);
 
     const headers = form.getHeaders();
 
-    return this.addFile(threadId, form, options, headers);
+    return this.addFile(thread, form, caption, headers);
   }
 
   /**
    * Add a file to a thread in your Textile node
    *
-   * @param {string} threadId Id of the thread
+   * @param {string} thread Id of the thread
    * @param {File} file FormData object
-   * @param {object} options Options object
-   * @param {string} options.schema Schema object to use for the mill
-   * @param {string} options.caption Caption to add to the image
+   * @param {string} caption Caption to add
    * @param {object} [headers] Extra headers to send in the request
    */
-  async addFile(threadId, file, options, headers) {
-    if (!threadId) {
+  async addFile(thread, file, caption, headers) {
+    if (!thread) {
       throw new Error(
-        "'threadId' must be provided when adding files to a thread"
+        "'thread' must be provided when adding files to a thread"
       );
     }
 
     // Make sure we have a schema
-    const opts = options || {};
-    if (!opts.schema) {
-      opts.schema = (await this.getById(threadId)).schema;
-    }
+    const opts = {};
+    opts.schema_node = (await this.threads.get(thread)).schema_node;
 
     // Mill the file before adding it
     const milled = await SchemaMiller.mill(
       file,
-      opts.schema.links,
+      // TODO: This won't always have links
+      opts.schema_node.links,
       async link => {
-        const { data: res } = await this.mill.run(
+        const { data: res } = await this.mills.run(
           link.mill,
           link.opts,
           file,
@@ -91,7 +121,7 @@ class Files extends API {
     );
 
     const resp = await this.sendPost(
-      `api/v0/threads/${threadId}/files`,
+      `api/v0/threads/${thread}/files`,
       [],
       opts,
       [milled]

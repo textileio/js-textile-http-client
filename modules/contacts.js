@@ -1,3 +1,5 @@
+const { EventEmitter2 } = require("eventemitter2");
+const { isCancel } = require("axios");
 const API = require("../core/api.js");
 
 /**
@@ -77,6 +79,17 @@ class Contacts extends API {
    * @param {string} [options.peer] Search by peer id string
    * @param {string} [options.username] Search by username string
    * @param {string} [options.address] Search by account address string
+   * @returns {EventEmitter2} Event emitter with found, done, error events on textile.contacts.
+   * The Event emitter has an additional cancel method that can be used to cancel the search.
+   * @example
+   * const backups = textile.account.search({wait: 5})
+   * setTimeout(() => backups.cancel(), 1000) // cancel after 1 second
+   * backups.on("textile.contacts.found", found => {
+   *   console.log(found)
+   * });
+   * backups.on("*.done", cancelled => {
+   *   console.log(`search was ${cancelled ? 'cancelled' : 'completed'}`)
+   * });
    */
   search(options) {
     const { conn, cancel } = this.sendPostCancelable(
@@ -84,7 +97,28 @@ class Contacts extends API {
       null,
       options
     );
-    return { conn, cancel };
+    const emitter = new EventEmitter2({
+      wildcard: true
+    });
+    emitter.cancel = cancel;
+    conn
+      .then(response => {
+        const stream = response.data;
+        stream.on("data", chunk => {
+          emitter.emit("textile.contacts.found", chunk);
+        });
+        stream.on("end", () => {
+          emitter.emit("textile.contacts.done", false);
+        });
+      })
+      .catch(err => {
+        if (isCancel(err)) {
+          emitter.emit("textile.contacts.done", true);
+        } else {
+          emitter.emit("textile.contacts.error", err);
+        }
+      });
+    return emitter;
   }
 }
 

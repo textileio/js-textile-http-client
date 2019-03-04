@@ -1,3 +1,5 @@
+const { EventEmitter2 } = require("eventemitter2");
+const { isCancel } = require("axios");
 const API = require("../core/api.js");
 
 /**
@@ -63,8 +65,20 @@ class Account extends API {
   /**
    * Searches the network for wallet account thread backups
    *
+   * Returns streaming connection and a cancel function to cancel the request.
+   *
    * @param {number} wait Stops searching after 'wait' seconds have elapsed (max 10s, default 2s)
-   * @returns {object} { conn: Promise<any>, cancel: function }
+   * @returns {EventEmitter2} Event emitter with found, done, error events on textile.backups.
+   * The Event emitter has an additional cancel method that can be used to cancel the search.
+   * @example
+   * const backups = textile.account.findThreadBackups()
+   * setTimeout(() => backups.cancel(), 1000) // cancel after 1 second
+   * backups.on("textile.backups.found", found => {
+   *   console.log(found)
+   * });
+   * backups.on("*.done", cancelled => {
+   *   console.log(`search was ${cancelled ? 'cancelled' : 'completed'}`)
+   * });
    */
   findThreadBackups(wait) {
     const { conn, cancel } = this.sendPostCancelable(
@@ -72,7 +86,28 @@ class Account extends API {
       null,
       { wait }
     );
-    return { conn, cancel };
+    const emitter = new EventEmitter2({
+      wildcard: true
+    });
+    emitter.cancel = cancel;
+    conn
+      .then(response => {
+        const stream = response.data;
+        stream.on("data", chunk => {
+          emitter.emit("textile.backups.data", chunk);
+        });
+        stream.on("end", () => {
+          emitter.emit("textile.backups.done", false);
+        });
+      })
+      .catch(err => {
+        if (isCancel(err)) {
+          emitter.emit("textile.backups.done", true);
+        } else {
+          emitter.emit("textile.backups.error", err);
+        }
+      });
+    return emitter;
   }
 }
 

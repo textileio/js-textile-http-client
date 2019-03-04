@@ -107,7 +107,7 @@ For now, the jsdoc-based auto-generated documentation can be found at https://te
 
 Note: This is based on the existing structure of [`textile-go`](https://github.com/textileio/textile-go). As such, it may contain inconsistencies until further editing. These checkboxes laid out in the most likely order of difficulty, with each new subgroup depending on the previous ones to some degree. This should provide a useful 'checklist' for community members looking to get involved.
 
-- [ ] [wallet](https://github.com/textileio/textile-go/tree/master/wallet) - difficulty level: easy, could be separate module, nearly direct port
+- [x] [wallet](https://github.com/textileio/textile-go/tree/master/wallet) - difficulty level: ~~easy~~, could be separate module, nearly direct port
 - [ ] [cmd](https://github.com/textileio/textile-go/tree/master/cmd) - difficulty level: moderate, should be main entry-point for a wrapper, similar to how `js-ipfs` mimicks the IPFS cli. Required elements here include:
   - [x] [account](https://github.com/textileio/textile-go/blob/master/cmd/account.go) (address, peers, backup)
     - [] Methods available on mobile (seed, encrypt, decrypt)
@@ -126,24 +126,24 @@ Note: This is based on the existing structure of [`textile-go`](https://github.c
   - [x] [invites](https://github.com/textileio/textile-go/blob/master/cmd/invites.go)
     - accept, create, ignore, list
   - [ ] [files](https://github.com/textileio/textile-go/blob/master/cmd/files.go)
-    - [ ] list, get
-    - [ ] list keys
+    - [x] list, get
+    - [x] list keys
   - [ ] schemas + mills
     - [ ] [mill schema](https://github.com/textileio/textile-go/blob/master/core/api_mill.go)
     - [ ] [create thread w/ custom schema](https://github.com/textileio/textile-go/blob/master/cmd/threads.go#L105)
     - [ ] [local schema fulfillment](https://github.com/textileio/minimal-client-demo)
-    - [ ] [add thread messages and files](https://github.com/textileio/textile-go/blob/master/cmd/files.go#L112)
+    - [x] [add thread files](https://github.com/textileio/textile-go/blob/master/cmd/files.go#L112)
   - [x] [contacts](https://github.com/textileio/textile-go/blob/master/cmd/contacts.go)
     - [x] list, get, remove
     - [x] search, add
   - [x] [feed](https://github.com/textileio/textile-go/blob/master/cmd/feed.go)
   - [ ] [sub api](https://github.com/textileio/textile-go/blob/master/cmd/sub.go)
   - [x] [notifications api](https://github.com/textileio/textile-go/blob/master/cmd/notifications.go)
-  - [ ] [cafes](https://github.com/textileio/textile-go/blob/master/cmd/cafe.go) (keep simple to start, minimal cafe hosting utilities)
-    - [ ] [add, get, list tokens](https://github.com/textileio/textile-go/blob/master/cmd/tokens.go)
-    - [ ] add/register
-    - [ ] list, get, remove, messages
-  - [ ] others
+  - [x] [cafes](https://github.com/textileio/textile-go/blob/master/cmd/cafe.go) (keep simple to start, minimal cafe hosting utilities)
+    - [x] [add, get, list tokens](https://github.com/textileio/textile-go/blob/master/cmd/tokens.go)
+    - [x] add/register
+    - [x] list, get, remove, messages
+  - [x] others
     - [x] [config](https://github.com/textileio/textile-go/blob/master/cmd/config.go)
     - [x] [logs](https://github.com/textileio/textile-go/blob/master/cmd/logs.go)
     - [x] ipfs (id, connect, ping, peers)

@@ -1,15 +1,5 @@
 const API = require("../core/api.js");
 
-// Schema endpoint does not currently exist, so hardcoding this for now
-const knownSchemas = [
-  {
-    id: "QmX3ugbr1i4hxJYLpJtMNpgyNG4FaF7hhmNNvX8ahSeXGH",
-    name: "media",
-    pin: true,
-    plaintext: false
-  }
-];
-
 /**
  * Schemas is an API module for managing Textile schemas
  *
@@ -22,27 +12,76 @@ class Schemas extends API {
     this.opts = opts;
   }
 
-  /** Retrieves a list of known schemas */
-  // eslint-disable-next-line class-methods-use-this
-  async get() {
-    return knownSchemas; // TODO Not implemented in textile-go yet
-    // return this.con().get("/api/v0/schemas");
+  /** Default Textile schemas */
+  static get default() {
+    return {
+      media: {
+        id: "QmX3ugbr1i4hxJYLpJtMNpgyNG4FaF7hhmNNvX8ahSeXGH",
+        name: "media",
+        pin: true,
+        plaintext: false
+      },
+      camera_roll: {
+        id: "----",
+        name: "camera_roll",
+        pin: true,
+        plaintext: false
+      },
+      avatar: {
+        id: "----",
+        name: "avatar",
+        pin: true,
+        plaintext: false
+      }
+    };
   }
 
   /**
-   * Retrieves a schema for a given name
+   * Creates and validates a new schema from input JSON
    *
-   * @param {string} name Name of the schema to retrieve
+   * @param {object} schema Input JSON-based thread schema
    */
-  async getByName(name) {
-    const schemas = await this.get();
-    for (let i = 0; i < schemas.length; i += 1) {
-      const schema = schemas[i];
-      if (schema.name.toUpperCase() === name.toUpperCase()) {
-        return schema;
-      }
-    }
-    return null;
+  async add(schema) {
+    const response = await this.sendPost(
+      `/api/v0/mills/schema`,
+      null,
+      null,
+      schema,
+      { "Content-Type": "application/json" }
+    );
+    return response.data;
+  }
+
+  /**
+   * Retrieves a schema by ID
+   *
+   * @param {string} id ID of the target schema
+   */
+  async get(id) {
+    const response = await this.sendGet(`/api/v0/files/${id}`);
+    return response.data;
+  }
+
+  /**
+   * Retrieves a list of comments on a target block
+   *
+   * @param {string} block ID of the target block
+   */
+  async list(block) {
+    const response = await this.sendGet(`/api/v0/blocks/${block}/comments`);
+    return response.data;
+  }
+
+  /**
+   * Ignores a block comment by its ID
+   *
+   * This adds an "ignore" thread block targeted at the comment.
+   * Ignored blocks are by default not returned when listing.
+   *
+   * @param {string} id ID of the comment
+   */
+  async ignore(id) {
+    this.sendDelete(`/api/v0/blocks/${id}`);
   }
 }
 

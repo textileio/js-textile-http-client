@@ -1,7 +1,7 @@
 const { isCancel } = require("axios");
 // Main modules
 const Account = require("./modules/account");
-// const Cafes = require('./modules/cafes');
+const Cafes = require("./modules/cafes");
 const Config = require("./modules/config");
 const Comments = require("./modules/comments");
 const Contacts = require("./modules/contacts");
@@ -16,9 +16,9 @@ const Notifications = require("./modules/notifications");
 const Profile = require("./modules/profile");
 const Schemas = require("./modules/schemas");
 const Threads = require("./modules/threads");
-// const Wallet = require("./modules/wallet");
-// Version?
-// Summary?
+const Tokens = require("./modules/tokens");
+const Utils = require("./modules/utils");
+const Wallet = require("./modules/wallet");
 
 // **** Definitions
 /**
@@ -39,8 +39,8 @@ class Textile {
 
     /** @property {Account} account - Manage Textile wallet account */
     this.account = new Account(this.opts);
-    // /** @property {Cafes} account - Manage Textile Cafes */
-    // this.cafes = new Cafes(this.opts);
+    /** @property {Cafes} account - Manage Textile Cafes */
+    this.cafes = new Cafes(this.opts);
     /** @property {Config} config - Manage Textile Config settings */
     this.config = new Config(this.opts);
     /** @property {Comments} comments - Manage Textile block Comments */
@@ -69,8 +69,10 @@ class Textile {
     this.schemas = new Schemas(this.opts);
     /** @property {Threads} threads - Manage Textile Threads */
     this.threads = new Threads(this.opts);
-    // /** @property {Wallet} wallet - Manage a Textile Wallet */
-    // this.wallet = new Wallet(this.opts);
+    /** @property {Tokens} tokens - Manage Textile Threads */
+    this.tokens = new Tokens(this.opts);
+    /** @property {Utils} utils - Get information about the Textile node */
+    this.utils = new Utils(this.opts);
   }
 
   static get isCancel() {
@@ -78,4 +80,4 @@ class Textile {
   }
 }
 
-module.exports = Textile;
+export { Textile as default, Wallet };
