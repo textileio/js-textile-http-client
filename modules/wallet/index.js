@@ -1,7 +1,7 @@
 const bip39 = require("bip39");
-const BIP32 = require("./bip32");
-const Keypair = require("./keypair");
-const crypto = require("../../helpers/crypto");
+const { BIP32 } = require("./bip32");
+const { Keypair } = require("./keypair");
+const { hmacSHA512 } = require("../../helpers/crypto");
 
 // Textile account path format used for key pair derivation as described in SEP-00XX
 const TEXTILE_BIP44 = `m/44'/406'`;
@@ -9,7 +9,7 @@ const TEXTILE_BIP44 = `m/44'/406'`;
 // Derive the "m" level of the BIP44 wallet
 const createMasterKey = seed => {
   // As in https://github.com/satoshilabs/slips/blob/master/slip-0010.md
-  const I = crypto.hmacSHA512("ed25519 seed", seed);
+  const I = hmacSHA512("ed25519 seed", seed);
   const privateKey = I.slice(0, 32);
   const chainCode = I.slice(32);
   return BIP32.fromPrivateKey(privateKey, chainCode);
@@ -109,4 +109,4 @@ class Wallet {
  * @property {string} address Ed25519 public key
  */
 
-module.exports = Wallet;
+module.exports = { Wallet };

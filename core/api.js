@@ -1,16 +1,16 @@
 const axios = require("axios");
-const Connection = require("../core/connection");
+const { Connection } = require("../core/connection");
 
 const { CancelToken } = axios;
 const source = CancelToken.source();
 
 // **** Private module methods ****
-function encodeValue(val) {
+const encodeValue = val => {
   if (!val) {
     return "";
   }
   return encodeURIComponent(val.toString());
-}
+};
 
 /**
  * Create 'args' like a CLI command would take
@@ -18,12 +18,12 @@ function encodeValue(val) {
  * @param {string[]} argsAr An array of arguments
  * @private
  */
-function getArgs(argsAr) {
+const getArgs = argsAr => {
   if (!argsAr || !argsAr.length) {
     return "";
   }
   return argsAr.map(ar => encodeValue(ar)).join(",");
-}
+};
 
 /**
  * Create 'options' like a CLI command would take.
@@ -31,23 +31,23 @@ function getArgs(argsAr) {
  * @param {Object.<string, string>} opts A map of option keys and values
  * @private
  */
-function getOpts(opts) {
+const getOpts = opts => {
   if (!opts) {
     return "";
   }
   return Object.keys(opts)
     .map(key => `${key}=${encodeValue(opts[key])}`)
     .join(",");
-}
+};
 
-function createHeaders(args, opts, headers) {
+const createHeaders = (args, opts, headers) => {
   const h = headers || {};
   return {
     ...h,
     "X-Textile-Args": getArgs(args),
     "X-Textile-Opts": getOpts(opts)
   };
-}
+};
 
 /**
  * A request and associated cancel function
@@ -188,4 +188,4 @@ class API {
   }
 }
 
-module.exports = API;
+module.exports = { API };

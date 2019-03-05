@@ -1,6 +1,6 @@
 const nacl = require("tweetnacl");
 const { sign, verify } = require("./signing");
-const StrKey = require("./strkey");
+const { StrKey } = require("./strkey");
 
 /**
  * `Keypair` represents public (and secret) keys of the account.
@@ -170,4 +170,4 @@ class Keypair {
   }
 }
 
-module.exports = Keypair;
+module.exports = { Keypair };

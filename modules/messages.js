@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Messages is an API module for managing thread/block messages
@@ -63,4 +63,4 @@ class Messages extends API {
   }
 }
 
-module.exports = Messages;
+module.exports = { Messages };

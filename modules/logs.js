@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Logs is an API module for managing the verbosity of one or all subsystems logs
@@ -46,4 +46,4 @@ class Logs extends API {
   }
 }
 
-module.exports = Logs;
+module.exports = { Logs };

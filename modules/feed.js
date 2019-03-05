@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Feed is an API module for paginating post and annotation block types
@@ -42,4 +42,4 @@ class Feed extends API {
   }
 }
 
-module.exports = Feed;
+module.exports = { Feed };

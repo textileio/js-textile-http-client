@@ -2,7 +2,7 @@
 
 const crc = require("crc");
 const base58 = require("bs58");
-const verifyChecksum = require("../../helpers/checksum");
+const { verifyChecksum } = require("../../helpers/checksum");
 
 const versionBytes = {
   // Version byte used for encoded textile address
@@ -156,4 +156,4 @@ class StrKey {
   }
 }
 
-module.exports = StrKey;
+module.exports = { StrKey };

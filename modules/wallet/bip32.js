@@ -167,4 +167,4 @@ class BIP32 {
   }
 }
 
-module.exports = BIP32;
+module.exports = { BIP32 };

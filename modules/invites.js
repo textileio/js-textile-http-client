@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Invites is an API module for managing thread invites
@@ -57,4 +57,4 @@ class Invites extends API {
   }
 }
 
-module.exports = Invites;
+module.exports = { Invites };

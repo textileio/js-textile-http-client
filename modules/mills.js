@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Mills is an API module for processing Textile mills
@@ -39,4 +39,4 @@ class Mills extends API {
   }
 }
 
-module.exports = Mills;
+module.exports = { Mills };

@@ -1,7 +1,7 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
- * Logs is an API module for controling peer node configuration variables
+ * Config is an API module for controling peer node configuration variables
  *
  * It works much like 'git config'. The configuration values are stored in a config file
  * inside your Textile repository.
@@ -11,7 +11,7 @@ const API = require("../core/api.js");
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Logs extends API {
+class Config extends API {
   constructor(opts) {
     super(opts);
     this.opts = opts;
@@ -46,4 +46,4 @@ class Logs extends API {
   }
 }
 
-module.exports = Logs;
+module.exports = { Config };

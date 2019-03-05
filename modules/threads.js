@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Threads is an API module for managing Textile threads
@@ -93,4 +93,4 @@ class Threads extends API {
   }
 }
 
-module.exports = Threads;
+module.exports = { Threads };

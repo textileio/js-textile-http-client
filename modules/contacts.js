@@ -1,6 +1,6 @@
 const { EventEmitter2 } = require("eventemitter2");
 const { isCancel } = require("axios");
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Contacts is an API module for managing local contacts and finding contacts on the network
@@ -122,4 +122,4 @@ class Contacts extends API {
   }
 }
 
-module.exports = Contacts;
+module.exports = { Contacts };

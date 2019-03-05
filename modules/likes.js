@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Likes is an API module for managing thread/block likes
@@ -57,4 +57,4 @@ class Likes extends API {
   }
 }
 
-module.exports = Likes;
+module.exports = { Likes };

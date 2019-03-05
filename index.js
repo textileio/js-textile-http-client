@@ -1,24 +1,23 @@
-const { isCancel } = require("axios");
 // Main modules
-const Account = require("./modules/account");
-const Cafes = require("./modules/cafes");
-const Config = require("./modules/config");
-const Comments = require("./modules/comments");
-const Contacts = require("./modules/contacts");
-const Feed = require("./modules/feed");
-const Files = require("./modules/files");
-const Invites = require("./modules/invites");
-const IPFS = require("./modules/ipfs");
-const Likes = require("./modules/likes");
-const Logs = require("./modules/logs");
-const Messages = require("./modules/messages");
-const Notifications = require("./modules/notifications");
-const Profile = require("./modules/profile");
-const Schemas = require("./modules/schemas");
-const Threads = require("./modules/threads");
-const Tokens = require("./modules/tokens");
-const Utils = require("./modules/utils");
-const Wallet = require("./modules/wallet");
+const { Account } = require("./modules/account");
+const { Cafes } = require("./modules/cafes");
+const { Config } = require("./modules/config");
+const { Comments } = require("./modules/comments");
+const { Contacts } = require("./modules/contacts");
+const { Feed } = require("./modules/feed");
+const { Files } = require("./modules/files");
+const { Invites } = require("./modules/invites");
+const { IPFS } = require("./modules/ipfs");
+const { Likes } = require("./modules/likes");
+const { Logs } = require("./modules/logs");
+const { Messages } = require("./modules/messages");
+const { Notifications } = require("./modules/notifications");
+const { Profile } = require("./modules/profile");
+const { Schemas } = require("./modules/schemas");
+const { Threads } = require("./modules/threads");
+const { Tokens } = require("./modules/tokens");
+const { Utils } = require("./modules/utils");
+const { Wallet } = require("./modules/wallet");
 
 // **** Definitions
 /**
@@ -74,10 +73,6 @@ class Textile {
     /** @property {Utils} utils - Get information about the Textile node */
     this.utils = new Utils(this.opts);
   }
-
-  static get isCancel() {
-    return isCancel;
-  }
 }
 
-export { Textile as default, Wallet };
+module.exports = { Textile, Wallet };

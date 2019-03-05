@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Cafes is an API module for managing Cafe access, messages, and services
@@ -65,4 +65,4 @@ class Cafes extends API {
   }
 }
 
-module.exports = Cafes;
+module.exports = { Cafes };

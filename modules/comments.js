@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Comments is an API module for managing thread/block comments
@@ -60,4 +60,4 @@ class Comments extends API {
   }
 }
 
-module.exports = Comments;
+module.exports = { Comments };

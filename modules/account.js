@@ -1,6 +1,6 @@
 const { EventEmitter2 } = require("eventemitter2");
 const { isCancel } = require("axios");
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Account is an API module for managing a wallet account
@@ -20,7 +20,7 @@ class Account extends API {
    * @returns {Promise<string>} address
    * */
   async address() {
-    const response = await this.sendGet("/api/v0/profile");
+    const response = await this.sendGet("/api/v0/account/address");
     return response.data;
   }
 
@@ -111,4 +111,4 @@ class Account extends API {
   }
 }
 
-module.exports = Account;
+module.exports = { Account };

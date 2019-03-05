@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Tokens is an API module for managing Cafe access tokens
@@ -59,4 +59,4 @@ class Tokens extends API {
   }
 }
 
-module.exports = Tokens;
+module.exports = { Tokens };

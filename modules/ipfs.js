@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * IPFS is an API module for working with an underlying IPFS peer
@@ -60,4 +60,4 @@ class IPFS extends API {
   }
 }
 
-module.exports = IPFS;
+module.exports = { IPFS };

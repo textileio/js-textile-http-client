@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Profile is an API module for accessing public profile information
@@ -58,4 +58,4 @@ class Profile extends API {
   }
 }
 
-module.exports = Profile;
+module.exports = { Profile };

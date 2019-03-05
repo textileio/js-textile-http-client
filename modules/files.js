@@ -1,7 +1,7 @@
-const API = require("../core/api.js");
-const Mills = require("./mills");
-const Threads = require("./threads");
-const SchemaMiller = require("../helpers/schema-miller");
+const { API } = require("../core/api.js");
+const { Mills } = require("./mills");
+const { Threads } = require("./threads");
+const { SchemaMiller } = require("../helpers/schema-miller");
 
 /**
  * Files is an API module for managing Textile files
@@ -110,4 +110,4 @@ class Files extends API {
   }
 }
 
-module.exports = Files;
+module.exports = { Files };

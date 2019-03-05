@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Notifications is an API module for managing notifications
@@ -35,4 +35,4 @@ class Notifications extends API {
   }
 }
 
-module.exports = Notifications;
+module.exports = { Notifications };

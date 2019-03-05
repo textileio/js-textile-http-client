@@ -1,4 +1,4 @@
-function verifyChecksum(expected, actual) {
+const verifyChecksum = (expected, actual) => {
   if (expected.length !== actual.length) {
     return false;
   }
@@ -14,6 +14,6 @@ function verifyChecksum(expected, actual) {
   }
 
   return true;
-}
+};
 
-module.exports = verifyChecksum;
+module.exports = { verifyChecksum };

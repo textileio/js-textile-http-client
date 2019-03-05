@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Schemas is an API module for managing Textile schemas
@@ -55,34 +55,12 @@ class Schemas extends API {
   /**
    * Retrieves a schema by ID
    *
-   * @param {string} id ID of the target schema
+   * @param {string} thread ID of the thread
    */
-  async get(id) {
-    const response = await this.sendGet(`/api/v0/files/${id}`);
-    return response.data;
-  }
-
-  /**
-   * Retrieves a list of comments on a target block
-   *
-   * @param {string} block ID of the target block
-   */
-  async list(block) {
-    const response = await this.sendGet(`/api/v0/blocks/${block}/comments`);
-    return response.data;
-  }
-
-  /**
-   * Ignores a block comment by its ID
-   *
-   * This adds an "ignore" thread block targeted at the comment.
-   * Ignored blocks are by default not returned when listing.
-   *
-   * @param {string} id ID of the comment
-   */
-  async ignore(id) {
-    this.sendDelete(`/api/v0/blocks/${id}`);
+  async get(thread) {
+    const response = await this.sendGet(`/api/v0/threads/${thread}`);
+    return response.data.schema_node;
   }
 }
 
-module.exports = Schemas;
+module.exports = { Schemas };

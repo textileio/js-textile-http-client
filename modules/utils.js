@@ -1,4 +1,4 @@
-const API = require("../core/api.js");
+const { API } = require("../core/api.js");
 
 /**
  * Utils is an API module for various Textile node utilities
@@ -31,4 +31,4 @@ class Utils extends API {
   }
 }
 
-module.exports = Utils;
+module.exports = { Utils };
