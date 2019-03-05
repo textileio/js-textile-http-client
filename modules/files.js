@@ -1,4 +1,3 @@
-// const { exec } = require("child_process");
 const FormData = require("form-data");
 const API = require("../core/api.js");
 const Mills = require("./mills");

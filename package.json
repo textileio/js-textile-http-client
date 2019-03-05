@@ -8,11 +8,23 @@
     "test-watch": "./node_modules/.bin/mocha --reporter list --watch --recursive",
     "lint": "./node_modules/.bin/eslint --fix .",
     "lint-watch": "./node_modules/.bin/nodemon --watch */**.js -x './node_modules/.bin/eslint --fix .",
-    "build-docs": "./node_modules/.bin/jsdoc -d docs *"
+    "build-docs": "./node_modules/.bin/jsdoc -d docs *",
+    "precommit": "yarn lint && yarn test",
+    "preversion": "yarn precommit",
+    "release": "yarn version --patch",
+    "postversion": "git push --follow-tags"
+  },
+  "engines": {
+    "node": ">= 8.11.0",
+    "npm": ">= 3.0.0",
+    "yarn": "^1.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/textileio/js-textile-http-client.git"
+    "url": "https://github.com/textileio/js-http-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/textileio/js-http-client/issues"
   },
   "keywords": [
     "textile",
@@ -47,10 +59,15 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "jsdoc": "^3.5.5",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
+    "mocha-junit-reporter": "^1.18.0",
     "nock": "^10.0.6",
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "prettier-eslint": "^8.8.2"
-  }
+  },
+  "contributors": [
+    "Carson Farmer <carson@textile.io>",
+    "Robby Shaw <robbynshaw@gmail.com>"
+  ]
 }

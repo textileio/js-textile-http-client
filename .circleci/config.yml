@@ -1,0 +1,86 @@
+version: 2
+
+defaults: &defaults
+    working_directory: ~/js-http-client
+    docker:
+        - image: circleci/node:9.10.0
+
+jobs:
+    lint:
+        <<: *defaults    
+        steps:
+            - checkout
+            - restore_cache:
+                key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+            - restore_cache:
+                key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+            - run: yarn install
+            - run:
+                name: lint
+                command: |
+                    yarn lint
+            - save_cache:
+                key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+                paths:
+                    - ~/.cache/yarn
+            - save_cache:
+                key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+                paths:
+                    - node_modules
+
+    test:
+        <<: *defaults    
+        steps:
+            - checkout
+            - restore_cache:
+                key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+            - restore_cache:
+                key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+            - run: yarn install
+            - run: mkdir ~/junit
+            - run:
+                name: test
+                command: |
+                    yarn test --reporter mocha-junit-reporter
+                environment:
+                    MOCHA_FILE: ~/junit/test-results.xml
+                when: always
+            - store_test_results:
+                path: ~/junit
+            - store_artifacts:
+                path: ~/junit
+
+    deploy:
+        <<: *defaults
+        steps:
+            - checkout
+            - attach_workspace:
+                at: ~/js-http-client
+            - run:
+                name: Authenticate with registry
+                command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/js-http-client/.npmrc
+            - run:
+                name: Publish package
+                command: npm publish --access=public
+                        
+workflows:
+    version: 2
+    js-http-client:
+        jobs:
+            - lint:
+                filters:
+                    tags:
+                        only: /^v.*/
+            - test:
+                filters:
+                    tags:
+                        only: /^v.*/
+            - deploy:
+                requires:
+                    - lint
+                    - test
+                filters:
+                    tags:
+                        only: /^v.*/
+                    branches:
+                        ignore: /.*/
