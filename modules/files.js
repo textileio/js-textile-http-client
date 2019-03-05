@@ -80,7 +80,7 @@ class Files extends API {
     }
 
     // Make sure we have a schema
-    const opts = {};
+    const opts = { caption };
     opts.schema_node = (await this.threads.get(thread)).schema_node;
 
     // Mill the file before adding it
