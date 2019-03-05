@@ -1,4 +1,3 @@
-const FormData = require("form-data");
 const API = require("../core/api.js");
 const Mills = require("./mills");
 const Threads = require("./threads");
@@ -70,28 +69,10 @@ class Files extends API {
    * Add a file to a thread in your Textile node
    *
    * @param {string} thread Id of the thread
-   * @param {object} fileStream Nodejs file stream
-   * @param {string} fileName Name of the file in the stream
+   * @param {File} file A FormData object or a function for creating a FormData object
    * @param {string} caption Caption to add
    */
-  async addFileStream(thread, fileStream, fileName, caption) {
-    const form = new FormData();
-    form.append("file", fileStream, fileName);
-
-    const headers = form.getHeaders();
-
-    return this.addFile(thread, form, caption, headers);
-  }
-
-  /**
-   * Add a file to a thread in your Textile node
-   *
-   * @param {string} thread Id of the thread
-   * @param {File} file FormData object
-   * @param {string} caption Caption to add
-   * @param {object} [headers] Extra headers to send in the request
-   */
-  async addFile(thread, file, caption, headers) {
+  async addFile(thread, file, caption) {
     if (!thread) {
       throw new Error(
         "'thread' must be provided when adding files to a thread"
@@ -107,11 +88,11 @@ class Files extends API {
       file,
       // TODO: This won't always have links
       opts.schema_node.links,
-      async link => {
+      async (link, form, headers) => {
         const { data: res } = await this.mills.run(
           link.mill,
           link.opts,
-          file,
+          form,
           headers
         );
         res.name = link.name;
