@@ -2,7 +2,6 @@ const axios = require("axios");
 const { Connection } = require("../core/connection");
 
 const { CancelToken } = axios;
-const source = CancelToken.source();
 
 // **** Private module methods ****
 const encodeValue = val => {
