@@ -1,4 +1,5 @@
-const { API } = require("../core/api.js");
+const { API } = require("../../core/api.js");
+const defaults = require("./defaults");
 
 /**
  * Schemas is an API module for managing Textile schemas
@@ -12,29 +13,12 @@ class Schemas extends API {
     this.opts = opts;
   }
 
+  /* eslint-disable class-methods-use-this */
   /** Default Textile schemas */
-  static get default() {
-    return {
-      media: {
-        id: "QmX3ugbr1i4hxJYLpJtMNpgyNG4FaF7hhmNNvX8ahSeXGH",
-        name: "media",
-        pin: true,
-        plaintext: false
-      },
-      camera_roll: {
-        id: "----",
-        name: "camera_roll",
-        pin: true,
-        plaintext: false
-      },
-      avatar: {
-        id: "----",
-        name: "avatar",
-        pin: true,
-        plaintext: false
-      }
-    };
+  async defaults() {
+    return defaults;
   }
+  /* eslint-enable class-methods-use-this */
 
   /**
    * Creates and validates a new schema from input JSON
@@ -53,7 +37,7 @@ class Schemas extends API {
   }
 
   /**
-   * Retrieves a schema by ID
+   * Retrieves a schema by thread ID
    *
    * @param {string} thread ID of the thread
    */

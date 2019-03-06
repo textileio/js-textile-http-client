@@ -83,8 +83,8 @@ class Files extends API {
     const opts = { caption };
     opts.schema_node = (await this.threads.get(thread)).schema_node;
 
-    // Mill the file before adding it
-    const milled = await SchemaMiller.mill(
+    // Mill the file(s) before adding it
+    const files = await SchemaMiller.mill(
       file,
       // TODO: This won't always have links
       opts.schema_node.links,
@@ -102,9 +102,11 @@ class Files extends API {
 
     const resp = await this.sendPost(
       `api/v0/threads/${thread}/files`,
-      [],
+      null,
       opts,
-      [milled]
+      // TODO: Create proper DirectoryList and Directory object definitions
+      { items: [{ files }] }
+      // { "Content-Type": "application/json" }
     );
     return resp.data;
   }
