@@ -88,17 +88,18 @@ class API {
    * @returns {CancelableRequest} request
    */
   sendPostCancelable(url, args, opts, data, headers) {
-    const test = this.con()({
+    let cancel;
+    const conn = this.con()({
       method: "post",
       url,
       headers: createHeaders(args, opts, headers),
       data,
-      cancelToken: source.token
+      cancelToken: new CancelToken(function executor(c) {
+        // An executor function receives a cancel function as a parameter
+        cancel = c;
+      })
     });
-    return {
-      conn: test,
-      cancel: source.cancel
-    };
+    return { conn, cancel };
   }
 
   /**
