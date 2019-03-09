@@ -176,8 +176,8 @@ Textile's JS HTTP Client is a work in progress. As such, there's a few things yo
 
 ### Contributors
 
-Carson Farmer <carson@textile.io>
-Robby Shaw <robbynshaw@gmail.com>
+* Carson Farmer <carson@textile.io>
+* Robby Shaw <robbynshaw@gmail.com>
 
 
 ## License
