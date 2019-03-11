@@ -49,7 +49,7 @@ Before creating bug reports, please check [this list](../../labels/bug) as you m
 
 #### Before Submitting A Bug Report
 
-**Perform a [cursory search](./labels/bug)** to see if the problem has already been reported. If it does exist, add a :thumbsup: to the issue to indicate this is also an issue for you, and add a comment to the existing issue if there is extra information you can contribute.
+**Perform a [cursory search](../../labels/bug)** to see if the problem has already been reported. If it does exist, add a :thumbsup: to the issue to indicate this is also an issue for you, and add a comment to the existing issue if there is extra information you can contribute.
 
 #### How Do I Submit A (Good) Bug Report?
 
@@ -75,7 +75,7 @@ that you imagine you would take if the feature you're requesting existed.
 
 #### Before Submitting An Enhancement Suggestion
 
-**Perform a [cursory search](./labels/enhancement)**
+**Perform a [cursory search](../../labels/enhancement)**
 to see if the enhancement has already been suggested. If it has, add a
 :thumbsup: to indicate your interest in it, or comment if there is additional
 information you would like to add.
