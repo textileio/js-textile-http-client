@@ -20,7 +20,7 @@ Note that Textile is an evolving project, so expect things to change over time a
 
 ### Code of Conduct
 
-This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md).
+This project adheres to the Contributor Covenant [code of conduct](./CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code.
 Please report unacceptable behavior to [contact@textile.io](mailto:contact@textile.io).
 
@@ -45,7 +45,7 @@ See each indiviual project's `README` for details.
 This section guides you through submitting a bug report for any Textile repo.
 Following these guidelines helps maintainers and the community understand your report, reproduce the behavior, and find related reports.
 
-Before creating bug reports, please check [this list](./labels/bug) as you might find out that you don't need to create one. When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report).
+Before creating bug reports, please check [this list](../../labels/bug) as you might find out that you don't need to create one. When you are creating a bug report, please [include as many details as possible](#how-do-i-submit-a-good-bug-report).
 
 #### Before Submitting A Bug Report
 
@@ -55,7 +55,7 @@ Before creating bug reports, please check [this list](./labels/bug) as you might
 
 Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/).
 
-Simply create an issue on the [Textile issue tracker](./issues).
+Simply create an issue on the [Textile issue tracker](../../issues).
 
 The information we are interested in includes:
 
@@ -68,7 +68,7 @@ The information we are interested in includes:
 
 This section guides you through submitting an enhancement suggestion for this project, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion :pencil: and find related suggestions :mag_right:.
 
-Before creating enhancement suggestions, please check [this list](./labels/bug)
+Before creating enhancement suggestions, please check [this list](../..//labels/bug)
 as you might find out that you don't need to create one. When you are creating
 an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion). Include the steps
 that you imagine you would take if the feature you're requesting existed.
@@ -84,7 +84,7 @@ information you would like to add.
 
 Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com/features/issues/).
 
-Simply create an issue on the [Textile issue tracker](./issues)
+Simply create an issue on the [Textile issue tracker](../..//issues)
 and provide the following information:
 
 * **Use a clear and descriptive title** for the issue to identify the
