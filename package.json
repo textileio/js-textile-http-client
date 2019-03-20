@@ -7,8 +7,8 @@
   "scripts": {
     "build": "tsc",
     "credit": "node ./scripts/contributors.js",
-    "test": "./node_modules/.bin/mocha --recursive",
-    "test-watch": "./node_modules/.bin/mocha --reporter list --watch --recursive",
+    "test": "jest --no-watchman",
+    "test-watch": "",
     "lint": "./node_modules/tslint/bin/tslint  -c tslint.json --project .",
     "lint-watch": "",
     "build-docs": "",
@@ -63,6 +63,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
+    "jest": "^24.5.0",
     "jsdoc": "^3.5.5",
     "markdown-magic": "^0.1.25",
     "markdown-magic-github-contributors": "^0.0.3",
