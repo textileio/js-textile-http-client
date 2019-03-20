@@ -18,14 +18,19 @@ Join us on our [public Slack channel](https://slack.textile.io/) for news, discu
 
 ## Table of Contents
 
-- [Background](#background)
-  - [Organization](#organization)
-- [Install](#install)
-- [Usage](#usage)
-- [Documentation](#documentation)
-- [Roadmap](#roadmap)
-- [Contribute](#contribute)
-- [License](#license)
+- [Textile JS HTTP Client _(js-http-client)_](#textile-js-http-client-js-http-client)
+  - [Table of Contents](#table-of-contents)
+  - [Background](#background)
+    - [Organization](#organization)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Development](#development)
+  - [Documentation](#documentation)
+  - [Roadmap](#roadmap)
+  - [Maintainer](#maintainer)
+  - [Contributing](#contributing)
+    - [Contributors](#contributors)
+  - [License](#license)
 
 ## Background
 
@@ -142,10 +147,15 @@ Textile's JS HTTP Client is a work in progress. As such, there's a few things yo
  Before you get started, be sure to read our [contributors guide](./CONTRIBUTING.md) and our [contributor covenant code of conduct](./CODE_OF_CONDUCT.md).
 
 ### Contributors
+<!-- Update with yarn credit -->
+<!-- ⛔️ AUTO-GENERATED-CONTENT:START (CONTRIBUTORS) -->
+| **Commits** | **Contributor** |  
+| --- | --- |  
+| 40 | [carsonfarmer](https://github.com/carsonfarmer) |  
+| 2  | [robbynshaw](https://github.com/robbynshaw) |  
+| 1  | [flyskywhy](https://github.com/flyskywhy) |  
 
-* Carson Farmer <carson@textile.io>
-* Robby Shaw <robbynshaw@gmail.com>
-
+<!-- ⛔️ AUTO-GENERATED-CONTENT:END -->
 
 ## License
 
