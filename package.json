@@ -44,7 +44,6 @@
     "create-hash": "^1.2.0",
     "create-hmac": "^1.1.7",
     "eventemitter2": "^5.0.1",
-    "markdown-magic-github-contributors": "^0.0.3",
     "tiny-secp256k1": "^1.0.1",
     "toposort": "^2.0.2",
     "tweetnacl": "^1.0.1"
@@ -60,6 +59,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "jsdoc": "^3.5.5",
     "markdown-magic": "^0.1.25",
+    "markdown-magic-github-contributors": "^0.0.3",
     "mocha": "^6.0.2",
     "mocha-junit-reporter": "^1.18.0",
     "nock": "^10.0.6",
