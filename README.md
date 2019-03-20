@@ -29,7 +29,7 @@ Join us on our [public Slack channel](https://slack.textile.io/) for news, discu
   - [Roadmap](#roadmap)
   - [Maintainer](#maintainer)
   - [Contributing](#contributing)
-    - [Contributors](#contributors)
+  - [Contributors](#contributors)
   - [License](#license)
 
 ## Background
@@ -146,7 +146,7 @@ Textile's JS HTTP Client is a work in progress. As such, there's a few things yo
 
  Before you get started, be sure to read our [contributors guide](./CONTRIBUTING.md) and our [contributor covenant code of conduct](./CODE_OF_CONDUCT.md).
 
-### Contributors
+## Contributors
 <!-- Update with yarn credit -->
 <!-- ⛔️ AUTO-GENERATED-CONTENT:START (CONTRIBUTORS) -->
 | **Commits** | **Contributor** |  
