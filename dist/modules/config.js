@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const api_js_1 = require("../core/api.js");
+const api_1 = require("../core/api");
 /**
  * Config is an API module for controling peer node configuration variables
  *
@@ -20,7 +20,7 @@ const api_js_1 = require("../core/api.js");
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Config extends api_js_1.API {
+class Config extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
@@ -52,7 +52,7 @@ class Config extends api_js_1.API {
         return __awaiter(this, void 0, void 0, function* () {
             const cleanPath = path ? `/${path.replace(/\./g, ' ')}` : '';
             const patch = [{ op: 'replace', path: cleanPath, value }];
-            this.sendPatch(`api/v0/config`, null, null, patch);
+            this.sendPatch(`api/v0/config`, undefined, undefined, patch);
         });
     }
 }

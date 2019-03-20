@@ -14,10 +14,10 @@ export default class SchemaMiller {
     return (
       sorted
         // File is the original form so we don't need a method
-        .filter(name => {
+        .filter((name: string) => {
           return name !== ':file'
         })
-        .map(name => {
+        .map((name: string) => {
           const link = links[name]
           link.name = name
           return link
@@ -25,7 +25,7 @@ export default class SchemaMiller {
     )
   }
 
-  static normalizeOptions(schemaLink) {
+  static normalizeOptions(schemaLink: any) {
     const opts = schemaLink.opts || {}
 
     // Check for top level opts
@@ -88,7 +88,7 @@ export default class SchemaMiller {
       // eslint-disable-next-line no-restricted-syntax
       for (const step of steps) {
         const body = payload
-        let form = null
+        let form
         const normal = SchemaMiller.normalizeOptions(step)
         const resolved = SchemaMiller.resolveDependency(normal, payloadsByName)
         let headers = {}

@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const api_js_1 = require("../core/api.js");
+const api_1 = require("../core/api");
 /**
  * Logs is an API module for managing the verbosity of one or all subsystems logs
  *
@@ -17,7 +17,7 @@ const api_js_1 = require("../core/api.js");
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Logs extends api_js_1.API {
+class Logs extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
@@ -30,7 +30,7 @@ class Logs extends api_js_1.API {
      */
     get(subsystem, tex) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendGet(`api/v0/logs${subsystem ? `/${subsystem}` : ''}`, null, { 'tex-only': tex });
+            const response = yield this.sendGet(`api/v0/logs${subsystem ? `/${subsystem}` : ''}`, undefined, { 'tex-only': tex });
             return response.data;
         });
     }
@@ -43,7 +43,7 @@ class Logs extends api_js_1.API {
      */
     set(level, subsystem, tex) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendPost(`api/v0/logs${subsystem ? `/${subsystem}` : ''}`, null, { level, 'tex-only': tex });
+            const response = yield this.sendPost(`api/v0/logs${subsystem ? `/${subsystem}` : ''}`, undefined, { level, 'tex-only': tex });
             return response.data;
         });
     }

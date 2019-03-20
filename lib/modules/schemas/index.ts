@@ -1,5 +1,7 @@
 import { API } from '../../core/api.js'
 import defaults from './defaults'
+import { ApiOptions } from '../../models/index.js'
+import pb from '@textile/go-mobile'
 
 /**
  * Schemas is an API module for managing Textile schemas
@@ -8,7 +10,8 @@ import defaults from './defaults'
  * @extends API
  */
 export default class Schemas extends API {
-  constructor(opts) {
+  opts: ApiOptions
+  constructor(opts: ApiOptions) {
     super(opts)
     this.opts = opts
   }
@@ -25,11 +28,12 @@ export default class Schemas extends API {
    *
    * @param {object} schema Input JSON-based thread schema
    */
-  async add(schema) {
+  // TODO: Verify type
+  async add(schema: pb.AddThreadConfig.Schema) {
     const response = await this.sendPost(
       `/api/v0/mills/schema`,
-      null,
-      null,
+      undefined,
+      undefined,
       schema,
       { 'Content-Type': 'application/json' }
     )
@@ -39,10 +43,10 @@ export default class Schemas extends API {
   /**
    * Retrieves a schema by thread ID
    *
-   * @param {string} thread ID of the thread
+   * @param {string} threadId ID of the thread
    */
-  async get(thread) {
-    const response = await this.sendGet(`/api/v0/threads/${thread}`)
+  async get(threadId: string) {
+    const response = await this.sendGet(`/api/v0/threads/${threadId}`)
     return response.data.schema_node
   }
 }

@@ -8,14 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const api_js_1 = require("../core/api.js");
+const api_1 = require("../core/api");
 /**
  * Invites is an API module for managing thread invites
  *
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Invites extends api_js_1.API {
+class Invites extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
@@ -28,7 +28,7 @@ class Invites extends api_js_1.API {
      */
     accept(invite, key) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendPost(`/api/v0/invites/${invite}/accept`, null, { key });
+            const response = yield this.sendPost(`/api/v0/invites/${invite}/accept`, undefined, { key });
             return response.data;
         });
     }
@@ -40,7 +40,7 @@ class Invites extends api_js_1.API {
      */
     create(thread, peer) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendPost(`/api/v0/invites/`, null, {
+            const response = yield this.sendPost(`/api/v0/invites/`, undefined, {
                 thread,
                 peer
             });

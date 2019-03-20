@@ -7,11 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const api_js_1 = require("../core/api.js");
-const { Mills } = require('./mills');
-const { Threads } = require('./threads');
-const { SchemaMiller } = require('../helpers/schema-miller');
+const mills_1 = require("./mills");
+const threads_1 = require("./threads");
+const schema_miller_1 = __importDefault(require("../helpers/schema-miller"));
 /**
  * Files is an API module for managing Textile files
  *
@@ -22,8 +25,8 @@ class Files extends api_js_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
-        this.mills = new Mills(opts);
-        this.threads = new Threads(opts);
+        this.mills = new mills_1.Mills(opts);
+        this.threads = new threads_1.Threads(opts);
     }
     /**
      * Retrieves a thread file by block ID
@@ -44,9 +47,10 @@ class Files extends api_js_1.API {
      * @param {string} [options.offset] Offset ID to start listing from. Omit for latest
      * @param {number} [options.limit=5] List page size
      */
+    // TODO: Is there a type for this list request?
     list(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendGet('api/v0/files', null, options);
+            const response = yield this.sendGet('api/v0/files', undefined, options);
             return response.data;
         });
     }
@@ -84,22 +88,24 @@ class Files extends api_js_1.API {
      * @param {File} file A FormData object or a function for creating a FormData object
      * @param {string} caption Caption to add
      */
-    addFile(thread, file, caption) {
+    addFile(threadId, file, caption) {
         return __awaiter(this, void 0, void 0, function* () {
             // TODO: Make thread optional and default to 'default'
-            if (!thread) {
-                throw new Error('', thread, ' must be provided when adding files to a thread');
+            if (!threadId) {
+                throw new Error('threadId must be provided when adding files to a thread');
             }
-            const opts = { caption };
+            const opts = {
+                schema_node: Thread
+            };
             // Fetch schema (will throw if it doesn't have a schema node)
-            opts.schema_node = (yield this.threads.get(thread)).schema_node;
+            opts.schema_node = (yield this.threads.get(threadId)).schema_node;
             // Mill the file(s) before adding it
-            const files = yield SchemaMiller.mill(file, opts.schema_node, (link, form, headers) => __awaiter(this, void 0, void 0, function* () {
+            const files = yield schema_miller_1.default.mill(file, opts.schema_node, (link, form, headers) => __awaiter(this, void 0, void 0, function* () {
                 const { data: res } = yield this.mills.run(link.mill, link.opts, form, headers);
                 res.name = link.name;
                 return res;
             }));
-            const resp = yield this.sendPost(`api/v0/threads/${thread}/files`, null, opts, 
+            const resp = yield this.sendPost(`api/v0/threads/${threadId}/files`, undefined, opts, 
             // TODO: Create proper DirectoryList and Directory object definitions
             { items: [{ files }] }
             // { 'Content-Type': 'application/json' }

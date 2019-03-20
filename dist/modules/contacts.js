@@ -8,16 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const { EventEmitter2 } = require('eventemitter2');
-const { isCancel } = require('axios');
-const api_js_1 = require("../core/api.js");
+const eventemitter2_1 = require("eventemitter2");
+const axios_1 = require("axios");
+const api_1 = require("../core/api");
 /**
  * Contacts is an API module for managing local contacts and finding contacts on the network
  *
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Contacts extends api_js_1.API {
+class Contacts extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
@@ -30,7 +30,7 @@ class Contacts extends api_js_1.API {
      * */
     add(info) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendPut(`/api/v0/contacts/${info.id}`, null, null, info);
+            const response = yield this.sendPut(`/api/v0/contacts/${info.id}`, undefined, undefined, info);
             return response.data;
         });
     }
@@ -50,9 +50,9 @@ class Contacts extends api_js_1.API {
      *
      * @param {string} thread ID of the thread
      */
-    list(thread) {
+    list(threadId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendGet('/api/v0/contacts', null, { thread });
+            const response = yield this.sendGet('/api/v0/contacts', undefined, { threadId });
             return response.data;
         });
     }
@@ -61,9 +61,9 @@ class Contacts extends api_js_1.API {
      *
      * @param {string} contact ID of the contact
      */
-    remove(contact) {
+    remove(contactId) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.sendDelete(`/api/v0/contacts/${contact}`);
+            this.sendDelete(`/api/v0/contacts/${contactId}`);
         });
     }
     /**
@@ -100,15 +100,17 @@ class Contacts extends api_js_1.API {
      * })
      */
     search(options) {
-        const { conn, cancel } = this.sendPostCancelable('/api/v0/contacts/search', null, options);
-        const emitter = new EventEmitter2({
+        const { conn, cancel } = this.sendPostCancelable('/api/v0/contacts/search', undefined, 
+        // TODO: need to convert to normal payload?
+        options);
+        const emitter = new eventemitter2_1.EventEmitter2({
             wildcard: true
         });
         emitter.cancel = cancel;
         conn
-            .then(response => {
+            .then((response) => {
             const stream = response.data;
-            stream.on('data', chunk => {
+            stream.on('data', (chunk) => {
                 emitter.emit('textile.contacts.found', chunk);
             });
             stream.on('end', () => {
@@ -116,7 +118,7 @@ class Contacts extends api_js_1.API {
             });
         })
             .catch(err => {
-            if (isCancel(err)) {
+            if (axios_1.isCancel(err)) {
                 emitter.emit('textile.contacts.done', true);
             }
             else {

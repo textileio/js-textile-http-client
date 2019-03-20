@@ -8,14 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const api_js_1 = require("../core/api.js");
+const api_1 = require("../core/api");
 /**
  * IPFS is an API module for working with an underlying IPFS peer
  *
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class IPFS extends api_js_1.API {
+class IPFS extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
@@ -38,7 +38,7 @@ class IPFS extends api_js_1.API {
      */
     swarmPeers(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { data } = yield this.sendGet('api/v0/ipfs/swarm/peers', null, options);
+            const { data } = yield this.sendGet('api/v0/ipfs/swarm/peers', undefined, options);
             return data;
         });
     }
@@ -50,7 +50,7 @@ class IPFS extends api_js_1.API {
      */
     cat(cid, key) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendGet(`/api/v0/ipfs/cat/${cid}`, null, {
+            const response = yield this.sendGet(`/api/v0/ipfs/cat/${cid}`, undefined, {
                 key
             });
             return response.data;

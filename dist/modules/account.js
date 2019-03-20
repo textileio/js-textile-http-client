@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const eventemitter2_1 = require("eventemitter2");
 const axios_1 = require("axios");
-const api_js_1 = require("../core/api.js");
+const api_1 = require("../core/api");
 /**
  * Account is an API module for managing a wallet account
  *
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Account extends api_js_1.API {
+class Account extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
@@ -94,7 +94,7 @@ class Account extends api_js_1.API {
      * })
      */
     findThreadBackups(wait) {
-        const { conn, cancel } = this.sendPostCancelable('/api/v0/account/backups', null, { wait });
+        const { conn, cancel } = this.sendPostCancelable('/api/v0/account/backups', undefined, { wait });
         const emitter = new eventemitter2_1.EventEmitter2({
             wildcard: true
         });
@@ -102,7 +102,7 @@ class Account extends api_js_1.API {
         conn
             .then((response) => {
             const stream = response.data;
-            stream.on('data', chunk => {
+            stream.on('data', (chunk) => {
                 emitter.emit('textile.backups.data', chunk);
             });
             stream.on('end', () => {

@@ -1,4 +1,5 @@
-import { API } from '../core/api.js'
+import { API } from '../core/api'
+import { ApiOptions } from '../models/index'
 
 /**
  * Cafes is an API module for managing Cafe access, messages, and services
@@ -9,7 +10,8 @@ import { API } from '../core/api.js'
  * @extends API
  */
 export default class Cafes extends API {
-  constructor(opts) {
+  opts: ApiOptions
+  constructor(opts: ApiOptions) {
     super(opts)
     this.opts = opts
   }
@@ -24,7 +26,7 @@ export default class Cafes extends API {
    * @param {string} token An access token supplied by the target Cafe
    * @see Tokens#create
    */
-  async add(cafe, token) {
+  async add(cafe: string, token: string) {
     const response = await this.sendPost(`/api/v0/cafes/`, [cafe], { token })
     return response.data
   }
@@ -34,7 +36,7 @@ export default class Cafes extends API {
    *
    * @param {string} id ID of the target Cafe
    */
-  async get(id) {
+  async get(id: string) {
     const response = await this.sendGet(`/api/v0/cafes/${id}`)
     return response.data
   }
@@ -60,7 +62,7 @@ export default class Cafes extends API {
    *
    * @param {string} id ID of the target Cafe
    */
-  async remove(id) {
+  async remove(id: string) {
     this.sendDelete(`/api/v0/cafes/${id}`)
   }
 }

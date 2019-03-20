@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const api_js_1 = require("../core/api.js");
+const api_1 = require("../core/api");
 /**
  * Feed is an API module for paginating post and annotation block types
  *
@@ -16,7 +16,7 @@ const api_js_1 = require("../core/api.js");
  * @param {string} opts.url
  * @extends API
  */
-class Feed extends api_js_1.API {
+class Feed extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
@@ -46,7 +46,7 @@ class Feed extends api_js_1.API {
      */
     get(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendGet('/api/v0/feed', null, options);
+            const response = yield this.sendGet('/api/v0/feed', undefined, options);
             return response.data;
         });
     }

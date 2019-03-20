@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const api_js_1 = require("../core/api.js");
+const api_1 = require("../core/api");
 /**
  * Messages is an API module for managing thread/block messages
  *
@@ -17,7 +17,7 @@ const api_js_1 = require("../core/api.js");
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Messages extends api_js_1.API {
+class Messages extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
@@ -57,7 +57,7 @@ class Messages extends api_js_1.API {
      */
     list(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendGet('/api/v0/messages', null, options);
+            const response = yield this.sendGet('/api/v0/messages', undefined, options);
             return response.data;
         });
     }

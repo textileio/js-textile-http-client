@@ -7,13 +7,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const axios = require("axios");
-const { Connection } = require("../core/connection");
-const { CancelToken } = axios;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const axios_1 = __importDefault(require("axios"));
+const connection_1 = __importDefault(require("./connection"));
+const { CancelToken } = axios_1.default;
 // **** Private module methods ****
-const encodeValue = val => {
+const encodeValue = (val) => {
+    // TODO: is this what you really want when 'false'?
     if (!val) {
-        return "";
+        return '';
     }
     return encodeURIComponent(val.toString());
 };
@@ -23,11 +28,11 @@ const encodeValue = val => {
  * @param {string[]} argsAr An array of arguments
  * @private
  */
-const getArgs = argsAr => {
+const getArgs = (argsAr) => {
     if (!argsAr || !argsAr.length) {
-        return "";
+        return '';
     }
-    return argsAr.map(ar => encodeValue(ar)).join(",");
+    return argsAr.map((ar) => encodeValue(ar)).join(',');
 };
 /**
  * Create 'options' like a CLI command would take.
@@ -35,17 +40,17 @@ const getArgs = argsAr => {
  * @param {Object.<string, string>} opts A map of option keys and values
  * @private
  */
-const getOpts = opts => {
+const getOpts = (opts) => {
     if (!opts) {
-        return "";
+        return '';
     }
     return Object.keys(opts)
-        .map(key => `${key}=${encodeValue(opts[key])}`)
-        .join(",");
+        .map((key) => `${key}=${encodeValue(opts[key])}`)
+        .join(',');
 };
 const createHeaders = (args, opts, headers) => {
     const h = headers || {};
-    return Object.assign({}, h, { "X-Textile-Args": getArgs(args), "X-Textile-Opts": getOpts(opts) });
+    return Object.assign({}, h, { 'X-Textile-Args': getArgs(args), 'X-Textile-Opts': getOpts(opts) });
 };
 /**
  * A request and associated cancel function
@@ -67,7 +72,7 @@ class API {
     con() {
         let thisCon = con.get(this);
         if (!thisCon) {
-            thisCon = Connection.get(this.opts);
+            thisCon = connection_1.default.get(this.opts);
             con.set(this, thisCon);
         }
         return thisCon;
@@ -84,7 +89,7 @@ class API {
     sendPostCancelable(url, args, opts, data, headers) {
         let cancel;
         const conn = this.con()({
-            method: "post",
+            method: 'post',
             url,
             headers: createHeaders(args, opts, headers),
             data,
@@ -106,7 +111,7 @@ class API {
     sendPost(url, args, opts, data, headers) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.con()({
-                method: "post",
+                method: 'post',
                 url,
                 headers: createHeaders(args, opts, headers),
                 data
@@ -124,11 +129,11 @@ class API {
     sendPostMultiPart(url, args, opts, data, headers) {
         return __awaiter(this, void 0, void 0, function* () {
             const h = createHeaders(args, opts, headers);
-            if (!h["content-type"]) {
-                h["content-type"] = "multipart/form-data";
+            if (!h['content-type']) {
+                h['content-type'] = 'multipart/form-data';
             }
             return this.con()({
-                method: "post",
+                method: 'post',
                 url,
                 headers: h,
                 data
@@ -145,7 +150,7 @@ class API {
     sendGet(url, args, opts, headers) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.con()({
-                method: "get",
+                method: 'get',
                 url,
                 headers: createHeaders(args, opts, headers)
             });
@@ -161,7 +166,7 @@ class API {
     sendDelete(url, args, opts, headers) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.con()({
-                method: "delete",
+                method: 'delete',
                 url,
                 headers: createHeaders(args, opts, headers)
             });
@@ -178,7 +183,7 @@ class API {
     sendPut(url, args, opts, data, headers) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.con()({
-                method: "put",
+                method: 'put',
                 url,
                 headers: createHeaders(args, opts, headers),
                 data
@@ -186,4 +191,4 @@ class API {
         });
     }
 }
-module.exports = { API };
+exports.API = API;

@@ -1,6 +1,7 @@
 import { EventEmitter2 } from 'eventemitter2'
-import { isCancel } from 'axios'
-import { API } from '../core/api.js'
+import axios from 'axios'
+import { API } from '../core/api'
+import { ApiOptions } from '../models/index'
 
 /**
  * Account is an API module for managing a wallet account
@@ -9,7 +10,7 @@ import { API } from '../core/api.js'
  * @extends API
  */
 export default class Account extends API {
-  constructor(opts) {
+  constructor(opts: ApiOptions) {
     super(opts)
     this.opts = opts
   }
@@ -18,7 +19,7 @@ export default class Account extends API {
    * Retrieve the local wallet account address
    *
    * @returns {Promise<string>} address
-   * */
+   */
   async address() {
     const response = await this.sendGet('/api/v0/account/address')
     return response.data
@@ -28,7 +29,7 @@ export default class Account extends API {
    * Retrieve the local wallet account seed
    *
    * @returns {Promise<string>} seed
-   * */
+   */
   // eslint-disable-next-line class-methods-use-this
   async seed() {
     throw new ReferenceError('Not implemented')
@@ -39,9 +40,9 @@ export default class Account extends API {
    *
    * @param {Buffer} input Input plaintext Buffer data
    * @returns {Promise<Buffer>} ciphertext
-   * */
+   */
   // eslint-disable-next-line class-methods-use-this,no-unused-vars
-  async encrypt(input) {
+  async encrypt(input: Buffer) {
     throw new ReferenceError('Not implemented')
   }
 
@@ -50,9 +51,9 @@ export default class Account extends API {
    *
    * @param {Buffer} input Input ciphertext Buffer data
    * @returns {Promise<Buffer>} plaintext
-   * */
+   */
   // eslint-disable-next-line class-methods-use-this,no-unused-vars
-  async decrypt(input) {
+  async decrypt(input: Buffer) {
     throw new ReferenceError('Not implemented')
   }
 
@@ -83,7 +84,7 @@ export default class Account extends API {
   findThreadBackups(wait: number) {
     const { conn, cancel } = this.sendPostCancelable(
       '/api/v0/account/backups',
-      null,
+      undefined,
       { wait }
     )
     const emitter = new EventEmitter2({
@@ -93,15 +94,15 @@ export default class Account extends API {
     conn
       .then((response) => {
         const stream = response.data
-        stream.on('data', chunk => {
+        stream.on('data', (chunk) => {
           emitter.emit('textile.backups.data', chunk)
         })
         stream.on('end', () => {
           emitter.emit('textile.backups.done', false)
         })
       })
-      .catch((err) => {
-        if (isCancel(err)) {
+      .catch((err: Error) => {
+        if (axios.isCancel(err)) {
           emitter.emit('textile.backups.done', true)
         } else {
           emitter.emit('textile.backups.error', err)

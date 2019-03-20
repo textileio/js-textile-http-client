@@ -62,7 +62,7 @@ class Textile {
   tokens: Tokens
   /** @property {Utils} utils - Get information about the Textile node */
   utils: Utils
-  constructor(options: any) {
+  constructor(options: ApiOptions) {
     this.opts = options || {}
     this.account = new Account(this.opts)
     this.cafes = new Cafes(this.opts)

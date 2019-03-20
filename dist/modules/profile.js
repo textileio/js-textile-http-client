@@ -8,14 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const api_js_1 = require("../core/api.js");
+const api_1 = require("../core/api");
 /**
  * Profile is an API module for accessing public profile information
  *
  * @param {ApiOptions} opts API options object
  * @extends API
  */
-class Profile extends api_js_1.API {
+class Profile extends api_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;

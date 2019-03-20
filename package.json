@@ -8,7 +8,7 @@
     "credit": "node ./scripts/contributors.js",
     "test": "./node_modules/.bin/mocha --recursive",
     "test-watch": "./node_modules/.bin/mocha --reporter list --watch --recursive",
-    "lint": "./node_modules/tslint/bin/tslint  -c tslint.json --project ./lib/**/*.ts",
+    "lint": "./node_modules/tslint/bin/tslint  -c tslint.json --project .",
     "lint-watch": "",
     "build-docs": "",
     "precommit": "yarn lint && yarn test",
@@ -38,6 +38,7 @@
   "author": "textile.io",
   "license": "MIT",
   "dependencies": {
+    "@textile/go-mobile": "0.1.10-rc3",
     "axios": "^0.18.0",
     "bip39": "^2.5.0",
     "bs58": "^4.0.1",

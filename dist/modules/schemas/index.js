@@ -37,20 +37,21 @@ class Schemas extends api_js_1.API {
      *
      * @param {object} schema Input JSON-based thread schema
      */
+    // TODO: Verify type
     add(schema) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendPost(`/api/v0/mills/schema`, null, null, schema, { 'Content-Type': 'application/json' });
+            const response = yield this.sendPost(`/api/v0/mills/schema`, undefined, undefined, schema, { 'Content-Type': 'application/json' });
             return response.data;
         });
     }
     /**
      * Retrieves a schema by thread ID
      *
-     * @param {string} thread ID of the thread
+     * @param {string} threadId ID of the thread
      */
-    get(thread) {
+    get(threadId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendGet(`/api/v0/threads/${thread}`);
+            const response = yield this.sendGet(`/api/v0/threads/${threadId}`);
             return response.data.schema_node;
         });
     }
