@@ -2,7 +2,8 @@
   "name": "@textileio/js-http-client",
   "version": "0.1.9",
   "description": "Official Textile JS HTTP Wrapper Client",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "credit": "node ./scripts/contributors.js",
