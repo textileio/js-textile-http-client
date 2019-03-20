@@ -68,7 +68,7 @@ class SchemaMiller {
       const normal = SchemaMiller.normalizeOptions(node);
       const resolved = SchemaMiller.resolveDependency(normal, {});
       let headers = {};
-      let form
+      let form;
       if (resolved.opts.use) {
         form = undefined;
       } else if (typeof payload === "function") {
