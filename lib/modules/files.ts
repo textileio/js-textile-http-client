@@ -78,7 +78,7 @@ export default class Files extends API {
    * @param {File} file A FormData object or a function for creating a FormData object
    * @param {string} caption Caption to add
    */
-  async addFile(threadId: string, file: pb.File, caption: string) {
+  async addFile(threadId: string, file: pb.IFile, caption: string) {
     // TODO: Make thread optional and default to 'default'
     if (!threadId) {
       throw new Error(

@@ -39,7 +39,7 @@ export default class Feed extends API {
    * @param {string} options.limit List page size (default: 5)
    * @param {string} options.mode Feed mode (one of 'chrono’, 'annotated’, or ‘stacks’)
    */
-  async get(options: pb.FeedRequest) {
+  async get(options: pb.IFeedRequest) {
     const response = await this.sendGet('/api/v0/feed', undefined, options)
     return response.data
   }

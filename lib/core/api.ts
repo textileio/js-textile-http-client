@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { Canceler } from 'axios'
 import Connection from './connection'
 import { KeyValue, ApiOptions } from '../models'
 
@@ -90,16 +90,17 @@ class API {
    * @returns {CancelableRequest} request
    */
   sendPostCancelable(url: string, args?: string[], opts?: KeyValue, data?: any, headers?: KeyValue) {
-    let cancel
+    let cancel: Canceler
+    const cancelToken = new CancelToken(function executor(c: Canceler) {
+      // An executor function receives a cancel function as a parameter
+      cancel = c
+    })
     const conn = this.con()({
       method: 'post',
       url,
       headers: createHeaders(args, opts, headers),
       data,
-      cancelToken: new CancelToken(function executor(c) {
-        // An executor function receives a cancel function as a parameter
-        cancel = c
-      })
+      cancelToken
     })
     return { conn, cancel }
   }

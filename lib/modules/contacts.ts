@@ -1,7 +1,7 @@
 import { EventEmitter2 } from 'eventemitter2'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { API } from '../core/api'
-import { ApiOptions, KeyValue } from '../models/index'
+import { ApiOptions, KeyValue, RunningEvent } from '../models/index'
 import pb from '@textile/go-mobile'
 
 /**
@@ -94,7 +94,7 @@ export default class Contacts extends API {
    *   console.log(`search was ${cancelled ? 'cancelled' : 'completed'}`)
    * })
    */
-  search(options: pb.ContactQuery) {
+  search(options: pb.IContactQuery): RunningEvent {
     const { conn, cancel } = this.sendPostCancelable(
       '/api/v0/contacts/search',
       undefined,
@@ -104,11 +104,10 @@ export default class Contacts extends API {
     const emitter = new EventEmitter2({
       wildcard: true
     })
-    emitter.cancel = cancel
     conn
-      .then((response) => {
+      .then((response: AxiosResponse) => {
         const stream = response.data
-        stream.on('data', (chunk) => {
+        stream.on('data', (chunk: string) => {
           emitter.emit('textile.contacts.found', chunk)
         })
         stream.on('end', () => {
@@ -122,6 +121,6 @@ export default class Contacts extends API {
           emitter.emit('textile.contacts.error', err)
         }
       })
-    return emitter
+    return {emitter, cancel}
   }
 }

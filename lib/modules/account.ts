@@ -1,5 +1,5 @@
 import { EventEmitter2 } from 'eventemitter2'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { API } from '../core/api'
 import { ApiOptions } from '../models/index'
 
@@ -90,11 +90,12 @@ export default class Account extends API {
     const emitter = new EventEmitter2({
       wildcard: true
     })
-    emitter.cancel = cancel
     conn
-      .then((response) => {
+    // TODO: Is that right type?
+      .then((response: AxiosResponse) => {
         const stream = response.data
-        stream.on('data', (chunk) => {
+        // TODO: Is that right type?
+        stream.on('data', (chunk: string) => {
           emitter.emit('textile.backups.data', chunk)
         })
         stream.on('end', () => {
@@ -108,6 +109,6 @@ export default class Account extends API {
           emitter.emit('textile.backups.error', err)
         }
       })
-    return emitter
+    return {emitter, cancel}
   }
 }
