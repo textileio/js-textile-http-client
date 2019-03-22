@@ -20,12 +20,13 @@ import Utils from './modules/utils'
 import Wallet from './modules/wallet'
 import { ApiOptions } from './models'
 
+export { Wallet }
 /**
  * Textile is the main client class
  *
  * @param {ApiOptions} options The API options object
  */
-class Textile {
+export default class Textile {
   opts: ApiOptions
   /** @property {Account} account - Manage Textile wallet account */
   account: Account
@@ -86,4 +87,4 @@ class Textile {
   }
 }
 
-module.exports = { Textile, Wallet }
+
