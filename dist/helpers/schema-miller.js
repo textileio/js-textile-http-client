@@ -7,11 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const toposort_1 = __importDefault(require("toposort"));
+const toposort = require("toposort");
 class SchemaMiller {
     static sortLinksByDependency(links) {
         // Create an array of [ name, dependency ] for sorting
@@ -19,12 +15,12 @@ class SchemaMiller {
             return [name, link.use];
         });
         // Sort the array into an execution order
-        const sorted = toposort_1.default(linkAndDepends).reverse();
+        const sorted = toposort(linkAndDepends).reverse();
         // Refill the items in the sorted array
         return (sorted
             // File is the original form so we don't need a method
             .filter(name => {
-            return name !== ':file';
+            return name !== ":file";
         })
             .map(name => {
             const link = links[name];
@@ -42,9 +38,9 @@ class SchemaMiller {
     static resolveDependency(method, payloadsByName) {
         let use;
         // Convert 'use' to hash of payload
-        if (method.use && method.use !== ':file') {
+        if (method.use && method.use !== ":file") {
             // TODO: This is a hack, should use multihash JS lib in future
-            if (method.use.length === 46 && method.use.startsWith('Qm')) {
+            if (method.use.length === 46 && method.use.startsWith("Qm")) {
                 // eslint-disable-next-line prefer-destructuring
                 use = method.use;
             }
@@ -54,7 +50,7 @@ class SchemaMiller {
         }
         const resolvedMethod = Object.assign({}, method);
         resolvedMethod.opts = resolvedMethod.opts || {};
-        resolvedMethod.opts.use = use || '';
+        resolvedMethod.opts.use = use || "";
         return resolvedMethod;
     }
     static mill(payload, node, remoteMill) {
@@ -69,7 +65,7 @@ class SchemaMiller {
                 if (resolved.opts.use) {
                     form = undefined;
                 }
-                else if (typeof payload === 'function') {
+                else if (typeof payload === "function") {
                     form = payload();
                 }
                 else {
@@ -79,7 +75,7 @@ class SchemaMiller {
                     headers = form.getHeaders();
                 }
                 const milled = yield remoteMill(resolved, form, headers);
-                payloadsByName[':single'] = milled;
+                payloadsByName[":single"] = milled;
             }
             else if (node.links) {
                 // Determine order
@@ -97,7 +93,7 @@ class SchemaMiller {
                         // Don't send the file again
                         form = undefined;
                     }
-                    else if (typeof body === 'function') {
+                    else if (typeof body === "function") {
                         form = body();
                     }
                     else {
@@ -116,4 +112,4 @@ class SchemaMiller {
         });
     }
 }
-exports.default = SchemaMiller;
+module.exports = { SchemaMiller };

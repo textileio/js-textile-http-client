@@ -37,8 +37,13 @@ export default class Threads extends API {
    *   sharing: 'shared'
    * })
    */
-  async add(name: string, options: pb.AddThreadConfig.Schema) {
-    const response = await this.sendPost('/api/v0/threads', [name], options)
+  async add(name: string, options: pb.IAddThreadConfig) {
+    const response = await this.sendPost(
+      '/api/v0/threads',
+      [name],
+      undefined,
+      options
+    )
     return response.data
   }
 
@@ -49,7 +54,12 @@ export default class Threads extends API {
    * @param {object} info Thread object
    */
   async addOrUpdate(thread: string, info: string) {
-    this.sendPut(`/api/v0/threads/${thread}`, undefined, undefined, info)
+    this.sendPut(
+      `/api/v0/threads/${thread}`,
+      undefined,
+      undefined,
+      info
+    )
   }
 
   /**

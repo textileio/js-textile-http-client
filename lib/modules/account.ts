@@ -82,7 +82,7 @@ export default class Account extends API {
    * })
    */
   findThreadBackups(wait: number) {
-    const { conn, cancel } = this.sendPostCancelable(
+    const { conn, source } = this.sendPostCancelable(
       '/api/v0/account/backups',
       undefined,
       { wait }
@@ -109,6 +109,6 @@ export default class Account extends API {
           emitter.emit('textile.backups.error', err)
         }
       })
-    return {emitter, cancel}
+    return {emitter, source}
   }
 }

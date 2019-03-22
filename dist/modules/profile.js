@@ -23,7 +23,7 @@ class Profile extends api_1.API {
     /**
      * Retrieve the local node's public profile
      * @returns {Promise<any>}
-     * */
+     */
     get() {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.sendGet('/api/v0/profile');
@@ -33,7 +33,7 @@ class Profile extends api_1.API {
     /**
      * Get the local node's public profile username
      * @returns {Promise<string>} username
-     * */
+     */
     username() {
         return __awaiter(this, void 0, void 0, function* () {
             const { data } = yield this.get();
@@ -53,7 +53,7 @@ class Profile extends api_1.API {
     /**
      * Get the local node's public profile avatar image hash
      * @returns {Promise<string>} hash
-     * */
+     */
     avatar() {
         return __awaiter(this, void 0, void 0, function* () {
             const { data } = yield this.get();

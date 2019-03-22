@@ -40,7 +40,12 @@ export default class Feed extends API {
    * @param {string} options.mode Feed mode (one of 'chrono’, 'annotated’, or ‘stacks’)
    */
   async get(options: pb.IFeedRequest) {
-    const response = await this.sendGet('/api/v0/feed', undefined, options)
+    const response = await this.sendPost(
+      '/api/v0/feed',
+      undefined,
+      undefined,
+      options
+    )
     return response.data
   }
 }

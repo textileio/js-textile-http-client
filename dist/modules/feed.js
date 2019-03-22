@@ -46,7 +46,7 @@ class Feed extends api_1.API {
      */
     get(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendGet('/api/v0/feed', undefined, options);
+            const response = yield this.sendPost('/api/v0/feed', undefined, undefined, options);
             return response.data;
         });
     }

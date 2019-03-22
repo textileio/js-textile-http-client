@@ -1,8 +1,7 @@
 import { API } from '../core/api.js'
 import { ApiOptions, KeyValue } from '../models/index'
-import { Mills } from './mills'
-import { Threads } from './threads'
-import SchemaMiller from '../helpers/schema-miller'
+import Mills from './mills'
+import Threads from './threads'
 import pb from '@textile/go-mobile'
 
 /**
@@ -79,41 +78,43 @@ export default class Files extends API {
    * @param {string} caption Caption to add
    */
   async addFile(threadId: string, file: pb.IFile, caption: string) {
-    // TODO: Make thread optional and default to 'default'
-    if (!threadId) {
-      throw new Error(
-        'threadId must be provided when adding files to a thread'
-      )
-    }
-    const opts = {
-      schema_node: Thread
-     }
-    // Fetch schema (will throw if it doesn't have a schema node)
-    opts.schema_node = (await this.threads.get(threadId)).schema_node
-    // Mill the file(s) before adding it
-    const files = await SchemaMiller.mill(
-      file,
-      opts.schema_node,
-      async (link, form, headers) => {
-        const { data: res } = await this.mills.run(
-          link.mill,
-          link.opts,
-          form,
-          headers
-        )
-        res.name = link.name
-        return res
-      }
-    )
+    // TODO: redo with typing
+    throw new ReferenceError('Not implemented')
+    // // TODO: Make thread optional and default to 'default'
+    // if (!threadId) {
+    //   throw new Error(
+    //     'threadId must be provided when adding files to a thread'
+    //   )
+    // }
+    // const opts = {
+    //   schema_node: pb.Thread
+    //  }
+    // // Fetch schema (will throw if it doesn't have a schema node)
+    // opts.schema_node = (await this.threads.get(threadId)).schema_node
+    // // Mill the file(s) before adding it
+    // const files = await SchemaMiller.mill(
+    //   file,
+    //   opts.schema_node,
+    //   async (link, form, headers) => {
+    //     const { data: res } = await this.mills.run(
+    //       link.mill,
+    //       link.opts,
+    //       form,
+    //       headers
+    //     )
+    //     res.name = link.name
+    //     return res
+    //   }
+    // )
 
-    const resp = await this.sendPost(
-      `api/v0/threads/${threadId}/files`,
-      undefined,
-      opts,
-      // TODO: Create proper DirectoryList and Directory object definitions
-      { items: [{ files }] }
-      // { 'Content-Type': 'application/json' }
-    )
-    return resp.data
+    // const resp = await this.sendPost(
+    //   `api/v0/threads/${threadId}/files`,
+    //   undefined,
+    //   opts,
+    //   // TODO: Create proper DirectoryList and Directory object definitions
+    //   { items: [{ files }] }
+    //   // { 'Content-Type': 'application/json' }
+    // )
+    // return resp.data
   }
 }

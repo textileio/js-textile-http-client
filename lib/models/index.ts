@@ -1,5 +1,5 @@
 import { EventEmitter2 } from 'eventemitter2'
-import { Canceler } from 'axios'
+import { CancelTokenSource } from 'axios'
 
 // **** Definitions
 /**
@@ -22,8 +22,7 @@ export interface KeyValue {
   [key: string]: string | number | boolean
 }
 
-
 export interface RunningEvent {
   emitter: EventEmitter2
-  cancel?: Canceler
+  source: CancelTokenSource
 }

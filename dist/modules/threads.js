@@ -44,7 +44,7 @@ class Threads extends api_1.API {
      */
     add(name, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.sendPost('/api/v0/threads', [name], options);
+            const response = yield this.sendPost('/api/v0/threads', [name], undefined, options);
             return response.data;
         });
     }

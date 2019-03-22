@@ -7,9 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const eventemitter2_1 = require("eventemitter2");
-const axios_1 = require("axios");
+const axios_1 = __importDefault(require("axios"));
 const api_1 = require("../core/api");
 /**
  * Contacts is an API module for managing local contacts and finding contacts on the network
@@ -27,7 +30,7 @@ class Contacts extends api_1.API {
      *
      * @param {object} contact JSON object representing a contact
      * @returns {Promise<string>} address
-     * */
+     */
     add(info) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.sendPut(`/api/v0/contacts/${info.id}`, undefined, undefined, info);
@@ -100,13 +103,12 @@ class Contacts extends api_1.API {
      * })
      */
     search(options) {
-        const { conn, cancel } = this.sendPostCancelable('/api/v0/contacts/search', undefined, 
+        const { conn, source } = this.sendPostCancelable('/api/v0/contacts/search', undefined, undefined, 
         // TODO: need to convert to normal payload?
         options);
         const emitter = new eventemitter2_1.EventEmitter2({
             wildcard: true
         });
-        emitter.cancel = cancel;
         conn
             .then((response) => {
             const stream = response.data;
@@ -117,15 +119,15 @@ class Contacts extends api_1.API {
                 emitter.emit('textile.contacts.done', false);
             });
         })
-            .catch(err => {
-            if (axios_1.isCancel(err)) {
+            .catch((err) => {
+            if (axios_1.default.isCancel(err)) {
                 emitter.emit('textile.contacts.done', true);
             }
             else {
                 emitter.emit('textile.contacts.error', err);
             }
         });
-        return emitter;
+        return { emitter, source };
     }
 }
 exports.default = Contacts;

@@ -50,9 +50,16 @@ class Config extends api_1.API {
      */
     set(path, value) {
         return __awaiter(this, void 0, void 0, function* () {
-            const cleanPath = path ? `/${path.replace(/\./g, ' ')}` : '';
-            const patch = [{ op: 'replace', path: cleanPath, value }];
-            this.sendPatch(`api/v0/config`, undefined, undefined, patch);
+            // TODO: redo with typing
+            throw new ReferenceError('Not implemented');
+            // const cleanPath = path ? `/${path.replace(/\./g, ' ')}` : ''
+            // const patch = [{ op: 'replace', path: cleanPath, value }]
+            // this.sendPatch(
+            //   `api/v0/config`,
+            //   undefined,
+            //   undefined,
+            //   patch
+            // )
         });
     }
 }

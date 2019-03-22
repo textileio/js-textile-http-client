@@ -1,4 +1,4 @@
-import axios, { Canceler } from 'axios'
+import axios, { Canceler, CancelTokenSource } from 'axios'
 import Connection from './connection'
 import { KeyValue, ApiOptions } from '../models'
 
@@ -90,19 +90,18 @@ class API {
    * @returns {CancelableRequest} request
    */
   sendPostCancelable(url: string, args?: string[], opts?: KeyValue, data?: any, headers?: KeyValue) {
-    let cancel: Canceler
-    const cancelToken = new CancelToken(function executor(c: Canceler) {
-      // An executor function receives a cancel function as a parameter
-      cancel = c
-    })
+    const source: CancelTokenSource = axios.CancelToken.source()
     const conn = this.con()({
       method: 'post',
       url,
       headers: createHeaders(args, opts, headers),
       data,
-      cancelToken
+      cancelToken: source.token
     })
-    return { conn, cancel }
+    // TODO: fix cancel method return
+    // ISSUE: Cancel method above isn't set by time of return
+    // RETURN: { conn, cancel }
+    return { conn, source }
   }
 
   /**

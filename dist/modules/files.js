@@ -12,9 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const api_js_1 = require("../core/api.js");
-const mills_1 = require("./mills");
-const threads_1 = require("./threads");
-const schema_miller_1 = __importDefault(require("../helpers/schema-miller"));
+const mills_1 = __importDefault(require("./mills"));
+const threads_1 = __importDefault(require("./threads"));
 /**
  * Files is an API module for managing Textile files
  *
@@ -25,8 +24,8 @@ class Files extends api_js_1.API {
     constructor(opts) {
         super(opts);
         this.opts = opts;
-        this.mills = new mills_1.Mills(opts);
-        this.threads = new threads_1.Threads(opts);
+        this.mills = new mills_1.default(opts);
+        this.threads = new threads_1.default(opts);
     }
     /**
      * Retrieves a thread file by block ID
@@ -90,27 +89,43 @@ class Files extends api_js_1.API {
      */
     addFile(threadId, file, caption) {
         return __awaiter(this, void 0, void 0, function* () {
-            // TODO: Make thread optional and default to 'default'
-            if (!threadId) {
-                throw new Error('threadId must be provided when adding files to a thread');
-            }
-            const opts = {
-                schema_node: Thread
-            };
-            // Fetch schema (will throw if it doesn't have a schema node)
-            opts.schema_node = (yield this.threads.get(threadId)).schema_node;
-            // Mill the file(s) before adding it
-            const files = yield schema_miller_1.default.mill(file, opts.schema_node, (link, form, headers) => __awaiter(this, void 0, void 0, function* () {
-                const { data: res } = yield this.mills.run(link.mill, link.opts, form, headers);
-                res.name = link.name;
-                return res;
-            }));
-            const resp = yield this.sendPost(`api/v0/threads/${threadId}/files`, undefined, opts, 
-            // TODO: Create proper DirectoryList and Directory object definitions
-            { items: [{ files }] }
-            // { 'Content-Type': 'application/json' }
-            );
-            return resp.data;
+            // TODO: redo with typing
+            throw new ReferenceError('Not implemented');
+            // // TODO: Make thread optional and default to 'default'
+            // if (!threadId) {
+            //   throw new Error(
+            //     'threadId must be provided when adding files to a thread'
+            //   )
+            // }
+            // const opts = {
+            //   schema_node: pb.Thread
+            //  }
+            // // Fetch schema (will throw if it doesn't have a schema node)
+            // opts.schema_node = (await this.threads.get(threadId)).schema_node
+            // // Mill the file(s) before adding it
+            // const files = await SchemaMiller.mill(
+            //   file,
+            //   opts.schema_node,
+            //   async (link, form, headers) => {
+            //     const { data: res } = await this.mills.run(
+            //       link.mill,
+            //       link.opts,
+            //       form,
+            //       headers
+            //     )
+            //     res.name = link.name
+            //     return res
+            //   }
+            // )
+            // const resp = await this.sendPost(
+            //   `api/v0/threads/${threadId}/files`,
+            //   undefined,
+            //   opts,
+            //   // TODO: Create proper DirectoryList and Directory object definitions
+            //   { items: [{ files }] }
+            //   // { 'Content-Type': 'application/json' }
+            // )
+            // return resp.data
         });
     }
 }

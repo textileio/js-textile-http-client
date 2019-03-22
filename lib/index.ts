@@ -18,6 +18,7 @@ import Threads from './modules/threads'
 import Tokens from './modules/tokens'
 import Utils from './modules/utils'
 import Wallet from './modules/wallet'
+import { ApiOptions } from './models'
 
 /**
  * Textile is the main client class

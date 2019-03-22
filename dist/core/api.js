@@ -87,18 +87,18 @@ class API {
      * @returns {CancelableRequest} request
      */
     sendPostCancelable(url, args, opts, data, headers) {
-        let cancel;
+        const source = axios_1.default.CancelToken.source();
         const conn = this.con()({
             method: 'post',
             url,
             headers: createHeaders(args, opts, headers),
             data,
-            cancelToken: new CancelToken(function executor(c) {
-                // An executor function receives a cancel function as a parameter
-                cancel = c;
-            })
+            cancelToken: source.token
         });
-        return { conn, cancel };
+        // TODO: fix cancel method return
+        // ISSUE: Cancel method above isn't set by time of return
+        // RETURN: { conn, cancel }
+        return { conn, source };
     }
     /**
      * Make a post request to the Textile node

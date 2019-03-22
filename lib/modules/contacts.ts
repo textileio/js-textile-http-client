@@ -95,8 +95,9 @@ export default class Contacts extends API {
    * })
    */
   search(options: pb.IContactQuery): RunningEvent {
-    const { conn, cancel } = this.sendPostCancelable(
+    const { conn, source } = this.sendPostCancelable(
       '/api/v0/contacts/search',
+      undefined,
       undefined,
       // TODO: need to convert to normal payload?
       options
@@ -121,6 +122,6 @@ export default class Contacts extends API {
           emitter.emit('textile.contacts.error', err)
         }
       })
-    return {emitter, cancel}
+    return {emitter, source}
   }
 }

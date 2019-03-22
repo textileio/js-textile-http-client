@@ -42,8 +42,15 @@ export default class Config extends API {
    * @param {object} value JSON config settings
    */
   async set(path: string, value: KeyValue) {
-    const cleanPath = path ? `/${path.replace(/\./g, ' ')}` : ''
-    const patch = [{ op: 'replace', path: cleanPath, value }]
-    this.sendPatch(`api/v0/config`, undefined, undefined, patch)
+    // TODO: redo with typing
+    throw new ReferenceError('Not implemented')
+    // const cleanPath = path ? `/${path.replace(/\./g, ' ')}` : ''
+    // const patch = [{ op: 'replace', path: cleanPath, value }]
+    // this.sendPatch(
+    //   `api/v0/config`,
+    //   undefined,
+    //   undefined,
+    //   patch
+    // )
   }
 }

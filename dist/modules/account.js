@@ -7,9 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const eventemitter2_1 = require("eventemitter2");
-const axios_1 = require("axios");
+const axios_1 = __importDefault(require("axios"));
 const api_1 = require("../core/api");
 /**
  * Account is an API module for managing a wallet account
@@ -26,7 +29,7 @@ class Account extends api_1.API {
      * Retrieve the local wallet account address
      *
      * @returns {Promise<string>} address
-     * */
+     */
     address() {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.sendGet('/api/v0/account/address');
@@ -37,7 +40,7 @@ class Account extends api_1.API {
      * Retrieve the local wallet account seed
      *
      * @returns {Promise<string>} seed
-     * */
+     */
     // eslint-disable-next-line class-methods-use-this
     seed() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -49,7 +52,7 @@ class Account extends api_1.API {
      *
      * @param {Buffer} input Input plaintext Buffer data
      * @returns {Promise<Buffer>} ciphertext
-     * */
+     */
     // eslint-disable-next-line class-methods-use-this,no-unused-vars
     encrypt(input) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -61,7 +64,7 @@ class Account extends api_1.API {
      *
      * @param {Buffer} input Input ciphertext Buffer data
      * @returns {Promise<Buffer>} plaintext
-     * */
+     */
     // eslint-disable-next-line class-methods-use-this,no-unused-vars
     decrypt(input) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -94,14 +97,15 @@ class Account extends api_1.API {
      * })
      */
     findThreadBackups(wait) {
-        const { conn, cancel } = this.sendPostCancelable('/api/v0/account/backups', undefined, { wait });
+        const { conn, source } = this.sendPostCancelable('/api/v0/account/backups', undefined, { wait });
         const emitter = new eventemitter2_1.EventEmitter2({
             wildcard: true
         });
-        emitter.cancel = cancel;
         conn
+            // TODO: Is that right type?
             .then((response) => {
             const stream = response.data;
+            // TODO: Is that right type?
             stream.on('data', (chunk) => {
                 emitter.emit('textile.backups.data', chunk);
             });
@@ -110,14 +114,14 @@ class Account extends api_1.API {
             });
         })
             .catch((err) => {
-            if (axios_1.isCancel(err)) {
+            if (axios_1.default.isCancel(err)) {
                 emitter.emit('textile.backups.done', true);
             }
             else {
                 emitter.emit('textile.backups.error', err);
             }
         });
-        return emitter;
+        return { emitter, source };
     }
 }
 exports.default = Account;
