@@ -28,10 +28,10 @@ jobs:
                 paths:
                     - node_modules
             - run:
-                name: jest tests
+                name: test
                 command: |
                     mkdir -p test-results/jest
-                    yarn run test
+                    yarn test
                 environment:
                     JEST_JUNIT_OUTPUT: test-results/jest/junit.xml
             - store_test_results:
