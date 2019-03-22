@@ -43,15 +43,9 @@ This library provides access to an underlying `textile-go` node's REST API, addi
 # Run all the unit tests
 yarn test
 
-# Watch the folder and run the unit tests when changes happen
-yarn test-watch
-
 # Lint everything
 # NOTE: Linting uses `prettier` to auto-fix styling issues when possible
 yarn lint
-
-# Watch the folder and run the linter when changes happen
-yarn lint-watch
 ```
 
 ## Documentation
@@ -62,7 +56,7 @@ The tsdoc-based auto-generated documentation can be found at https://textileio.g
 
 ```sh
 # Re-build the documentation
-yarn build-docs
+yarn docs
 ```
 
 ## Roadmap
