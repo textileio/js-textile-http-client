@@ -1,5 +1,5 @@
 {
-  "name": "@textileio/js-http-client",
+  "name": "@textile/js-http-client",
   "version": "0.2.0",
   "description": "Official Textile JS HTTP Wrapper Client",
   "main": "dist/index.js",
