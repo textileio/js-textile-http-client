@@ -21,6 +21,7 @@ import Wallet from './modules/wallet'
 import { ApiOptions } from './models'
 
 export { Wallet }
+
 /**
  * Textile is the main client class
  *
@@ -86,5 +87,3 @@ export default class Textile {
     this.utils = new Utils(this.opts)
   }
 }
-
-
