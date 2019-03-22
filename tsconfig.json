@@ -29,7 +29,6 @@
     "out": "docs",
     "include": "src/",
     "exclude": "**/__tests__/**/*",
-    "theme": "markdown",
     "excludePrivate": true,
     "excludeNotExported": true,
     "excludeProtected": true,
