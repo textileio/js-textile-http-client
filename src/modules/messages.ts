@@ -1,5 +1,6 @@
 import { API } from '../core/api'
 import { KeyValue, ApiOptions } from '../models/index'
+import { Text, TextList, Block } from '@textile/go-mobile'
 
 /**
  * Messages is an API module for managing thread/block messages
@@ -19,24 +20,26 @@ export default class Messages extends API {
   /**
    * Adds a message to a thread
    *
-   * @param {string} thread Thread ID
-   * @param {string} body Message body
+   * @param thread Thread ID
+   * @param body Message body
+   * @returns The generated message block
    */
   async add(thread: string, body: string) {
     const response = await this.sendPost(`/api/v0/threads/${thread}/messages`, [
-      encodeURIComponent(body)
+      encodeURI(body)
     ])
-    return response.data
+    return Text.fromObject(response.data)
   }
 
   /**
    * Retrieves a message by block ID
    *
-   * @param {string} id ID of the target message
+   * @param id ID of the target message
+   * @returns The target message block
    */
   async get(id: string) {
     const response = await this.sendGet(`/api/v0/messages/${id}`)
-    return response.data
+    return Text.fromObject(response.data)
   }
 
   /**
@@ -46,10 +49,11 @@ export default class Messages extends API {
    * @param {string} [options.thread] Thread ID (can also use ‘default’)
    * @param {string} [options.offset] Offset ID to start listing from (omit for latest)
    * @param {string} [options.limit] List page size (default: 5)
+   * @returns An array of message blocks
    */
   async list(options: KeyValue) {
     const response = await this.sendGet('/api/v0/messages', undefined, options)
-    return response.data
+    return TextList.fromObject(response.data)
   }
 
   /**
@@ -58,9 +62,11 @@ export default class Messages extends API {
    * This adds an 'ignore' thread block targeted at the comment.
    * Ignored blocks are by default not returned when listing.
    *
-   * @param {string} id ID of the message
+   * @param id ID of the message
+   * @returns The added ignore block
    */
   async ignore(id: string) {
-    this.sendDelete(`/api/v0/blocks/${id}`)
+    const response = await this.sendDelete(`/api/v0/blocks/${id}`)
+    return Block.fromObject(response.data)
   }
 }

@@ -1,8 +1,8 @@
 import { EventEmitter2 } from 'eventemitter2'
 import axios, { AxiosResponse } from 'axios'
 import { API } from '../core/api'
-import { ApiOptions, KeyValue, RunningEvent } from '../models/index'
-import pb from '@textile/go-mobile'
+import { ApiOptions, RunningEvent, KeyValue, QueryOptions } from '../models/index'
+import { Contact, ContactList, IContact } from '@textile/go-mobile'
 
 /**
  * Contacts is an API module for managing local contacts and finding contacts on the network
@@ -20,73 +20,60 @@ export default class Contacts extends API {
   /**
    * Adds or updates a contact directly, usually from a search
    *
-   * @param {object} contact JSON object representing a contact
-   * @returns {Promise<string>} address
+   * @param contact JSON object representing a contact
+   * @returns Whether the operation was sucessfull
    */
-  async add(info: KeyValue) {
+  async add(address: string, contact: IContact) {
     const response = await this.sendPut(
-      `/api/v0/contacts/${info.id}`,
+      `/api/v0/contacts/${address}`,
       undefined,
       undefined,
-      info
+      contact
     )
-    return response.data
+    return response.status === 204
   }
 
   /**
    * Retrieve information about a known contact
    *
-   * @param {string} contact ID of the contact
+   * @param address Address of the contact
+   * @returns The associated contact object
    */
-  async get(contact: string) {
-    const response = await this.sendGet(`/api/v0/contacts/${contact}`)
-    return response.data
+  async get(address: string) {
+    const response = await this.sendGet(`/api/v0/contacts/${address}`)
+    return Contact.fromObject(response.data)
   }
 
   /**
    * Retrieves a list of known contacts
-   *
-   * @param {string} thread ID of the thread
+   * @returns An array of all known contacts
    */
-  async list(threadId: string) {
-    const response = await this.sendGet('/api/v0/contacts', undefined, { threadId })
-    return response.data
+  async list() {
+    const response = await this.sendGet('/api/v0/contacts')
+    return ContactList.fromObject(response.data)
   }
 
   /**
    * Remove a known contact
    *
-   * @param {string} contact ID of the contact
+   * @param address Address of the contact
+   * @returns Whether the operation was successfull
    */
   async remove(contactId: string) {
-    this.sendDelete(`/api/v0/contacts/${contactId}`)
-  }
-
-  /**
-   * Retrieve all threads shared with the given contact
-   *
-   * @param {string} contact ID of the contact
-   */
-  // eslint-disable-next-line class-methods-use-this,no-unused-vars
-  async threads(contact: string) {
-    throw new ReferenceError('Not implemented')
+    const response = await this.sendDelete(`/api/v0/contacts/${contactId}`)
+    return response.status === 204
   }
 
   /**
    * Searches locally and on the network for contacts by username, peer id, or address
    *
-   * @param {Object} [options] Search options to send as headers
-   * @param {string} [options.local] Whether to only search local contacts (default false)
-   * @param {string} [options.limit] Stops searching after 'limit' results are found (defaut 5)
-   * @param {string} [options.wait] Stops searching after ‘wait’ seconds have elapsed (max 10s, default 5s)
-   * @param {string} [options.peer] Search by peer id string
-   * @param {string} [options.username] Search by username string
-   * @param {string} [options.address] Search by account address string
-   * @returns {EventEmitter2} Event emitter with found, done, error events on textile.contacts.
-   * The Event emitter has an additional cancel method that can be used to cancel the search.
+   * @param username Search by username string
+   * @param address Search by account address string
+   * @param options Additional options to control the query
+   * @returns Event emitter with found, done, error events on textile.contacts.
    * @example
    * const backups = textile.account.search({wait: 5})
-   * setTimeout(() => backups.cancel(), 1000) // cancel after 1 second
+   * setTimeout(() => backups.source.cancel(), 1000) // cancel after 1 second
    * backups.on('textile.contacts.found', found => {
    *   console.log(found)
    * })
@@ -94,22 +81,26 @@ export default class Contacts extends API {
    *   console.log(`search was ${cancelled ? 'cancelled' : 'completed'}`)
    * })
    */
-  search(options: pb.IContactQuery): RunningEvent {
-    const { conn, source } = this.sendPostCancelable(
-      '/api/v0/contacts/search',
-      undefined,
-      undefined,
-      // TODO: need to convert to normal payload?
-      options
-    )
+  search(username?: string, address?: string, options?: QueryOptions) {
+    const opts = options || {}
+    const allOpts: KeyValue = {
+      username: username || '',
+      address: address || '',
+      local: (opts.local || false).toString(),
+      remote: (opts.remote || false).toString(),
+      limit: (opts.limit || 5).toString(),
+      wait: (opts.wait || 2).toString()
+    }
+    const { conn, source } = this.sendPostCancelable('/api/v0/contacts/search', undefined, allOpts)
     const emitter = new EventEmitter2({
       wildcard: true
     })
     conn
       .then((response: AxiosResponse) => {
         const stream = response.data
-        stream.on('data', (chunk: string) => {
-          emitter.emit('textile.contacts.found', chunk)
+        stream.on('data', (chunk: object) => {
+          const contact = Contact.fromObject(chunk)
+          emitter.emit('textile.contacts.found', contact)
         })
         stream.on('end', () => {
           emitter.emit('textile.contacts.done', false)
@@ -122,6 +113,6 @@ export default class Contacts extends API {
           emitter.emit('textile.contacts.error', err)
         }
       })
-    return {emitter, source}
+    return  { emitter, source } as RunningEvent
   }
 }

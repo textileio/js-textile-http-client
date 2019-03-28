@@ -12,13 +12,13 @@ const ROOT = `${opts.url}:${opts.port}`
 
 const account = new Account(opts)
 
-describe('account api peers', () => {
-  it('should respond with object of peer items', async () => {
+describe('account seed', () => {
+  it('should respond with plain text account seed', async () => {
     nock(ROOT)
-      .get('/api/v0/account/peers')
-      .reply(200, responses.account.peers)
+      .get('/api/v0/account/seed')
+      .reply(200, responses.account.seed)
 
-    expect(account.peers()).resolves.toEqual({ items: []})
+    expect(account.seed()).resolves.toEqual('123456FAKESEED')
   })
 })
 
@@ -28,6 +28,6 @@ describe('account api address', () => {
       .get('/api/v0/account/address')
       .reply(200, responses.account.address)
 
-    expect(account.address()).resolves.toEqual('P9UcFifmikQr591RhgUShlAJd5Sxfcj3W8hrhwYG9oDTButN')
+    expect(account.address()).resolves.toEqual('123456FAKEACCOUNT')
   })
 })

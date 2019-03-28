@@ -1,5 +1,5 @@
 import { API } from '../../core/api.js'
-import defaults from './defaults'
+import * as defaults from './defaults'
 import { ApiOptions } from '../../models/index.js'
 import pb from '@textile/go-mobile'
 
@@ -16,12 +16,10 @@ export default class Schemas extends API {
     this.opts = opts
   }
 
-  /* eslint-disable class-methods-use-this */
   /** Default Textile schemas */
   async defaults() {
     return defaults
   }
-  /* eslint-enable class-methods-use-this */
 
   /**
    * Creates and validates a new schema from input JSON

@@ -1,10 +1,10 @@
 {
   "ipfs": {
-    "peerId": "12D3KooWNWU8RkgSacfSnrQMlq9RsdciRx7W1wFAJeVNyhUMdSdP"
+    "peerId": "12D3KFAKEID"
   },
   "account": {
-    "address": "P9UcFifmikQr591RhgUShlAJd5Sxfcj3W8hrhwYG9oDTButN",
-    "peers": { "items": [] }
+    "address": "123456FAKEACCOUNT",
+    "seed": "123456FAKESEED"
   },
   "utils": {
     "ping": ""
