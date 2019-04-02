@@ -104,7 +104,7 @@ export default class SchemaMiller {
         // Must be synchronous for dependencies
         // eslint-disable-next-line no-await-in-loop
         const file = await remoteMill(step.link.mill, resolved, form, headers)
-        dir.files[step.Name] = file
+        dir.files[step.name] = file
       }
     }
     return dir
