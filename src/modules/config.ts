@@ -42,7 +42,7 @@ export default class Config extends API {
    * @param value JSON config settings (can be any valid JSON type)
    * @returns Whether the operation was successfull
    */
-  async set(path: string, value: any ) {
+  async set(path: string, value: any) {
     const cleanPath = `/${path.replace(/\./g, '/')}`
     const patch = [{ op: 'replace', path: cleanPath, value }]
     const response = await this.sendPatch(`api/v0/config`, undefined, undefined, patch)

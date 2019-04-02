@@ -33,7 +33,7 @@ export default class Snapshots extends API {
    * @returns Event emitter with found, done, error events on textile.snapshots.
    * The Event emitter has an additional cancel method that can be used to cancel the search.
    */
-  search(wait?: number) {
+  search(wait?: number): RunningEvent {
     const { conn, source } = this.sendPostCancelable(
       '/api/v0/snapshots/search',
       undefined,
@@ -61,7 +61,7 @@ export default class Snapshots extends API {
       .catch((err: Error) => {
         emitter.emit('textile.snapshots.error', err)
       })
-    return { emitter, source } as RunningEvent
+    return { emitter, source }
   }
 
   /**
@@ -73,7 +73,7 @@ export default class Snapshots extends API {
    * TODO: Better document the event emmitter, because its quite useful for collecting
    * aggregate results as well.
    */
-  apply(id?: string, wait?: number) {
+  apply(id?: string, wait?: number): RunningEvent {
     const { emitter, source } = this.search(wait)
     const other = new EventEmitter2({
       wildcard: true
@@ -85,7 +85,7 @@ export default class Snapshots extends API {
         })
       }
     })
-    return { emitter, source } as RunningEvent
+    return { emitter, source }
   }
 
   async applySnapshot(snapshot: QueryResult) {

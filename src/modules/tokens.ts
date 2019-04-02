@@ -49,7 +49,8 @@ export default class Tokens extends API {
     return response.status === 200
   }
 
-  /** Retrieves information about all stored cafe tokens
+  /**
+   * Retrieves information about all stored cafe tokens
    *
    * Only really useful for debugging. These are hashed tokens, so are not valid.
    * @returns Array of bcrypt hashed tokens

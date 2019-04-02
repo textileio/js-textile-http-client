@@ -79,7 +79,7 @@ export default class Contacts extends API {
    * emitter.on('textile.contacts.done', console.log)
    * })
    */
-  search(username?: string, address?: string, options?: QueryOptions) {
+  search(username?: string, address?: string, options?: QueryOptions): RunningEvent {
     const opts = options || {}
     const allOpts: KeyValue = {
       username: username || '',
@@ -112,6 +112,6 @@ export default class Contacts extends API {
       .catch((err: Error) => {
         emitter.emit('textile.contacts.error', err)
       })
-    return  { emitter, source } as RunningEvent
+    return { emitter, source }
   }
 }

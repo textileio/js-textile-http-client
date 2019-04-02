@@ -25,7 +25,7 @@ export default class SchemaMiller {
           return name !== ':file'
         })
         // TODO: `Name` should eventually be converted to lowercase
-        .map((name: string) => ({ Name: name, link: links[name] } as Step))
+        .map((name: string) => ({ name, link: links[name] }))
     )
   }
 
@@ -43,11 +43,9 @@ export default class SchemaMiller {
     // Convert 'use' to hash of payload
     if (method.opts.use && method.opts.use !== ':file') {
       // TODO: This is a hack, should use multihash JS lib in future
-      if (method.opts.use.length === 46 && method.opts.use.startsWith('Qm')) {
-        use = method.opts.use
-      } else {
-        use = payloadsByName.files[method.opts.use].hash
-      }
+      use = (method.opts.use.length === 46 && method.opts.use.startsWith('Qm')) ?
+        method.opts.use :
+        payloadsByName.files[method.opts.use].hash
     }
 
     const resolvedMethod = { ...method }
