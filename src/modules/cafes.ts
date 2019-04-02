@@ -52,7 +52,8 @@ export default class Cafes extends API {
     return response.data as CafeSessionList
   }
 
-  /** Checkes for messages at all cafes.
+  /**
+   * Checkes for messages at all cafes.
    *
    * New messages are downloaded and processed opportunistically.
    * @returns Whether the operation was successfull
