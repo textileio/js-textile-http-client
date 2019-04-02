@@ -1,7 +1,17 @@
 import { EventEmitter2 } from 'eventemitter2'
 import { CancelTokenSource } from 'axios'
 
-// **** Definitions
+// Protobuf types created from go-textile using:
+// yarn add https://github.com/carsonfarmer/protoc-gen-jsonpb-ts
+// cd pb/protos
+// protoc --plugin=../../node_modules/.bin/protoc-gen-jsonpb-ts --jsonpb-ts_out=. *.proto
+export * from './model_pb'
+export * from './cafe_service_pb'
+export * from './message_pb'
+export * from './query_pb'
+export * from './threads_service_pb'
+export * from './view_pb'
+
 /**
  * The options object for the client object
  * @typedef {Object} ApiOptions

@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions } from '../models/index'
-import { Thread, IThread, ThreadList, ContactList, AddThreadConfig } from '@textile/go-mobile'
+import { ApiOptions, Thread, ThreadList, ContactList } from '../models/index'
 import Snapshots from './snapshots'
 
 export type ThreadType = 'private' | 'read_only' | 'public' | 'open'
@@ -64,7 +63,7 @@ export default class Threads extends API {
         members: members || []
       }
     )
-    return Thread.fromObject(response.data)
+    return response.data as Thread
   }
 
   /**
@@ -73,7 +72,7 @@ export default class Threads extends API {
    * @param thread ID of the thread
    * @param info Thread object
    */
-  async addOrUpdate(thread: string, info: IThread) {
+  async addOrUpdate(thread: string, info: Thread) {
     this.sendPut(`/api/v0/threads/${thread}`, undefined, undefined, info)
   }
 
@@ -85,7 +84,7 @@ export default class Threads extends API {
    */
   async get(thread: string) {
     const response = await this.sendGet(`/api/v0/threads/${thread}`)
-    return Thread.fromObject(response.data)
+    return response.data as Thread
   }
 
   /**
@@ -95,7 +94,7 @@ export default class Threads extends API {
    */
   async list() {
     const response = await this.sendGet('/api/v0/threads')
-    return ThreadList.fromObject(response.data)
+    return response.data as ThreadList
   }
 
   /**
@@ -116,7 +115,7 @@ export default class Threads extends API {
    */
   async default() {
     const response = await this.sendGet('/api/v0/threads/default')
-    return Thread.fromObject(response.data)
+    return response.data as Thread
   }
 
   /**
@@ -140,6 +139,6 @@ export default class Threads extends API {
    */
   async peers(thread: string) {
     const response = await this.sendGet(`/api/v0/threads/${thread || 'default'}/peers`)
-    return ContactList.fromObject(response.data)
+    return response.data as ContactList
   }
 }

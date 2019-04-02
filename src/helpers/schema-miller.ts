@@ -1,5 +1,5 @@
 import toposort from 'toposort'
-import { ILink, Directory, INode, Step, FileIndex } from '@textile/go-mobile'
+import { Link, Directory, Node, Step, FileIndex } from '../models'
 
 export interface MillOpts {
   opts: { [k: string]: string }
@@ -9,7 +9,7 @@ export interface MillOpts {
 export type MillFunction = (mill: string, opts: MillOpts, form: any, headers: { [k: string]: string }) => Promise<FileIndex>
 
 export default class SchemaMiller {
-  static sortLinksByDependency(links: { [k: string]: ILink }) {
+  static sortLinksByDependency(links: { [k: string]: Link }) {
     // Create an array of [ name, dependency ] for sorting
     const linkAndDepends: ReadonlyArray<[string, string]> = Object.entries(links).map(([name, link]) => {
       const pair: [string, string] = [name, link.use]
@@ -25,12 +25,12 @@ export default class SchemaMiller {
           return name !== ':file'
         })
         // TODO: `Name` should eventually be converted to lowercase
-        .map((name: string) => Step.fromObject({ Name: name, link: links[name] }))
+        .map((name: string) => ({ Name: name, link: links[name] } as Step))
     )
   }
 
   static normalizeOptions(schemaOpts: { [k: string]: string }) {
-    const opts: MillOpts = { opts: schemaOpts || {} }
+    const opts: MillOpts = { opts: schemaOpts }
     // Check for top level opts
     opts.opts.plaintext = (schemaOpts.plaintext || false).toString()
     opts.opts.pin = (schemaOpts.pin || false).toString()
@@ -55,13 +55,13 @@ export default class SchemaMiller {
     return resolvedMethod
   }
 
-  static async mill(payload: any, node: INode, remoteMill: MillFunction): Promise<Directory> {
+  static async mill(payload: any, node: Node, remoteMill: MillFunction): Promise<Directory> {
 
-    const dir = Directory.fromObject({ files: {} })
+    const dir: Directory = { files: {} }
 
     // Traverse the schema and collect generated files
     if (node.mill) {
-      const normal = SchemaMiller.normalizeOptions(node.opts)
+      const normal = SchemaMiller.normalizeOptions(node.opts || {})
       const resolved = SchemaMiller.resolveDependency(normal, dir)
       let headers = {}
       let form
@@ -85,7 +85,7 @@ export default class SchemaMiller {
       for (const step of steps) {
         const body = payload
         let form
-        const normal = SchemaMiller.normalizeOptions(step.link.opts)
+        const normal = SchemaMiller.normalizeOptions(step.link.opts || {})
         const resolved = SchemaMiller.resolveDependency(normal, dir)
         let headers = {}
 

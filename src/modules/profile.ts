@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions } from '../models/index'
-import { Contact } from '@textile/go-mobile'
+import { ApiOptions, Contact } from '../models/index'
 
 /**
  * Profile is an API module for accessing public profile information
@@ -21,7 +20,7 @@ export default class Profile extends API {
    */
   async get() {
     const response = await this.sendGet('/api/v0/profile')
-    return Contact.fromObject(response.data)
+    return response.data as Contact
   }
 
   /**
@@ -30,7 +29,7 @@ export default class Profile extends API {
    */
   async username() {
     const contact = await this.get()
-    return contact.username
+    return contact.name
   }
 
   /**

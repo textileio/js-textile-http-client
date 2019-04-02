@@ -25,14 +25,16 @@ export default class Tokens extends API {
    * ‘store’ option is set to false, the token is generated, but not stored in the local Cafe
    * db. Alternatively, an existing token can be added using by specifying the ‘token’ option.
    *
-   * @param {object} [options] Options for creating tokens
-   * @param {string} [options.token] Use an existing token, rather than creating a new one
-   * @param {boolean} [options.store] Whether to store the added/generated token to the local db
+   * @param token Use an existing token, rather than creating a new one
+   * @param store Whether to store the added/generated token to the local db (defaults to true)
    * @see Cafes#add
    * @returns New token as string
    */
-  async create(options: KeyValue) {
-    const response = await this.sendPost(`/api/v0/tokens/`, undefined, options)
+  async create(token?: string, store?: boolean) {
+    const response = await this.sendPost(`/api/v0/tokens`, undefined, {
+      token: token || '',
+      store: store || false
+    })
     return response.data as string
   }
 

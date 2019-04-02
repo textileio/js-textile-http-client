@@ -1,8 +1,6 @@
 import { EventEmitter2 } from 'eventemitter2'
-import axios, { AxiosResponse } from 'axios'
 import { API } from '../core/api'
-import { ApiOptions, RunningEvent } from '../models/index'
-import { QueryResult, Thread } from '@textile/go-mobile'
+import { ApiOptions, RunningEvent, QueryResult, Thread, QueryResults, Query } from '../models'
 
 /**
  * Snapshots is an API module for managing thread snapshots
@@ -45,42 +43,43 @@ export default class Snapshots extends API {
       wildcard: true
     })
     conn
-      .then((response: AxiosResponse) => {
+      .then((response) => {
         const stream = response.data
-        stream.on('data', (chunk: object) => {
-          const result = QueryResult.fromObject(chunk)
-          const snap = Thread.fromObject(result.value)
-          emitter.emit('textile.snapshots.found', snap)
+        const results: QueryResults = {
+          items: [],
+          type: Query.Type.THREAD_SNAPSHOTS
+        }
+        stream.on('data', (data: Buffer) => {
+          const result: QueryResult = JSON.parse(data.toString())
+          results.items.push(result)
+          emitter.emit('textile.snapshots.found', result)
         })
         stream.on('end', () => {
-          emitter.emit('textile.snapshots.done', false)
+          emitter.emit('textile.snapshots.done', results)
         })
       })
       .catch((err: Error) => {
-        if (axios.isCancel(err)) {
-          emitter.emit('textile.snapshots.done', true)
-        } else {
-          emitter.emit('textile.snapshots.error', err)
-        }
+        emitter.emit('textile.snapshots.error', err)
       })
     return { emitter, source } as RunningEvent
   }
 
   /**
    * Apply a single thread snapshot
-   * @param id The snapshot id
+   * @param id The snapshot id (omit to find and apply all snapshots)
    * @param wait Stops searching after 'wait' seconds have elapsed (max 30 default 2)
    * @returns Event emitter with found, applied, done, error events on textile.snapshots.
    * The Event emitter has an additional cancel method that can be used to cancel the search.
+   * TODO: Better document the event emmitter, because its quite useful for collecting
+   * aggregate results as well.
    */
-  apply(id: string, wait?: number) {
+  apply(id?: string, wait?: number) {
     const { emitter, source } = this.search(wait)
     const other = new EventEmitter2({
       wildcard: true
     })
-    emitter.on('textile.snapshots.found', (found: object) => {
-      const snapshot = QueryResult.fromObject(found)
-      if (snapshot.id === id) {
+    emitter.on('textile.snapshots.found', (snapshot: QueryResult) => {
+      if (id === undefined || snapshot.id === id) {
         this.applySnapshot(snapshot).then((success: boolean) => {
           other.emit('textile.snapshots.applied', success)
         })
@@ -90,9 +89,9 @@ export default class Snapshots extends API {
   }
 
   async applySnapshot(snapshot: QueryResult) {
-    const snap = Thread.fromObject(snapshot.value)
+    const snap: Thread = snapshot.value
     const response = await this.sendPut(`/api/v0/threads/${snap.id}`,
-      undefined, undefined, snap.toJSON())
+      undefined, undefined, snap)
     return response.status === 204
   }
 }

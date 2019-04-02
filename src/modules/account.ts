@@ -1,8 +1,5 @@
-import { EventEmitter2 } from 'eventemitter2'
-import axios, { AxiosResponse } from 'axios'
 import { API } from '../core/api'
-import { ApiOptions } from '../models/index'
-import { Contact, QueryResult, Thread } from '@textile/go-mobile'
+import { ApiOptions, Contact, QueryResult } from '../models'
 import Snapshots from './snapshots'
 
 /**
@@ -47,7 +44,7 @@ export default class Account extends API {
    */
   async contact() {
     const response = await this.sendGet('/api/v0/account/contact')
-    return Contact.fromObject(response.data)
+    return response.data as Contact
   }
 
   /**
@@ -55,29 +52,12 @@ export default class Account extends API {
    *
    * @param apply Whether to apply the discovered thread snapshots as they are found (default false)
    * @param wait Stops searching after 'wait' seconds have elapsed (max 30 default 2)
-   * @returns Whether the sync was successfull
+   * @returns An event emmiter for snapshot search events
    */
-  async sync(apply?: boolean, wait?: number) {
-    const { emitter } = this.snapshots.search(wait)
-    emitter.on('textile.snapshots.found', (found: object) => {
-      const snapshot = QueryResult.fromObject(found)
-      if (!snapshot.local && apply) {
-        this.snapshots.applySnapshot(snapshot)
-          .then((success: boolean) => {
-            if (!success) {
-              return false
-            }
-          })
-      }
-    })
-    emitter.on('textile.snapshots.done', () => {
-      this.snapshots.create()
-        .then((success: boolean) => {
-          if (!success) {
-            return false
-          }
-          return true
-        })
-    })
+  sync(apply?: boolean, wait?: number) {
+    if (apply) {
+      return this.snapshots.apply(undefined, wait)
+    }
+    return this.snapshots.search(wait)
   }
 }

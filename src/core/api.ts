@@ -1,4 +1,4 @@
-import axios, { Canceler, CancelTokenSource } from 'axios'
+import axios, { CancelTokenSource, AxiosInstance } from 'axios'
 import Connection from './connection'
 import { KeyValue, ApiOptions } from '../models'
 
@@ -58,7 +58,7 @@ const createHeaders = (args?: string[], opts?: KeyValue, headers?: KeyValue): Ke
  */
 
 // **** Private variables
-const con = new WeakMap()
+const con = new WeakMap<object, AxiosInstance | undefined>()
 
 /**
  * API is the base class for all SDK modules.
@@ -94,6 +94,7 @@ class API {
     const conn = this.con()({
       method: 'post',
       url,
+      responseType: 'stream',
       headers: createHeaders(args, opts, headers),
       data,
       cancelToken: source.token

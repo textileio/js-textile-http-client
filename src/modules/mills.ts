@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions, KeyValue } from '../models'
-import { FileIndex } from '@textile/go-mobile'
+import { ApiOptions, KeyValue, FileIndex } from '../models'
 
 /**
  * Mills is an API module for processing Textile mills
@@ -39,6 +38,6 @@ export default class Mills extends API {
       payload,
       headers
     )
-    return FileIndex.fromObject(response.data)
+    return response.data as FileIndex
   }
 }

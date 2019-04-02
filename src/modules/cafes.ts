@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions } from '../models/index'
-import { CafeSessionList, CafeSession } from '@textile/go-mobile'
+import { ApiOptions, CafeSessionList, CafeSession } from '../models'
 
 /**
  * Cafes is an API module for managing Cafe access, messages, and services
@@ -29,8 +28,8 @@ export default class Cafes extends API {
    * @returns A new Cafe session JWT
    */
   async add(cafe: string, token: string) {
-    const response = await this.sendPost(`/api/v0/cafes/`, [cafe], { token })
-    return CafeSession.fromObject(response.data)
+    const response = await this.sendPost(`/api/v0/cafes`, [cafe], { token })
+    return response.data as CafeSession
   }
 
   /**
@@ -41,7 +40,7 @@ export default class Cafes extends API {
    */
   async get(id: string) {
     const response = await this.sendGet(`/api/v0/cafes/${id}`)
-    return CafeSession.fromObject(response.data)
+    return response.data as CafeSession
   }
 
   /**
@@ -50,7 +49,7 @@ export default class Cafes extends API {
    */
   async list() {
     const response = await this.sendGet('/api/v0/cafes')
-    return CafeSessionList.fromObject(response.data)
+    return response.data as CafeSessionList
   }
 
   /** Checkes for messages at all cafes.

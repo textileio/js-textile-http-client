@@ -1,6 +1,5 @@
-import { API } from '../core/api.js'
-import { ApiOptions } from '../models/index'
-import { Comment, CommentList, Block } from '@textile/go-mobile'
+import { API } from '../core/api'
+import { ApiOptions, Comment, CommentList, Block } from '../models'
 
 /**
  * Comments is an API module for managing thread/block comments
@@ -28,7 +27,7 @@ export default class Comments extends API {
     const response = await this.sendPost(
       `/api/v0/blocks/${block}/comments`, [encodeURI(body)]
     )
-    return Comment.fromObject(response.data)
+    return response.data as Comment
   }
 
   /**
@@ -39,7 +38,7 @@ export default class Comments extends API {
    */
   async get(id: string) {
     const response = await this.sendGet(`/api/v0/blocks/${id}/comment`)
-    return Comment.fromObject(response.data)
+    return response.data as Comment
   }
 
   /**
@@ -50,7 +49,7 @@ export default class Comments extends API {
    */
   async list(block: string) {
     const response = await this.sendGet(`/api/v0/blocks/${block}/comments`)
-    return CommentList.fromObject(response.data)
+    return response.data as CommentList
   }
 
   /**
@@ -64,6 +63,6 @@ export default class Comments extends API {
    */
   async ignore(id: string) {
     const response = await this.sendDelete(`/api/v0/blocks/${id}`)
-    return Block.fromObject(response.data)
+    return response.data as Block
   }
 }

@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions } from '../models'
-import { Like, LikeList, Block } from '@textile/go-mobile'
+import { ApiOptions, Like, LikeList, Block } from '../models'
 
 /**
  * Likes is an API module for managing thread/block likes
@@ -25,7 +24,7 @@ export default class Likes extends API {
    */
   async add(block: string) {
     const response = await this.sendPost(`/api/v0/blocks/${block}/likes`)
-    return Like.fromObject(response.data)
+    return response.data as Like
   }
 
   /**
@@ -36,7 +35,7 @@ export default class Likes extends API {
    */
   async get(id: string) {
     const response = await this.sendGet(`/api/v0/blocks/${id}/like`)
-    return Like.fromObject(response.data)
+    return response.data as Like
   }
 
   /**
@@ -47,7 +46,7 @@ export default class Likes extends API {
    */
   async list(block: string) {
     const response = await this.sendGet(`/api/v0/blocks/${block}/likes`)
-    return LikeList.fromObject(response.data)
+    return response.data as LikeList
   }
 
   /**
@@ -61,6 +60,6 @@ export default class Likes extends API {
    */
   async ignore(id: string) {
     const response = await this.sendDelete(`/api/v0/blocks/${id}`)
-    return Block.fromObject(response.data)
+    return response.data as Block
   }
 }

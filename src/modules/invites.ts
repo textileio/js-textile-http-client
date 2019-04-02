@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions } from '../models'
-import { Block, NewInvite, InviteViewList } from '@textile/go-mobile'
+import { ApiOptions, Block, ExternalInvite, InviteViewList } from '../models'
 
 /**
  * Invites is an API module for managing thread invites
@@ -27,7 +26,7 @@ export default class Invites extends API {
       undefined,
       { key: key || '' }
     )
-    return Block.fromObject(response.data)
+    return response.data as Block
   }
 
   /**
@@ -43,7 +42,7 @@ export default class Invites extends API {
       thread,
       address: address || ''
     })
-    return NewInvite.fromObject(response.data)
+    return response.data as ExternalInvite
   }
 
   /**
@@ -52,7 +51,7 @@ export default class Invites extends API {
    */
   async list() {
     const response = await this.sendGet('/api/v0/invites')
-    return InviteViewList.fromObject(response.data)
+    return response.data as InviteViewList
   }
 
   /**

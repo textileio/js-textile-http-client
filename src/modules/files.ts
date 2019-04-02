@@ -1,9 +1,8 @@
-import { API } from '../core/api.js'
-import { ApiOptions, KeyValue } from '../models/index'
+import { API } from '../core/api'
+import { ApiOptions, Node, FilesList, Files as File, Keys } from '../models'
 import SchemaMiller, { MillOpts } from '../helpers/schema-miller'
 import Mills from './mills'
 import Threads from './threads'
-import { Directory, Files as TextileFiles, Thread, ThreadList, Keys } from '@textile/go-mobile'
 
 /**
  * Files is an API module for managing Textile files
@@ -30,7 +29,7 @@ export default class Files extends API {
    */
   async get(id: string) {
     const response = await this.sendGet(`/api/v0/files/${id}`)
-    return Thread.fromObject(response.data)
+    return response.data as File
   }
 
   /**
@@ -47,7 +46,7 @@ export default class Files extends API {
       offset: offset || '',
       limit: limit || 5
     })
-    return ThreadList.fromObject(response.data)
+    return response.data as FilesList
   }
 
   /**
@@ -61,7 +60,7 @@ export default class Files extends API {
    */
   async keys(target: string) {
     const response = await this.sendGet(`/api/v0/keys/${target}`)
-    return Keys.fromObject(response.data)
+    return response.data as Keys
   }
 
   /**
@@ -92,9 +91,9 @@ export default class Files extends API {
       throw new Error('threadId must be provided when adding files to a thread')
     }
     // Fetch schema (will throw if it doesn't have a schema node)
-    const schemaNode = Thread.fromObject(await this.threads.get(thread)).schemaNode
+    const schemaNode: Node = (await this.threads.get(thread)).schema_node
     // Mill the file(s) before adding it
-    const files = await SchemaMiller.mill(
+    const dir = await SchemaMiller.mill(
       file,
       schemaNode,
       async (mill: string, link: MillOpts, form: any, headers: { [key: string]: string }) => {
@@ -102,12 +101,9 @@ export default class Files extends API {
         return file
       }
     )
-    const dirs = Directory.fromObject({
-      files
-    })
     const resp = await this.sendPost(
-      `api/v0/threads/${thread}/files`, undefined, { caption }, dirs
+      `api/v0/threads/${thread}/files`, undefined, { caption }, dir
     )
-    return TextileFiles.fromObject(resp.data)
+    return resp.data as File
   }
 }

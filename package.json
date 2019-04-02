@@ -37,7 +37,6 @@
   "author": "textile.io",
   "license": "MIT",
   "dependencies": {
-    "@textile/go-mobile": "0.1.10-rc4",
     "axios": "^0.18.0",
     "bip39": "^2.5.0",
     "bs58": "^4.0.1",

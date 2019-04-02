@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions } from '../models'
-import { NotificationList } from '@textile/go-mobile'
+import { ApiOptions, NotificationList } from '../models'
 
 /**
  * Notifications is an API module for managing notifications
@@ -23,7 +22,7 @@ export default class Notifications extends API {
    */
   async list() {
     const response = await this.sendGet('/api/v0/notifications')
-    return NotificationList.fromObject(response.data)
+    return response.data as NotificationList
   }
 
   /**

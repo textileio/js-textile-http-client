@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions, Versions } from '../models'
-import { Summary } from '@textile/go-mobile'
+import { ApiOptions, Versions, Summary } from '../models'
 
 /**
  * Utils is an API module for various Textile node utilities
@@ -30,7 +29,7 @@ export default class Utils extends API {
    */
   async nodeSummary() {
     const response = await this.sendGet('api/v0/summary')
-    return Summary.fromObject(response.data)
+    return response.data as Summary
   }
 
   /**

@@ -27,7 +27,7 @@ export default class Config extends API {
    * @returns A JSON representation of the current config setting at the given path
    */
   async get(path?: string) {
-    const cleanPath = path ? `/${path.replace(/\./g, ' ')}` : ''
+    const cleanPath = path ? `/${path.replace(/\./g, '/')}` : ''
     const response = await this.sendGet(`api/v0/config${cleanPath}`)
     return response.data as object
   }
@@ -39,11 +39,11 @@ export default class Config extends API {
    * Be sure to restart the daemon for changes to take effect.
    *
    * @param path Config settings path (e.g., Addresses.API).
-   * @param value JSON config settings
+   * @param value JSON config settings (can be any valid JSON type)
    * @returns Whether the operation was successfull
    */
-  async set(path: string, value: object) {
-    const cleanPath = path ? `/${path.replace(/\./g, ' ')}` : ''
+  async set(path: string, value: any ) {
+    const cleanPath = `/${path.replace(/\./g, '/')}`
     const patch = [{ op: 'replace', path: cleanPath, value }]
     const response = await this.sendPatch(`api/v0/config`, undefined, undefined, patch)
     return response.status === 204

@@ -1,8 +1,9 @@
 import { EventEmitter2 } from 'eventemitter2'
-import axios, { AxiosResponse } from 'axios'
 import { API } from '../core/api'
-import { ApiOptions, RunningEvent, KeyValue, QueryOptions } from '../models/index'
-import { Contact, ContactList, IContact } from '@textile/go-mobile'
+import {
+  ApiOptions, Contact, ContactList, RunningEvent, KeyValue,
+  QueryOptions, QueryResult, Query, QueryResults
+} from '../models'
 
 /**
  * Contacts is an API module for managing local contacts and finding contacts on the network
@@ -23,7 +24,7 @@ export default class Contacts extends API {
    * @param contact JSON object representing a contact
    * @returns Whether the operation was sucessfull
    */
-  async add(address: string, contact: IContact) {
+  async add(address: string, contact: Contact) {
     const response = await this.sendPut(
       `/api/v0/contacts/${address}`,
       undefined,
@@ -41,7 +42,7 @@ export default class Contacts extends API {
    */
   async get(address: string) {
     const response = await this.sendGet(`/api/v0/contacts/${address}`)
-    return Contact.fromObject(response.data)
+    return response.data as Contact
   }
 
   /**
@@ -50,7 +51,7 @@ export default class Contacts extends API {
    */
   async list() {
     const response = await this.sendGet('/api/v0/contacts')
-    return ContactList.fromObject(response.data)
+    return response.data as ContactList
   }
 
   /**
@@ -72,13 +73,10 @@ export default class Contacts extends API {
    * @param options Additional options to control the query
    * @returns Event emitter with found, done, error events on textile.contacts.
    * @example
-   * const backups = textile.account.search({wait: 5})
-   * setTimeout(() => backups.source.cancel(), 1000) // cancel after 1 second
-   * backups.on('textile.contacts.found', found => {
-   *   console.log(found)
-   * })
-   * backups.on('*.done', cancelled => {
-   *   console.log(`search was ${cancelled ? 'cancelled' : 'completed'}`)
+   * const { emitter, source } = textile.contacts.search(undefined, undefined, {wait: 5})
+   * setTimeout(() => source.cancel(), 1000) // cancel after 1 second
+   * emitter.on('textile.contacts.found', console.log)
+   * emitter.on('textile.contacts.done', console.log)
    * })
    */
   search(username?: string, address?: string, options?: QueryOptions) {
@@ -96,22 +94,23 @@ export default class Contacts extends API {
       wildcard: true
     })
     conn
-      .then((response: AxiosResponse) => {
+      .then((response) => {
         const stream = response.data
-        stream.on('data', (chunk: object) => {
-          const contact = Contact.fromObject(chunk)
-          emitter.emit('textile.contacts.found', contact)
+        const results: QueryResults = {
+          items: [],
+          type: Query.Type.CONTACTS
+        }
+        stream.on('data', (data: Buffer) => {
+          const result: QueryResult = JSON.parse(data.toString())
+          results.items.push(result)
+          emitter.emit('textile.contacts.found', result)
         })
         stream.on('end', () => {
-          emitter.emit('textile.contacts.done', false)
+          emitter.emit('textile.contacts.done', results)
         })
       })
       .catch((err: Error) => {
-        if (axios.isCancel(err)) {
-          emitter.emit('textile.contacts.done', true)
-        } else {
-          emitter.emit('textile.contacts.error', err)
-        }
+        emitter.emit('textile.contacts.error', err)
       })
     return  { emitter, source } as RunningEvent
   }

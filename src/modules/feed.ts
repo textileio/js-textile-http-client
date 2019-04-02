@@ -1,6 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions } from '../models/index'
-import { FeedItemList } from '@textile/go-mobile'
+import { ApiOptions, FeedItemList } from '../models'
 
 export type FeedModes = 'chrono' | 'annotated' | 'stacks'
 
@@ -41,7 +40,7 @@ export default class Feed extends API {
    * @param mode Feed mode (one of 'chrono’, 'annotated’, or ‘stacks’)
    */
   async get(thread?: string, offset?: string, limit?: number, mode?: FeedModes) {
-    const response = await this.sendPost(
+    const response = await this.sendGet(
       '/api/v0/feed',
       undefined,
       {
@@ -51,6 +50,6 @@ export default class Feed extends API {
         mode: mode || 'chrono'
       }
     )
-    return FeedItemList.fromObject(response.data)
+    return response.data as FeedItemList
   }
 }
