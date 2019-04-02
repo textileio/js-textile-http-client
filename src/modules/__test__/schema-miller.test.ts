@@ -9,7 +9,7 @@ describe('simple schema', () => {
     const node = schema
     const sorted = SchemaMiller.sortLinksByDependency(node.links)
 
-    expect(sorted[2].Name).toEqual('thumb')
+    expect(sorted[2].name).toEqual('thumb')
   })
 
   it.skip('should have normalized options', () => {
