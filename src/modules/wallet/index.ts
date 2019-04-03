@@ -99,9 +99,10 @@ export default class Wallet {
     const seed = bip39.mnemonicToSeed(this.recoveryPhrase, password)
     const masterKey = createMasterKey(seed)
     const baseKey = masterKey.derivePath(TEXTILE_BIP44)
-    const accountKey = baseKey.derive(index)
+    const accountKey = baseKey.deriveHardened(index)
     const kp = Keypair.fromRawEd25519Seed(accountKey.privateKey)
     return {
+      index,
       seed: kp.secret(),
       address: kp.publicKey()
     }

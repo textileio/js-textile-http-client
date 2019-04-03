@@ -71,10 +71,12 @@ export interface Versions {
 
 /**
  * A derived Wallet account
- * @property seed Ed25519 private seed
- * @property address Ed25519 public key
+ * @property index The index for the given account
+ * @property seed The Ed25519 private seed/key
+ * @property address The Ed25519 public key
  */
 export interface Account {
+  index: number
   seed: string
   address: string
 }
