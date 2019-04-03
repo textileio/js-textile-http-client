@@ -10,26 +10,14 @@ const versionBytes: {[key: string]: number} = {
 }
 
 function calculateChecksum(payload: string | Buffer) {
-  // This code calculates CRC16-XModem checksum of payload
-  // and returns it as Buffer in little-endian order.
+  // This code calculates CRC16-XModem checksum of payload and returns it in little-endian order.
   const checksum = Buffer.alloc(2)
   checksum.writeUInt16LE(crc.crc16xmodem(payload), 0)
   return checksum
 }
 
-function encodeCheck(versionByteName: string, input: string) {
-  if (input === null || input === undefined) {
-    throw new Error('cannot encode null data')
-  }
-
+function encodeCheck(versionByteName: 'ed25519PublicKey' | 'ed25519SecretSeed', input: Buffer) {
   const versionByte = versionBytes[versionByteName]
-
-  if (versionByte === undefined) {
-    throw new Error(
-      `${versionByteName} is not a valid version byte name.  expected one of 'ed25519PublicKey', 'ed25519SecretSeed'`
-    )
-  }
-
   const data = Buffer.from(input)
   const versionBuffer = Buffer.from([versionByte])
   const payload = Buffer.concat([versionBuffer, data])
@@ -39,11 +27,7 @@ function encodeCheck(versionByteName: string, input: string) {
   return base58.encode(unencoded)
 }
 
-function decodeCheck(versionByteName: string, encoded: string) {
-  if (typeof encoded !== 'string') {
-    throw new TypeError('encoded argument must be of type String')
-  }
-
+function decodeCheck(versionByteName: 'ed25519PublicKey' | 'ed25519SecretSeed', encoded: string) {
   const decoded = base58.decode(encoded)
   const versionByte = decoded[0]
   const payload = decoded.slice(0, -2)
@@ -58,7 +42,7 @@ function decodeCheck(versionByteName: string, encoded: string) {
 
   if (expectedVersion === undefined) {
     throw new Error(
-      `${versionByteName} is not a valid version byte name.  expected one of 'accountId' or 'seed'`
+      `${versionByteName} is not a valid version byte name.`
     )
   }
 
@@ -77,8 +61,8 @@ function decodeCheck(versionByteName: string, encoded: string) {
   return Buffer.from(data)
 }
 
-function isValid(versionByteName: string, encoded: string) {
-  if (encoded && encoded.length !== 56) {
+function isValid(versionByteName: 'ed25519PublicKey' | 'ed25519SecretSeed', encoded: string) {
+  if (encoded.length !== 56) {
     return false
   }
 
@@ -104,7 +88,7 @@ export class StrKey {
    * @param data data to encode
    * @returns ed25519 public key
    */
-  static encodeEd25519PublicKey(data: string) {
+  static encodeEd25519PublicKey(data: Buffer) {
     return encodeCheck('ed25519PublicKey', data)
   }
 
@@ -131,7 +115,7 @@ export class StrKey {
    * @param data data to encode
    * @returns ed25519 seed
    */
-  static encodeEd25519SecretSeed(data: string) {
+  static encodeEd25519SecretSeed(data: Buffer) {
     return encodeCheck('ed25519SecretSeed', data)
   }
 

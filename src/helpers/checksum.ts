@@ -5,7 +5,7 @@
  * @param actual Actual observed checksum value
  * @returns Whether the two checksums are equal
  */
-export function verifyChecksum(expected: string | Buffer, actual: string | Buffer) {
+export function verifyChecksum(expected: Buffer, actual: Buffer) {
   if (expected.length !== actual.length) {
     return false
   }

@@ -8,15 +8,7 @@ import { StrKey } from './strkey'
  * Currently `Keypair` only supports ed25519 but in a future this class can be an abstraction
  * layer for other public-key signature systems.
  *
- * Use more convenient methods to create `Keypair` object:
- * * `{@link Keypair.fromSecret}`
- * * `{@link Keypair.random}`
- *
  * Copyright (c) 2015-2018 Stellar Development Foundation
- *
- * @constructor
- * @param secretKey Raw secret key (32-byte secret seed in ed25519`)
- * @param type Public-key signature system name. (currently only `ed25519` keys are supported)
  */
 export class Keypair {
   /**
@@ -47,23 +39,30 @@ export class Keypair {
   }
 
   pubKey: Buffer
-  secretSeed: Buffer
-  secretKey: Buffer
+  seed: Buffer
+  privKey: Buffer
   type: 'ed25519'
 
+  /**
+   * Constructor
+   * @param secretKey Raw secret key (32-byte secret seed in ed25519`)
+   * @param type Public-key signature system name. (currently only `ed25519` keys are supported)
+   */
   constructor(secretKey: Buffer, type?: 'ed25519') {
     if (type !== 'ed25519') {
       throw new Error('Invalid keys type')
     }
     this.type = type || 'ed25519'
 
-    if (secretKey.length !== 32) {
+    const secret = Buffer.from(secretKey)
+
+    if (secret.length !== 32) {
       throw new Error('secretKey length is invalid')
     }
-    const naclKeys = nacl.sign.keyPair.fromSeed(new Uint8Array(secretKey))
+    const naclKeys = nacl.sign.keyPair.fromSeed(new Uint8Array(secret))
 
-    this.secretSeed = secretKey
-    this.secretKey = Buffer.from(naclKeys.secretKey)
+    this.seed = secret
+    this.privKey = Buffer.from(naclKeys.secretKey)
     this.pubKey = Buffer.from(naclKeys.publicKey)
   }
 
@@ -78,7 +77,7 @@ export class Keypair {
    * Returns base58-encoded public key associated with this `Keypair` object.
    */
   publicKey() {
-    return StrKey.encodeEd25519PublicKey(this.pubKey.toString())
+    return StrKey.encodeEd25519PublicKey(this.pubKey)
   }
 
   /**
@@ -88,21 +87,21 @@ export class Keypair {
     if (this.type !== 'ed25519') {
       throw new Error('Invalid Keypair type')
     }
-    return StrKey.encodeEd25519SecretSeed(this.secretSeed.toString())
+    return StrKey.encodeEd25519SecretSeed(this.seed)
   }
 
   /**
    * Returns raw secret key.
    */
   rawSecretKey() {
-    return this.secretSeed
+    return this.seed
   }
 
   /**
    * Returns `true` if this `Keypair` object contains secret key and can sign.
    */
   canSign() {
-    return !!this.secretKey
+    return !!this.privKey
   }
 
   /**
@@ -113,7 +112,7 @@ export class Keypair {
     if (!this.canSign()) {
       throw new Error('cannot sign: no secret key available')
     }
-    return sign(data, this.secretKey)
+    return sign(data, this.privKey)
   }
 
   /**

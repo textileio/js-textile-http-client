@@ -8,7 +8,7 @@ import { Account } from '../../models'
 const TEXTILE_BIP44 = `m/44'/406'`
 
 // Derive the 'm' level of the BIP44 wallet
-function createMasterKey(seed: string | Buffer) {
+function createMasterKey(seed: Buffer) {
   // As in https://github.com/satoshilabs/slips/blob/master/slip-0010.md
   const I = hmacSHA512('ed25519 seed', seed)
   const privateKey = I.slice(0, 32)
