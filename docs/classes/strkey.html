@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Wallet | @textile/js-http-client</title>
+	<title>StrKey | @textile/js-http-client</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="wallet.html">Wallet</a>
+					<a href="strkey.html">StrKey</a>
 				</li>
 			</ul>
-			<h1>Class Wallet</h1>
+			<h1>Class StrKey</h1>
 		</div>
 	</div>
 </header>
@@ -67,33 +67,16 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Wallet is an API module for initializing wallets and creating/accessing accounts</p>
+						<p>StrKey is a helper class that allows encoding and decoding strkey.</p>
 					</div>
-					<p>A wallet is represented by mnemonic phrase, and in practice is a BIP32 Hierarchical
-						Deterministic Wallet based on Stellar&#39;s implementation of SLIP-0010. You can think of a wallet
-						as a master key, and the account represent keys specific to a given application or use-case.
-					Any given wallet may create an arbitrary number of accounts.</p>
-					<p>Accounts are generated via the wallet pass-phrase and are an Ed25519 public/private keypair
-						used to sign backups, provision libp2p identities, etc. Textile uses Ed25519 here because
-					it&#39;s fast, compact, secure, and widely used. See the EdDSA Wikipedia page for more details.</p>
-					<p>WARNING! Store the derived pass-phrases in a safe place!
-						WARNING! If you lose your words, you will lose access to data in all derived accounts!
-					WARNING! Anyone who has access to these words can access your wallet accounts!</p>
-					<dl class="tsd-comment-tags">
-						<dt>param</dt>
-						<dd><p>API options object</p>
-						</dd>
-						<dt>extends</dt>
-						<dd><p>API</p>
-						</dd>
-					</dl>
+					<p>Copyright (c) 2015-2018 Stellar Development Foundation</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Wallet</span>
+						<span class="target">StrKey</span>
 					</li>
 				</ul>
 			</section>
@@ -102,190 +85,210 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="wallet.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="wallet.html#recoveryphrase" class="tsd-kind-icon">recovery<wbr>Phrase</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="wallet.html#accountat" class="tsd-kind-icon">account<wbr>At</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="wallet.html#fromentropy" class="tsd-kind-icon">from<wbr>Entropy</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="wallet.html#fromwordcount" class="tsd-kind-icon">from<wbr>Word<wbr>Count</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="strkey.html#decodeed25519publickey" class="tsd-kind-icon">decode<wbr>Ed25519<wbr>Public<wbr>Key</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="strkey.html#decodeed25519secretseed" class="tsd-kind-icon">decode<wbr>Ed25519<wbr>Secret<wbr>Seed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="strkey.html#encodeed25519publickey" class="tsd-kind-icon">encode<wbr>Ed25519<wbr>Public<wbr>Key</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="strkey.html#encodeed25519secretseed" class="tsd-kind-icon">encode<wbr>Ed25519<wbr>Secret<wbr>Seed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="strkey.html#isvalided25519publickey" class="tsd-kind-icon">is<wbr>Valid<wbr>Ed25519<wbr>Public<wbr>Key</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="strkey.html#isvalided25519secretseed" class="tsd-kind-icon">is<wbr>Valid<wbr>Ed25519<wbr>Secret<wbr>Seed</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Wallet<span class="tsd-signature-symbol">(</span>recoveryPhrase<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, check<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="wallet.html" class="tsd-signature-type">Wallet</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in modules/wallet/index.ts:69</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Initialize a new Wallet</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>example</dt>
-									<dd><p>const mnemonic = &#39;blah lava place private blah blah blah magic truth verify kite blah&#39;
-											const wallet = new Wallet(mnemonic, true)
-										console.log(wallet.accountAt(0))</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>recoveryPhrase: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>Mnemonic pass-phrase (aka wordlist, recovery phrase, etc)</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> check: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>Wheather to validate the input recovery phrase</p>
-										</div>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="wallet.html" class="tsd-signature-type">Wallet</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="recoveryphrase" class="tsd-anchor"></a>
-					<h3>recovery<wbr>Phrase</h3>
-					<div class="tsd-signature tsd-kind-icon">recovery<wbr>Phrase<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in modules/wallet/index.ts:69</li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="accountat" class="tsd-anchor"></a>
-					<h3>account<wbr>At</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">account<wbr>At<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, password<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="account.html" class="tsd-signature-type">Account</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="decodeed25519publickey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> decode<wbr>Ed25519<wbr>Public<wbr>Key</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Ed25519<wbr>Public<wbr>Key<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/index.ts:98</li>
+									<li>Defined in modules/wallet/strkey.ts:116</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Accesses derived accounts (address/seed pairs) from a wallet</p>
+									<p>Decodes strkey ed25519 public key to raw data.</p>
 								</div>
-								<p>Derives key for a path in BIP-44 format and a seed.
-								Ed25119 derivation operated on hardened keys only.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>index: <span class="tsd-signature-type">number</span></h5>
+									<h5>data: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Account index</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> password: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Mnemonic recovery phrase password (omit if none)</p>
+										<p>data to decode</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="account.html" class="tsd-signature-type">Account</a></h4>
-							<p>A derived Wallet account</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Buffer</span></h4>
+							<p>Raw bytes</p>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="fromentropy" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Entropy</h3>
+					<a name="decodeed25519secretseed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> decode<wbr>Ed25519<wbr>Secret<wbr>Seed</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>Entropy<span class="tsd-signature-symbol">(</span>strength<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="wallet.html" class="tsd-signature-type">Wallet</a></li>
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Ed25519<wbr>Secret<wbr>Seed<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/index.ts:65</li>
+									<li>Defined in modules/wallet/strkey.ts:143</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Generate a new Walet from a given entropy level</p>
+									<p>Decodes strkey ed25519 seed to raw data.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> strength: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<h5>data: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The bits of entropy to use (defaults to 128)</p>
+										<p>data to decode</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="wallet.html" class="tsd-signature-type">Wallet</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Buffer</span></h4>
+							<p>Raw bytes</p>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="fromwordcount" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Word<wbr>Count</h3>
+					<a name="encodeed25519publickey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> encode<wbr>Ed25519<wbr>Public<wbr>Key</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>Word<wbr>Count<span class="tsd-signature-symbol">(</span>wordCount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="wallet.html" class="tsd-signature-type">Wallet</a></li>
+						<li class="tsd-signature tsd-kind-icon">encode<wbr>Ed25519<wbr>Public<wbr>Key<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/index.ts:40</li>
+									<li>Defined in modules/wallet/strkey.ts:107</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Generate a new Walet from a given word count</p>
+									<p>Encodes data to strkey ed25519 public key.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>wordCount: <span class="tsd-signature-type">number</span></h5>
+									<h5>data: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>data to encode</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="wallet.html" class="tsd-signature-type">Wallet</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>ed25519 public key</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="encodeed25519secretseed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> encode<wbr>Ed25519<wbr>Secret<wbr>Seed</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">encode<wbr>Ed25519<wbr>Secret<wbr>Seed<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in modules/wallet/strkey.ts:134</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Encodes data to strkey ed25519 seed.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>data to encode</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>ed25519 seed</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isvalided25519publickey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Valid<wbr>Ed25519<wbr>Public<wbr>Key</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Ed25519<wbr>Public<wbr>Key<span class="tsd-signature-symbol">(</span>publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in modules/wallet/strkey.ts:125</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns true if the given public key is a valid ed25519 public key.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>publicKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>public key to check</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the public key is valid</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isvalided25519secretseed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Valid<wbr>Ed25519<wbr>Secret<wbr>Seed</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<wbr>Ed25519<wbr>Secret<wbr>Seed<span class="tsd-signature-symbol">(</span>seed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in modules/wallet/strkey.ts:152</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns true if the given secret key is a valid ed25519 secret seed.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>seed: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>seed to check</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the secret key is valid</p>
 						</li>
 					</ul>
 				</section>
@@ -304,22 +307,25 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="wallet.html" class="tsd-kind-icon">Wallet</a>
+						<a href="strkey.html" class="tsd-kind-icon">Str<wbr>Key</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="wallet.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="wallet.html#recoveryphrase" class="tsd-kind-icon">recovery<wbr>Phrase</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="wallet.html#accountat" class="tsd-kind-icon">account<wbr>At</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="strkey.html#decodeed25519publickey" class="tsd-kind-icon">decode<wbr>Ed25519<wbr>Public<wbr>Key</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="wallet.html#fromentropy" class="tsd-kind-icon">from<wbr>Entropy</a>
+								<a href="strkey.html#decodeed25519secretseed" class="tsd-kind-icon">decode<wbr>Ed25519<wbr>Secret<wbr>Seed</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="wallet.html#fromwordcount" class="tsd-kind-icon">from<wbr>Word<wbr>Count</a>
+								<a href="strkey.html#encodeed25519publickey" class="tsd-kind-icon">encode<wbr>Ed25519<wbr>Public<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="strkey.html#encodeed25519secretseed" class="tsd-kind-icon">encode<wbr>Ed25519<wbr>Secret<wbr>Seed</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="strkey.html#isvalided25519publickey" class="tsd-kind-icon">is<wbr>Valid<wbr>Ed25519<wbr>Public<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="strkey.html#isvalided25519secretseed" class="tsd-kind-icon">is<wbr>Valid<wbr>Ed25519<wbr>Secret<wbr>Seed</a>
 							</li>
 						</ul>
 					</li>
