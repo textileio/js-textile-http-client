@@ -71,22 +71,7 @@
 					</div>
 					<p>Currently <code>Keypair</code> only supports ed25519 but in a future this class can be an abstraction
 					layer for other public-key signature systems.</p>
-					<p>Use more convenient methods to create <code>Keypair</code> object:</p>
-					<ul>
-						<li><code>&lt;a href=&quot;keypair.html#fromsecret&quot;&gt;Keypair.fromSecret&lt;/a&gt;</code></li>
-						<li><code>&lt;a href=&quot;keypair.html#random&quot;&gt;Keypair.random&lt;/a&gt;</code></li>
-					</ul>
 					<p>Copyright (c) 2015-2018 Stellar Development Foundation</p>
-					<dl class="tsd-comment-tags">
-						<dt>constructor</dt>
-						<dd></dd>
-						<dt>param</dt>
-						<dd><p>Raw secret key (32-byte secret seed in ed25519`)</p>
-						</dd>
-						<dt>param</dt>
-						<dd><p>Public-key signature system name. (currently only <code>ed25519</code> keys are supported)</p>
-						</dd>
-					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -110,9 +95,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="keypair.html#privkey" class="tsd-kind-icon">priv<wbr>Key</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="keypair.html#pubkey" class="tsd-kind-icon">pub<wbr>Key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="keypair.html#secretkey" class="tsd-kind-icon">secret<wbr>Key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="keypair.html#secretseed" class="tsd-kind-icon">secret<wbr>Seed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="keypair.html#seed" class="tsd-kind-icon">seed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="keypair.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
@@ -146,16 +131,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:52</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L44">modules/wallet/keypair.ts:44</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructor</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>secretKey: <span class="tsd-signature-type">Buffer</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Raw secret key (32-byte secret seed in ed25519`)</p>
+										</div>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ed25519"</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Public-key signature system name. (currently only <code>ed25519</code> keys are supported)</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="keypair.html" class="tsd-signature-type">Keypair</a></h4>
@@ -166,32 +166,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="privkey" class="tsd-anchor"></a>
+					<h3>priv<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">priv<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Buffer</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L43">modules/wallet/keypair.ts:43</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="pubkey" class="tsd-anchor"></a>
 					<h3>pub<wbr>Key</h3>
 					<div class="tsd-signature tsd-kind-icon">pub<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Buffer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in modules/wallet/keypair.ts:49</li>
+							<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L41">modules/wallet/keypair.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="secretkey" class="tsd-anchor"></a>
-					<h3>secret<wbr>Key</h3>
-					<div class="tsd-signature tsd-kind-icon">secret<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Buffer</span></div>
+					<a name="seed" class="tsd-anchor"></a>
+					<h3>seed</h3>
+					<div class="tsd-signature tsd-kind-icon">seed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Buffer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in modules/wallet/keypair.ts:51</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="secretseed" class="tsd-anchor"></a>
-					<h3>secret<wbr>Seed</h3>
-					<div class="tsd-signature tsd-kind-icon">secret<wbr>Seed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Buffer</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in modules/wallet/keypair.ts:50</li>
+							<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L42">modules/wallet/keypair.ts:42</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -201,7 +201,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ed25519"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in modules/wallet/keypair.ts:52</li>
+							<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L44">modules/wallet/keypair.ts:44</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -218,7 +218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:104</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L103">modules/wallet/keypair.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -240,7 +240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:80</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L79">modules/wallet/keypair.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -262,7 +262,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:73</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L72">modules/wallet/keypair.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -284,7 +284,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:97</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L96">modules/wallet/keypair.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -306,7 +306,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:87</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L86">modules/wallet/keypair.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -328,7 +328,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:112</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L111">modules/wallet/keypair.ts:111</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -359,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:124</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L123">modules/wallet/keypair.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -396,7 +396,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:37</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L29">modules/wallet/keypair.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -427,7 +427,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:27</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L19">modules/wallet/keypair.ts:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -459,7 +459,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in modules/wallet/keypair.ts:44</li>
+									<li>Defined in <a href="https://github.com/textileio/js-http-client/blob/93dc04f/src/modules/wallet/keypair.ts#L36">modules/wallet/keypair.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -492,13 +492,13 @@
 								<a href="keypair.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="keypair.html#privkey" class="tsd-kind-icon">priv<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="keypair.html#pubkey" class="tsd-kind-icon">pub<wbr>Key</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="keypair.html#secretkey" class="tsd-kind-icon">secret<wbr>Key</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="keypair.html#secretseed" class="tsd-kind-icon">secret<wbr>Seed</a>
+								<a href="keypair.html#seed" class="tsd-kind-icon">seed</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="keypair.html#type" class="tsd-kind-icon">type</a>
