@@ -19,7 +19,8 @@ export * from './view_pb'
  */
 export interface ApiOptions {
   url: string
-  port: number
+  port?: number
+  version?: number
 }
 
 /**
@@ -37,14 +38,7 @@ export interface QueryOptions {
   wait?: number
 }
 
-/**
- * The options object for the client object
- * @property {key} [string]
- * @property {value} [string]
- */
-export interface KeyValue {
-  [key: string]: string | number | boolean
-}
+export type KeyValue = Record<string, string | number | boolean>
 
 /**
  * Event emitter with found, done, and error events.
