@@ -36,7 +36,11 @@ export default class Snapshots extends API {
     if (!response.body) {
       throw Error('Empty response stream')
     }
+<<<<<<< HEAD
     return streamHandler<QueryResult>(response.body as ReadableStream)
+=======
+    return queryResultStream(response.body as ReadableStream)
+>>>>>>> master
   }
 
   /**

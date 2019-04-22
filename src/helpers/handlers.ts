@@ -1,4 +1,3 @@
-import { QueryResult } from '../models'
 import { Readable } from 'stream'
 import { ReadableStream } from 'web-streams-polyfill/ponyfill'
 
