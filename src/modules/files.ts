@@ -41,7 +41,7 @@ export default class Files extends API {
    * @returns An array of Thread objects
    */
   async list(thread?: string, offset?: string, limit?: number) {
-    const response = await this.sendGet('api/v0/files', undefined, {
+    const response = await this.sendGet('files', undefined, {
       thread: thread || '',
       offset: offset || '',
       limit: limit || 5
@@ -108,7 +108,7 @@ export default class Files extends API {
       items: [dir]
     }
     const response = await this.sendPost(
-      `api/v0/threads/${thread}/files`, undefined, { caption }, dirs
+      `threads/${thread}/files`, undefined, { caption }, dirs
     )
     return response.json() as Promise<File>
   }

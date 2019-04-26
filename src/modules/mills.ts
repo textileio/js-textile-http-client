@@ -38,6 +38,6 @@ export default class Mills extends API {
       payload,
       headers
     )
-    return response.json() as Promise<FileIndex>
+    return response as Promise<FileIndex>
   }
 }
