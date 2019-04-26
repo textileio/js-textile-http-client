@@ -85,7 +85,7 @@ export default class Files extends API {
    * @param caption Caption to associated with the added file object
    * @returns An array of created File objects
    */
-  async addFile(file: any, caption: string, thread?: string) {
+  async addFile(file: any, caption: string, thread?: string): Promise<File> {
     if (!thread) {
       thread = 'default'
     }
@@ -94,6 +94,7 @@ export default class Files extends API {
     if (!schemaNode) {
       throw new Error('A thread schema is required before adding files to a thread.')
     }
+
     // Mill the file(s) before adding it
     const dir = await SchemaMiller.mill(
       file,
@@ -110,6 +111,6 @@ export default class Files extends API {
     const response = await this.sendPost(
       `threads/${thread}/files`, undefined, { caption }, dirs
     )
-    return response.json() as Promise<File>
+    return response.json()
   }
 }
