@@ -120,14 +120,8 @@ export default class Files extends API {
    * @param file File object
    * @returns Raw data
    */
-  async fileData(file: File): Promise<any> {
-    let path = file.file.hash
-    if (file.file.key !== '') {
-      path = `${path}?key=${file.file.key}`
-    }
-    const response = await this.sendGatewayGet(
-      path
-    )
-    return response.body
+  async fileData(hash: string): Promise<string> {
+    const response = await this.sendGet(`file/${hash}`)
+    return response.text() as Promise<string>
   }
 }
