@@ -120,7 +120,7 @@ export default class Files extends API {
    * @param file File object
    * @returns Raw data
    */
-  async fileData(hash: string): Promise<string> {
+  async content(hash: string): Promise<string> {
     const response = await this.sendGet(`file/${hash}/data`)
     return response.text() as Promise<string>
   }
