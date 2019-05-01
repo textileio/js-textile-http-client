@@ -1,5 +1,5 @@
 import { API } from '../core/api'
-import { ApiOptions, Node, FilesList, Files as FilesType, File, Keys, DirectoryList } from '../models'
+import { ApiOptions, Node, FilesList, Files as FilesType, Keys, DirectoryList } from '../models'
 import SchemaMiller, { MillOpts } from '../helpers/schema-miller'
 import Mills from './mills'
 import Threads from './threads'
@@ -112,16 +112,5 @@ export default class Files extends API {
       `threads/${thread}/files`, undefined, { caption }, dirs
     )
     return response.json()
-  }
-
-  /**
-   * Get raw data for a File
-   *
-   * @param file File object
-   * @returns Raw data
-   */
-  async content(hash: string): Promise<string> {
-    const response = await this.sendGet(`file/${hash}/data`)
-    return response.text() as Promise<string>
   }
 }
