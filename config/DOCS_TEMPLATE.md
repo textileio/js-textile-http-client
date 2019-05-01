@@ -47,4 +47,4 @@ const files = await textile.files.list()
 console.log("files", files.items);
 ```
 
-For more detailed examples of usage, peruse the `examples` folder and see the `docs`.
+For more detailed examples of usage, peruse the `examples` folder and see the [live `docs`](https://textileio.github.io/js-http-client/).
