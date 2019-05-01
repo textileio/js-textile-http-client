@@ -65,15 +65,6 @@ The auto-generated documentation can be found at https://textileio.github.io/js-
 yarn docs
 ```
 
-## Roadmap
-
-This should provide a useful 'checklist' for community members looking to get involved.
-
-- [ ] Implement [sub api](https://github.com/textileio/textile-go/blob/master/cmd/sub.go)
-- [ ] Switch to TypeScript
-- [ ] Full test suite
-- [ ] More to come...
-
 ## Maintainer
 
 [Carson Farmer](https://github.com/carsonfarmer)
@@ -97,7 +88,7 @@ Textile's JS HTTP Client is a work in progress. As such, there's a few things yo
 <!-- ⛔️ AUTO-GENERATED-CONTENT:START (CONTRIBUTORS) -->
 | **Commits** | **Contributor** |  
 | --- | --- |  
-| 68 | [carsonfarmer](https://github.com/carsonfarmer) |  
+| 73 | [carsonfarmer](https://github.com/carsonfarmer) |  
 | 3  | [andrewxhill](https://github.com/andrewxhill) |  
 | 2  | [robbynshaw](https://github.com/robbynshaw) |  
 | 1  | [flyskywhy](https://github.com/flyskywhy) |  
