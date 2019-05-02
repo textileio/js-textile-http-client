@@ -1,21 +1,16 @@
-import { API } from '../core/api'
-import { ApiOptions, Peer } from '../models/index'
+import { API, DEFAULT_API_OPTIONS } from '../core/api'
 import Config from './config'
 import Files from './files'
+import { Peer } from '../models/index'
 
 /**
  * Profile is an API module for accessing public profile information
- *
- * @param {ApiOptions} opts API options object
- * @extends API
  */
 export default class Profile extends API {
-  opts: ApiOptions
   private config: Config
   private files: Files
-  constructor(opts: ApiOptions) {
+  constructor(opts: ApiOptions = DEFAULT_API_OPTIONS) {
     super(opts)
-    this.opts = opts
     this.config = new Config(opts)
     this.files = new Files(opts)
   }
