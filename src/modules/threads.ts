@@ -87,6 +87,31 @@ export default class Threads extends API {
   }
 
   /**
+   * Retrieve a thread by Key
+   *
+   * @param key Key of the thread
+   * @returns An array thread objects
+   */
+  async getByKey(key: string) {
+    // @todo: update with https://github.com/textileio/go-textile/issues/712
+    const response = await this.sendGet('threads')
+    const threads: ThreadList = await response.json()
+    return threads.items.find((thread) => thread.key === key)
+  }
+  /**
+   * Retrieve a thread by Name
+   *
+   * @param name Name of the thread
+   * @returns An array thread objects
+   */
+  async getByName(name: string) {
+    // @todo: update with https://github.com/textileio/go-textile/issues/712
+    const response = await this.sendGet('threads')
+    const threads: ThreadList = await response.json()
+    return threads.items.find((thread) => thread.name === name)
+  }
+
+  /**
    * Lists all local threads
    *
    * @returns An array of threads
