@@ -30,7 +30,7 @@ export type ThreadSharing = 'not_shared' | 'invite_only' | 'shared'
 export default class Threads extends API {
   snapshots: Snapshots
   schemas: Schemas
-  constructor(opts: ApiOptions) {
+  constructor(opts: ApiOptions = DEFAULT_API_OPTIONS) {
     super(opts)
     this.snapshots = new Snapshots(opts)
     this.schemas = new Schemas(opts)

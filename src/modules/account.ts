@@ -1,4 +1,4 @@
-import { API } from '../core/api'
+import { API, DEFAULT_API_OPTIONS } from '../core/api'
 import { ApiOptions, Contact } from '../models'
 import Snapshots from './snapshots'
 
@@ -9,7 +9,7 @@ import Snapshots from './snapshots'
  */
 export default class Account extends API {
   private snapshots: Snapshots
-  constructor(opts: ApiOptions) {
+  constructor(opts: ApiOptions = DEFAULT_API_OPTIONS) {
     super(opts)
     this.snapshots = new Snapshots(opts)
   }

@@ -4,7 +4,7 @@ import { buildAbsoluteURL } from 'url-toolkit'
 import { KeyValue, ApiOptions } from '../models'
 
 export const DEFAULT_API_OPTIONS = {
-  url: '127.0.0.1',
+  url: 'http://127.0.0.1',
   port: 40600,
   version: 0
 }
