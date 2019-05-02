@@ -85,7 +85,7 @@ export default class Files extends API {
    * @param caption Caption to associated with the added file object
    * @returns An array of created File objects
    */
-  async addFile(file: any, caption: string, thread?: string): Promise<FilesType> {
+  async add(file: any, caption: string, thread?: string): Promise<FilesType> {
     if (!thread) {
       thread = 'default'
     }
@@ -99,8 +99,8 @@ export default class Files extends API {
     const dir = await SchemaMiller.mill(
       file,
       schemaNode,
-      async (mill: string, link: MillOpts, form: any, headers: { [key: string]: string }) => {
-        const file = await this.mills.run(mill, link.opts, form, headers)
+      async (mill: string, opts: MillOpts, form: any, headers: { [key: string]: string }) => {
+        const file = await this.mills.run(mill, opts, form, headers)
         return file
       }
     )

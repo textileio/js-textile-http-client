@@ -1,5 +1,7 @@
 import { API } from '../core/api'
 import { ApiOptions, Peer } from '../models/index'
+import Config from './config'
+import Files from './files'
 
 /**
  * Profile is an API module for accessing public profile information
@@ -9,9 +11,13 @@ import { ApiOptions, Peer } from '../models/index'
  */
 export default class Profile extends API {
   opts: ApiOptions
+  private config: Config
+  private files: Files
   constructor(opts: ApiOptions) {
     super(opts)
     this.opts = opts
+    this.config = new Config(opts)
+    this.files = new Files(opts)
   }
 
   /**
@@ -53,13 +59,15 @@ export default class Profile extends API {
   }
 
   /**
-   * Set the local node's public profile avatar by specifying an existing image file hash
+   * Forces local node to update avatar image to latest image added to 'account' thread
    *
-   * @param hash Image file hash
+   * @param image Image to use as new avatar. Can be any input type accepted by [[Files.add]].
    * @returns Whether the update was successful
    */
-  async setAvatar(hash: string) {
-    const response = await this.sendPost('profile/avatar', [hash])
+  async setAvatar(image: any) {
+    const thread = await this.config.get('Account.Thread')
+    await this.files.add(image, 'avatar', thread as string)
+    const response = await this.sendPost('profile/avatar')
     return response.status === 201
   }
 }

@@ -42,11 +42,12 @@ export default class Threads extends API {
    *
    * @param name The name of the new thread
    * @param key A locally unique key used by an app to identify this thread on recovery
-   * @param type The type of thread, must be one of 'private' (default), 'read_only', 'public', or 'open'
-   * @param sharing The sharing style of thread, must be one of 'notshared'
-   * (default), 'inviteonly', or 'shared'
-   * @param members An array of contact addresses. When supplied, the thread will not allow
-   * additional peers, useful for 1-1 chat/file sharing or private groups.
+   * @param type The type of thread, must be one of 'private' (default), 'read_only', 'public',
+   * or 'open'
+   * @param sharing The sharing style of thread, must be one of 'not_shared'
+   * (default), 'invite_only', or 'shared'
+   * @param whitelist An array of contact addresses. When supplied, the thread will not allow
+   * additional peers beyond those in array, useful for 1-1 chat/file sharing
    * @param schema Schema ID for the new thread
    * @returns The newly generated thread info
    */
