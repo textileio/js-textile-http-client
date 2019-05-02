@@ -1,7 +1,7 @@
 import { API } from '../core/api'
 import { ApiOptions, Thread, ThreadList, ContactList } from '../models/index'
 import Snapshots from './snapshots'
-import Schemas from './schemas';
+import Schemas from './schemas'
 
 export type ThreadType = 'private' | 'read_only' | 'public' | 'open'
 export type ThreadSharing = 'not_shared' | 'invite_only' | 'shared'
