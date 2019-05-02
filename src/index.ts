@@ -26,7 +26,6 @@ export * from './models'
 /**
  * Textile is the main client class
  *
- * @param {ApiOptions} options The API options object
  */
 export class Textile {
   opts: ApiOptions = {
