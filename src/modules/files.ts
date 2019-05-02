@@ -1,4 +1,4 @@
-import { API } from '../core/api'
+import { API, DEFAULT_API_OPTIONS } from '../core/api'
 import { ApiOptions, Node, FilesList, Files as FilesType, Keys, DirectoryList } from '../models'
 import SchemaMiller, { MillOpts } from '../helpers/schema-miller'
 import Mills from './mills'
@@ -12,7 +12,7 @@ import Threads from './threads'
 export default class Files extends API {
   mills: Mills
   threads: Threads
-  constructor(opts: ApiOptions) {
+  constructor(opts: ApiOptions = DEFAULT_API_OPTIONS) {
     super(opts)
     this.mills = new Mills(opts)
     this.threads = new Threads(opts)

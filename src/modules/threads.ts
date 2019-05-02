@@ -1,4 +1,4 @@
-import { API } from '../core/api'
+import { API, DEFAULT_API_OPTIONS } from '../core/api'
 import { ApiOptions, Thread, ThreadList, ContactList } from '../models/index'
 import Snapshots from './snapshots'
 import Schemas from './schemas'
