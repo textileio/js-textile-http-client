@@ -22,15 +22,12 @@ import Threads from './threads'
  * -  COMMENT:  Comment added to another block.
  * -  LIKE:     Like added to another block.
  *
- * @param {ApiOptions} API options object
  * @extends {API}
  */
 export default class Blocks extends API {
-  opts: ApiOptions
   threads: Threads
   constructor(opts: ApiOptions) {
     super(opts)
-    this.opts = opts
     this.threads = new Threads(opts)
   }
 

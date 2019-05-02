@@ -7,16 +7,13 @@ import Threads from './threads'
 /**
  * Files is an API module for managing Textile files
  *
- * @param {ApiOptions} API options object
  * @extends {API}
  */
 export default class Files extends API {
-  opts: ApiOptions
   mills: Mills
   threads: Threads
   constructor(opts: ApiOptions) {
     super(opts)
-    this.opts = opts
     this.mills = new Mills(opts)
     this.threads = new Threads(opts)
   }

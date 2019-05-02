@@ -25,18 +25,14 @@ export type ThreadSharing = 'not_shared' | 'invite_only' | 'shared'
  * inviteonly --> initiator: Y, whitelist: N
  * shared     --> initiator: Y, whitelist: Y
  *
- * @param {Object} opts Connection options object
- * @param {string} opts.url
  * @extends API
  */
 export default class Threads extends API {
-  opts: ApiOptions
   snapshots: Snapshots
   schemas: Schemas
   constructor(opts: ApiOptions) {
     super(opts)
     this.snapshots = new Snapshots(opts)
-    this.opts = opts
     this.schemas = new Schemas(opts)
   }
   /**

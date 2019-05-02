@@ -57,7 +57,7 @@ const handleErrors = (response: Response) => {
  * @params {ApiOptions] opts API options object
  */
 class API {
-  opts: ApiOptions
+  private opts: ApiOptions
   private baseURL: string
   private gatewayURL: string
   constructor(opts: ApiOptions) {

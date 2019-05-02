@@ -5,15 +5,12 @@ import Snapshots from './snapshots'
 /**
  * Account is an API module for managing a wallet account
  *
- * @param {ApiOptions} opts API options object
  * @extends API
  */
 export default class Account extends API {
-  opts: ApiOptions
   private snapshots: Snapshots
   constructor(opts: ApiOptions) {
     super(opts)
-    this.opts = opts
     this.snapshots = new Snapshots(opts)
   }
 
