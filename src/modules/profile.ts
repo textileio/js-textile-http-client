@@ -1,7 +1,7 @@
 import { API, DEFAULT_API_OPTIONS } from '../core/api'
 import Config from './config'
 import Files from './files'
-import { Peer } from '../models/index'
+import { Peer, ApiOptions } from '../models'
 
 /**
  * Profile is an API module for accessing public profile information
