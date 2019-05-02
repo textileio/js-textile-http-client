@@ -1,6 +1,7 @@
 import { API } from '../core/api'
 import { ApiOptions, Thread, ThreadList, ContactList } from '../models/index'
 import Snapshots from './snapshots'
+import Schemas from './schemas'
 
 export type ThreadType = 'private' | 'read_only' | 'public' | 'open'
 export type ThreadSharing = 'not_shared' | 'invite_only' | 'shared'
@@ -13,16 +14,16 @@ export type ThreadSharing = 'not_shared' | 'invite_only' | 'shared'
  *
  * Thread type controls read (R), annotate (A), and write (W) access:
  *
- * private  --> initiator: RAW, members:
- * readonly --> initiator: RAW, members: R
- * public   --> initiator: RAW, members: RA
- * open     --> initiator: RAW, members: RAW
+ * private  --> initiator: RAW, whitelist:
+ * readonly --> initiator: RAW, whitelist: R
+ * public   --> initiator: RAW, whitelist: RA
+ * open     --> initiator: RAW, whitelist: RAW
  *
  * Thread sharing style controls if (Y/N) a thread can be shared:
  *
- * notshared  --> initiator: N, members: N
- * inviteonly --> initiator: Y, members: N
- * shared     --> initiator: Y, members: Y
+ * notshared  --> initiator: N, whitelist: N
+ * inviteonly --> initiator: Y, whitelist: N
+ * shared     --> initiator: Y, whitelist: Y
  *
  * @param {Object} opts Connection options object
  * @param {string} opts.url
@@ -31,12 +32,13 @@ export type ThreadSharing = 'not_shared' | 'invite_only' | 'shared'
 export default class Threads extends API {
   opts: ApiOptions
   snapshots: Snapshots
+  schemas: Schemas
   constructor(opts: ApiOptions) {
     super(opts)
     this.snapshots = new Snapshots(opts)
     this.opts = opts
+    this.schemas = new Schemas(opts)
   }
-
   /**
    * Adds and joins a new thread
    *
@@ -44,23 +46,31 @@ export default class Threads extends API {
    * @param key A locally unique key used by an app to identify this thread on recovery
    * @param type The type of thread, must be one of 'private' (default), 'read_only', 'public',
    * or 'open'
-   * @param sharing The sharing style of thread, must be one of 'not_shared'
+   * @param sharing The sharing style of thread, must be one of 'notshared'
    * (default), 'invite_only', or 'shared'
    * @param whitelist An array of contact addresses. When supplied, the thread will not allow
-   * additional peers beyond those in array, useful for 1-1 chat/file sharing
+   * additional peers, useful for 1-1 chat/file sharing or private threads.
    * @param schema Schema ID for the new thread
    * @returns The newly generated thread info
    */
-  async add(name: string, schema?: string, key?: string, type?: ThreadType, sharing?: ThreadSharing, members?: string[]) {
+  async add(name: string, schema?: string | object, key?: string, type?: ThreadType, sharing?: ThreadSharing, whitelist?: string[]) {
+    let targetSchema: string | undefined
+    // Attempt to create the schema on the fly
+    if (schema && typeof schema === 'object') {
+      const fileIndex = await this.schemas.add(schema)
+      targetSchema = fileIndex.key
+    } else if (schema && typeof schema === 'string') {
+      targetSchema = schema
+    }
     const response = await this.sendPost(
       'threads',
       [name],
       {
-        schema: schema || '',
+        schema: targetSchema || '',
         key: key || '',
         type: type || 'private',
         sharing: sharing || 'not_shared',
-        members: (members || []).join(',')
+        whitelist: (whitelist || []).join(',')
       }
     )
     return response.json() as Promise<Thread>
@@ -85,6 +95,31 @@ export default class Threads extends API {
   async get(thread: string) {
     const response = await this.sendGet(`threads/${thread}`)
     return response.json() as Promise<Thread>
+  }
+
+  /**
+   * Retrieve a thread by Key
+   *
+   * @param key Key of the thread
+   * @returns A thread object
+   */
+  async getByKey(key: string) {
+    // @todo: update with https://github.com/textileio/go-textile/issues/712
+    const response = await this.sendGet('threads')
+    const threads: ThreadList = await response.json()
+    return threads.items.find((thread) => thread.key === key)
+  }
+  /**
+   * Retrieve threads by Name
+   *
+   * @param name Name of the thread
+   * @returns An array thread objects
+   */
+  async getByName(name: string) {
+    // @todo: update with https://github.com/textileio/go-textile/issues/712
+    const response = await this.sendGet('threads')
+    const threads: ThreadList = await response.json()
+    return threads.items.filter((thread) => thread.name === name)
   }
 
   /**

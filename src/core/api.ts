@@ -60,7 +60,26 @@ class API {
   opts: ApiOptions
   private baseURL: string
   private gatewayURL: string
-  constructor(opts: ApiOptions = { url: 'http://127.0.0.1', port: 40600, version: 0 }) {
+  constructor(opts: ApiOptions) {
+    this.opts = opts
+    const url = new URL(opts.url)
+    if (opts.port) {
+      url.set('port', opts.port)
+    }
+    url.set('pathname', `/api/v${opts.version || 0}/`)
+    this.baseURL = url.toString()
+
+    const gateway = new URL(this.opts.url)
+    gateway.set('port', 5052)
+    gateway.set('pathname', `/ipfs/`)
+    this.gatewayURL = gateway.toString()
+  }
+  /**
+   * Update the API settings
+   *
+   * @param opts An ApiOptions object
+   */
+  setOptions(opts: ApiOptions) {
     this.opts = opts
     const url = new URL(opts.url)
     if (opts.port) {
