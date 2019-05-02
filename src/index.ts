@@ -86,6 +86,7 @@ export class Textile {
       ...this.opts,
       ...options
     }
+    // These are all API extensions, so just update their ApiOptions
     this.account.setOptions(this.opts)
     this.blocks.setOptions(this.opts)
     this.cafes.setOptions(this.opts)
