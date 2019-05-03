@@ -113,4 +113,4 @@ export class Textile {
   }
 }
 
-export default  new Textile()
+export default new Textile()
