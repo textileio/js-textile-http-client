@@ -24,68 +24,70 @@ import { DEFAULT_API_OPTIONS as defaults } from './core/api'
 export { default as Wallet } from './modules/wallet'
 export * from './models'
 
-/**
- * Textile is the main client class
- *
- */
-export class Textile {
-  /** @property {Account} account - Manage Textile wallet account */
-  account: Account = new Account()
-  /** @property {Blocks} blocks - Manage Textile Blocks */
-  blocks: Blocks = new Blocks()
-  /** @property {Cafes} account - Manage Textile Cafes */
-  cafes: Cafes = new Cafes()
-  /** @property {Config} config - Manage Textile Config settings */
-  config: Config = new Config()
-  /** @property {Comments} comments - Manage Textile block Comments */
-  comments: Comments = new Comments()
-  /** @property {Contacts} contacts - Manage Textile peer Contacts */
-  contacts: Contacts = new Contacts()
-  /** @property {Feed} feed - Manage the Textile Feed */
-  feed: Feed = new Feed()
-  /** @property {File} file - Manage a Textile File */
-  file: File = new File()
-  /** @property {Files} files - Manage Textile Files */
-  files: Files = new Files()
-  /** @property {Invites} invites - Manage Textile Invites */
-  invites: Invites = new Invites()
-  /** @property {IPFS} ipfs - Manage the underlying IPFS peer */
-  ipfs: IPFS = new IPFS()
-  /** @property {Likes} likes - Manage Textile block Likes */
-  likes: Likes = new Likes()
-  /** @property {Logs} logs - Manage Textile subsystem logs */
-  logs: Logs = new Logs()
-  /** @property {Messages} messages - Manage Textile thread Messages */
-  messages: Messages = new Messages()
-  /** @property {Notifications} notifications - Manage Textile Notifications */
-  notifications: Notifications = new Notifications()
-  /** @property {Profile} profile - Manage a Textile node's public profile */
-  profile: Profile = new Profile()
-  /** @property {Schemas} schemas - Manage Textile Schemas */
-  schemas: Schemas = new Schemas()
-  /** @property {Subscribe} subscribe - Subscribe to thread updates */
-  subscribe: Subscribe = new Subscribe()
-  /** @property {Threads} threads - Manage Textile Threads */
-  threads: Threads = new Threads()
-  /** @property {Tokens} tokens - Manage Textile Threads */
-  tokens: Tokens = new Tokens()
-  /** @property {Utils} utils - Get information about the Textile node */
-  utils: Utils = new Utils()
 
 /**
  * Textile is the main client class
- *
- * @param {TextileDEFAULT_OPTIONS} DEFAULT_OPTIONS The Textile DEFAULT_OPTIONS object
  */
-  setOptions(options: TextileOptions) {
+export class Textile {
+  /**
+   * Returns a new instance of Textile
+   *
+   * @param [options] Textile TextileOptions object
+   */
+  static create(options?: TextileOptions) {
+    return new this(options)
+  }
+  /** @property {Account} account - Manage Textile wallet account */
+  account: Account
+  /** @property {Blocks} blocks - Manage Textile Blocks */
+  blocks: Blocks
+  /** @property {Cafes} account - Manage Textile Cafes */
+  cafes: Cafes
+  /** @property {Config} config - Manage Textile Config settings */
+  config: Config
+  /** @property {Comments} comments - Manage Textile block Comments */
+  comments: Comments
+  /** @property {Contacts} contacts - Manage Textile peer Contacts */
+  contacts: Contacts
+  /** @property {Feed} feed - Manage the Textile Feed */
+  feed: Feed
+  /** @property {File} file - Manage a Textile File */
+  file: File
+  /** @property {Files} files - Manage Textile Files */
+  files: Files
+  /** @property {Invites} invites - Manage Textile Invites */
+  invites: Invites
+  /** @property {IPFS} ipfs - Manage the underlying IPFS peer */
+  ipfs: IPFS
+  /** @property {Likes} likes - Manage Textile block Likes */
+  likes: Likes
+  /** @property {Logs} logs - Manage Textile subsystem logs */
+  logs: Logs
+  /** @property {Messages} messages - Manage Textile thread Messages */
+  messages: Messages
+  /** @property {Notifications} notifications - Manage Textile Notifications */
+  notifications: Notifications
+  /** @property {Profile} profile - Manage a Textile node's public profile */
+  profile: Profile
+  /** @property {Schemas} schemas - Manage Textile Schemas */
+  schemas: Schemas
+  /** @property {Subscribe} subscribe - Subscribe to thread updates */
+  subscribe: Subscribe
+  /** @property {Threads} threads - Manage Textile Threads */
+  threads: Threads
+  /** @property {Tokens} tokens - Manage Textile Threads */
+  tokens: Tokens
+  /** @property {Utils} utils - Get information about the Textile node */
+  utils: Utils
+  constructor(options?: TextileOptions) {
     const newOptions = defaults
-    if (options.port !== undefined) {
+    if (options && options.port !== undefined) {
       newOptions.port = options.port
     }
-    if (options.url !== undefined) {
+    if (options && options.url !== undefined) {
       newOptions.url = options.url
     }
-    if (options.version !== undefined) {
+    if (options && options.version !== undefined) {
       newOptions.version = options.version
     }
     // These are all API extensions, so just update their ApiDEFAULT_OPTIONS
@@ -113,4 +115,4 @@ export class Textile {
   }
 }
 
-export default new Textile()
+export default  new Textile()
