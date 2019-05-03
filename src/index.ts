@@ -24,7 +24,6 @@ import { DEFAULT_API_OPTIONS as defaults } from './core/api'
 export { default as Wallet } from './modules/wallet'
 export * from './models'
 
-
 /**
  * Textile is the main client class
  */
