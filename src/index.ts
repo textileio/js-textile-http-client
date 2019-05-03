@@ -79,38 +79,37 @@ export class Textile {
   /** @property {Utils} utils - Get information about the Textile node */
   utils: Utils
   constructor(options?: TextileOptions) {
-    const newOptions = defaults
+    const _options = defaults
     if (options && options.port !== undefined) {
-      newOptions.port = options.port
+      _options.port = options.port
     }
     if (options && options.url !== undefined) {
-      newOptions.url = options.url
+      _options.url = options.url
     }
     if (options && options.version !== undefined) {
-      newOptions.version = options.version
+      _options.version = options.version
     }
-    // These are all API extensions, so just update their ApiDEFAULT_OPTIONS
-    this.account = new Account(newOptions)
-    this.blocks = new Blocks(newOptions)
-    this.cafes = new Cafes(newOptions)
-    this.config = new Config(newOptions)
-    this.comments = new Comments(newOptions)
-    this.contacts = new Contacts(newOptions)
-    this.feed = new Feed(newOptions)
-    this.file = new File(newOptions)
-    this.files = new Files(newOptions)
-    this.invites = new Invites(newOptions)
-    this.ipfs = new IPFS(newOptions)
-    this.likes = new Likes(newOptions)
-    this.logs = new Logs(newOptions)
-    this.messages = new Messages(newOptions)
-    this.notifications = new Notifications(newOptions)
-    this.profile = new Profile(newOptions)
-    this.schemas = new Schemas(newOptions)
-    this.subscribe = new Subscribe(newOptions)
-    this.threads = new Threads(newOptions)
-    this.tokens = new Tokens(newOptions)
-    this.utils = new Utils(newOptions)
+    this.account = new Account(_options)
+    this.blocks = new Blocks(_options)
+    this.cafes = new Cafes(_options)
+    this.config = new Config(_options)
+    this.comments = new Comments(_options)
+    this.contacts = new Contacts(_options)
+    this.feed = new Feed(_options)
+    this.file = new File(_options)
+    this.files = new Files(_options)
+    this.invites = new Invites(_options)
+    this.ipfs = new IPFS(_options)
+    this.likes = new Likes(_options)
+    this.logs = new Logs(_options)
+    this.messages = new Messages(_options)
+    this.notifications = new Notifications(_options)
+    this.profile = new Profile(_options)
+    this.schemas = new Schemas(_options)
+    this.subscribe = new Subscribe(_options)
+    this.threads = new Threads(_options)
+    this.tokens = new Tokens(_options)
+    this.utils = new Utils(_options)
   }
 }
 
