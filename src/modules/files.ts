@@ -37,7 +37,7 @@ export default class Files extends API {
    * @param limit List page size (default 5)
    * @returns An array of Thread objects
    */
-  async list(thread?: string, offset?: string, limit?: number) {
+  async list(offset?: string, limit?: number, thread?: string) {
     const response = await this.sendGet('files', undefined, {
       thread: thread || '',
       offset: offset || '',
