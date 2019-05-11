@@ -1,0 +1,22 @@
+{
+  "name": "txtl",
+  "version": "1.0.0",
+  "description": "A simple cli chat app using Textile",
+  "main": "index.js",
+  "bin": {
+    "txtl": "index.js"
+  },
+  "author": "Textile",
+  "license": "MIT",
+  "dependencies": {
+    "@textile/js-http-client": "^0.2.18",
+    "cac": "^6.5.1",
+    "chalk": "^2.4.2",
+    "node-emoji": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.0",
+    "@types/node-emoji": "^1.8.1",
+    "typescript": "^3.4.5"
+  }
+}
