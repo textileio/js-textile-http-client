@@ -140,6 +140,21 @@ export default class Threads extends API {
   }
 
   /**
+   * Leave and remove a thread a thread by Key
+   *
+   * @param key thread.key of the thread
+   * @returns Whether the thread removal was successfull
+   */
+  async removeByKey(key: string) {
+    const thread = await this.getByKey(key)
+    if (!thread) {
+      return false
+    }
+    const response = await this.sendDelete(`threads/${thread.id}`)
+    return response.status === 204
+  }
+
+  /**
    * Gets information about the default thread (if selected)
    *
    * @returns Info about the default thread
