@@ -20,7 +20,7 @@ export default class Schemas extends API {
    * Default Textile schemas
    * @returns An object with various commonly used schemas
    */
-  async defaultsByName(name: string) {
+  async defaultByName(name: string) {
     const key = Object.keys(defaults).find((known: string) => known === name)
     if (key) {
       return defaults[key]
