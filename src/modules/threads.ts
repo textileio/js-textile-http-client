@@ -140,7 +140,7 @@ export default class Threads extends API {
   }
 
   /**
-   * Leave and remove a thread a thread by Key
+   * Leave and remove a thread by Key
    *
    * @param key thread.key of the thread
    * @returns Whether the thread removal was successfull
