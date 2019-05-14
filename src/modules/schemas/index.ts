@@ -25,7 +25,7 @@ export default class Schemas extends API {
     if (key) {
       return defaults[key]
     }
-    return 
+    return
   }
 
   /**
