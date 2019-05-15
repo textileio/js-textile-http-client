@@ -67,8 +67,6 @@ workflows:
                 filters:
                     tags:
                         only: /.*/
-                    branches:
-                        only: master
             - deploy:
                 requires:
                     - lint-test
