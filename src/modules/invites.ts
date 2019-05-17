@@ -31,7 +31,7 @@ export default class Invites extends API {
    * @see Contacts#search for searching for contacts prior to an invite
    */
   async add(thread: string, address: string) {
-    const response = await this.sendPost(`invites/`, undefined, {
+    const response = await this.sendPost(`invites`, undefined, {
       thread,
       address: address || ''
     })
@@ -45,7 +45,7 @@ export default class Invites extends API {
    * @returns An external invite object
    */
   async addExternal(thread: string) {
-    const response = await this.sendPost(`invites/`, undefined, {
+    const response = await this.sendPost(`invites`, undefined, {
       thread
     })
     return response.json() as Promise<ExternalInvite>
