@@ -37,8 +37,8 @@ export default class Blocks extends API {
    * @param id ID of the target block
    * @returns The block object
    */
-  async get(id: string) {
-    const response = await this.sendGet(`blocks/${id}`)
+  async meta(id: string) {
+    const response = await this.sendGet(`blocks/${id}/meta`)
     return response.json() as Promise<Block>
   }
 
@@ -68,5 +68,31 @@ export default class Blocks extends API {
   async ignore(id: string) {
     const response = await this.sendDelete(`blocks/${id}`)
     return response.json() as Promise<Block>
+  }
+
+  /**
+   * Get the decrypted file content of a file within a files block
+   *
+   * @param id ID of the target block
+   * @param index Index of the target file (defaults to '0')
+   * @param path Path of the target file under the index (e.g., 'small')
+   * @returns The file contents as an arrayBuffer (for a blob, use `file.content()`)
+   */
+  async fileContent(id: string, index?: string, path?: string) {
+    const response = await this.sendGet(`blocks/${id}/files/${index || '0'}/${path || '%2E'}/content`)
+    return response.arrayBuffer()
+  }
+
+  /**
+   * Get the metadata of a file within a files block
+   *
+   * @param id ID of the target block
+   * @param index Index of the target file (defaults to '0')
+   * @param path Path of the target file under the index (e.g., 'small')
+   * @returns The file contents as an arrayBuffer (for a blob, use `file.meta()`)
+   */
+  async fileMeta(id: string, index?: string, path?: string) {
+    const response = await this.sendGet(`blocks/${id}/files/${index || '0'}/${path || '%2E'}/meta`)
+    return response.arrayBuffer()
   }
 }
