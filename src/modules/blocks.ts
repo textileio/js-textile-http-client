@@ -1,6 +1,8 @@
 import { API, DEFAULT_API_OPTIONS } from '../core/api'
-import { ApiOptions, Block, BlockList, Thread } from '../models'
+import { ApiOptions, Block, BlockList } from '../models'
 import Threads from './threads'
+
+const dot = '%2E' // needed as curl shortens /. to /
 
 /**
  * Blocks is an API module for managing Textile blocks
@@ -79,7 +81,7 @@ export default class Blocks extends API {
    * @returns The file contents as an arrayBuffer (for a blob, use `file.content()`)
    */
   async fileContent(id: string, index?: string, path?: string) {
-    const response = await this.sendGet(`blocks/${id}/files/${index || '0'}/${path || '%2E'}/content`)
+    const response = await this.sendGet(`blocks/${id}/files/${index || '0'}/${path || dot}/content`)
     return response.arrayBuffer()
   }
 
@@ -92,7 +94,7 @@ export default class Blocks extends API {
    * @returns The file contents as an arrayBuffer (for a blob, use `file.meta()`)
    */
   async fileMeta(id: string, index?: string, path?: string) {
-    const response = await this.sendGet(`blocks/${id}/files/${index || '0'}/${path || '%2E'}/meta`)
+    const response = await this.sendGet(`blocks/${id}/files/${index || '0'}/${path || dot}/meta`)
     return response.arrayBuffer()
   }
 }

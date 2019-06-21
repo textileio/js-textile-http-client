@@ -19,19 +19,6 @@ export default class Files extends API {
   }
 
   /**
-   * Retrieves a thread file by block ID
-   *
-   * Alias for `file.meta()`
-   *
-   * @param id ID of the target file
-   * @returns The thread object
-   */
-  async get(id: string) {
-    const response = await this.sendGet(`file/${id}/meta`)
-    return response.json() as Promise<FilesType>
-  }
-
-  /**
    * Get a paginated array of files.
    *
    * @param thread Thread ID (can also use ‘default’). Omit for all
